@@ -1,26 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+import Header from './Components/header'
+import Footer from './Components/footer'
+
+import Home from './Views/home'
+import Profile from './Views/profile'
+
+import UserProvider from './Providers/userProvider';
+
+import './App.css';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <UserProvider>
+      <Header />
+      <div className="cac">
+        <Router>
+          <Switch>
+            <Route exact={true} path={'/'} render={({ match }) => <Home match={match} />} />
+            <Route exact={true} path={'/home'} render={({ match }) => <Home match={match} />} />
+            <Route exact={true} path={'/profile'} render={({ match }) => <Profile match={match} />} />
+            <Route exact={true} path={'/profile/:uid'} render={({ match }) => <Profile match={match} />} />
+            <Route render={({ match }) => (<div>Pagina no encontrada :$</div>)} />
+            <Home />
+          </Switch>
+        </Router>
+      </div>
+
+      <Footer />
+    </UserProvider>
+  )
 }
 
 export default App;

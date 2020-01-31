@@ -1,12 +1,12 @@
-.cac_button{
-    margin: 1rem auto;
-    min-width: 5rem;
-    padding: 1rem 2.5rem;
-    background: papayawhip;
-    border-radius: 5px;
-    display: inline-block;
-    font-size: 2rem;
+.cac_button {
+  margin: 1rem auto;
+  min-width: 5rem;
+  padding: 1rem 2.5rem;
+  background: papayawhip;
+  border-radius: 5px;
+  display: inline-block;
+  font-size: 2rem;
 }
-.cac_button:hover{
-    cursor: pointer;
+.cac_button:hover {
+  cursor: pointer;
 }

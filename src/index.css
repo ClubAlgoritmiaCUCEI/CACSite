@@ -1,7 +1,7 @@
 :root {
   font-size: 62.5%;
-  background-color: orange;
-  --max-content-width: 120rem;
+  /* background-color: orange; */
+  --max-content-width: 140rem;
 }
 *,
 *:after,

@@ -7,7 +7,7 @@ import { UserContext } from "../../Providers/userProvider";
 
 import "./style.css";
 
-const Login = () => {
+const Login = ({className}) => {
   const user = useContext(UserContext);
   console.log(user);
   return (

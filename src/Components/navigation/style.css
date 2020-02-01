@@ -35,8 +35,8 @@
 .cac_section::after {
   content: "";
   width: 80%;
-  height: calc(var(--border-size) + 1px);
-  border-radius: 1px;
+  height: calc(var(--border-size) + .1rem);
+  border-radius: .1rem;
   background-color: transparent;
   transition: all 0.2s;
 

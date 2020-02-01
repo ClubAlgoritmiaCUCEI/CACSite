@@ -30,7 +30,7 @@ const Navigation = props => {
         to="/weekly-problem"
         className={`cac_section ${
           selection === "weekly-problem" ? "active" : ""
-        }`}
+          }`}
       >
         Weekly Problem
       </Link>

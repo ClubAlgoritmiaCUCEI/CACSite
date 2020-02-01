@@ -52,7 +52,6 @@
   box-shadow: 2px 2px 3px #989898;
 }
 .cac_header_button:active{
-  cursor: pointer;
   box-shadow: 1px 1px 1px #989898;
 }
 .cac_header_sign-in {

@@ -3,7 +3,6 @@ import React from "react";
 import "./style.css";
 
 const UserSide = ({ user }) => {
-  console.log(user);
   return (
     <div className="cac_user-side">
       <img

@@ -11,6 +11,8 @@ import Footer from "./Components/footer";
 
 import Home from "./Views/home";
 import Profile from "./Views/profile";
+import SignIn from "./Views/signIn";
+
 
 import UserProvider from "./Providers/userProvider";
 
@@ -18,37 +20,40 @@ import "./App.css";
 function App() {
   return (
     <UserProvider>
-      <Header />
       <div className="cac">
         <HashRouter basename={process.env.PUBLIC_URL}>
           <Switch>
             <Route
               exact={true}
               path={"/"}
-              render={({ match }) => <Home match={match} />}
+              render={({ match }) => <><Header /> <Home match={match} /><Footer /></>}
             />
             <Route
               exact={true}
               path={"/home"}
-              render={({ match }) => <Home match={match} />}
+              render={({ match }) => <><Header /> <Home match={match} /><Footer /></>}
+            />
+            <Route
+              exact={true}
+              path={"/login"}
+              render={({ match }) => <SignIn match={match} />}
             />
             <Route
               exact={true}
               path={"/profile"}
-              render={({ match }) => <Profile match={match} />}
+              render={({ match }) => <><Header /> <Home match={match} /><Footer /></>}
             />
             <Route
               exact={true}
               path={"/profile/:uid"}
-              render={({ match }) => <Profile match={match} />}
+              render={({ match }) => <><Header /> <Home match={match} /><Footer /></>}
             />
-            <Route render={({ match }) => <div>Pagina no encontrada :$</div>} />
+            <Route render={({ match }) => <> <Header /> <Home match={match} /> <Footer /></>} />
             <Home />
           </Switch>
         </HashRouter>
       </div>
 
-      <Footer />
     </UserProvider>
   );
 }

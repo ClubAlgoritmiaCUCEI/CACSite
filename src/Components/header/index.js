@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import Button from "../button";
-import { signInWithGoogle } from "../../firebase";
+import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
+
 
 import { UserContext } from "../../Providers/userProvider";
 
@@ -13,7 +14,8 @@ import "./style.css";
 
 const Header = () => {
   const user = useContext(UserContext);
-  console.log(user);
+  const history = useHistory();
+  console.log(history);
   return (
     <div className="cac_header">
       <Logo alt="Club de Algoritmia CUCEI logo" className="cac_header_logo" />
@@ -37,21 +39,21 @@ const Header = () => {
             />
           </>
         ) : (
-          <>
-            <Button
-              className="cac_header_button cac_header_sign-in"
-              onClick={() => signInWithGoogle()}
-            >
-              {"Sign in "}
-            </Button>
-            <Button
-              className="cac_header_button  cac_header_sign-up"
-              onClick={() => signInWithGoogle()}
-            >
-              {"Sign up"}
-            </Button>
-          </>
-        )}
+            <>
+              <Link to="/login">
+                <Button
+                  className="cac_header_button cac_button--outline"
+                >
+                  {"Sign in "}
+                </Button>
+              </Link>
+              <Button
+                className="cac_header_button  cac_button--fill"
+              >
+                {"Sign up"}
+              </Button>
+            </>
+          )}
       </div>
     </div>
   );

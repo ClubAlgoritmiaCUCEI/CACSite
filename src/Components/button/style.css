@@ -5,7 +5,23 @@
   border-radius: 0.5rem;
   display: inline-block;
   font-size: 2rem;
+  box-shadow: 0px 0px 0px white;
+  transition: all .2s;
 }
-.cac_button:hover {
+
+.cac_button:hover{
   cursor: pointer;
+  box-shadow: 2px 2px 3px #989898;
+}
+.cac_button:active{
+  box-shadow: 1px 1px 1px #989898;
+}
+.cac_button.cac_button--fill{
+  background-color: #484848;
+  border: 2px solid #484848;
+  color:white;
+}
+
+.cac_button.cac_button--outline{
+  border: 2px solid #484848;
 }

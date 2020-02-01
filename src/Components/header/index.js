@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Button from "../button";
-import { signInWithGoogle, signOut } from "../../firebase";
+import { signInWithGoogle } from "../../firebase";
 
 import { UserContext } from "../../Providers/userProvider";
 

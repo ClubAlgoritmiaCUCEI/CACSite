@@ -1,43 +1,45 @@
 import React from "react";
+import { BrowserRouter as Router, Link } from "react-router-dom";
+
 import Login from "../../Components/login";
 import "./style.css";
 
 const Navigation = props => {
   const { className, selection } = props;
   return (
-    <div className={`cac_navigation ${className}`}>
-      {selection === "home" ? (
-        <a className="active" href="#home">
+    <Router>
+      <div className={`cac_navigation ${className || ""}`}>
+        <Link
+          to="/home"
+          className={`cac_section ${selection === "home" ? "active" : ""}`}
+        >
           Home
-        </a>
-      ) : (
-        <a href="#home">Home</a>
-      )}
-      {selection === "public" ? (
-        <a className="active" href="#public">
+        </Link>
+        <Link
+          to="/public"
+          className={`cac_section ${selection === "public" ? "active" : ""}`}
+        >
           Public
-        </a>
-      ) : (
-        <a href="#public">Public</a>
-      )}
-      {selection === "editorial" ? (
-        <a className="active" href="#editorial">
+        </Link>{" "}
+        <Link
+          to="/editorial"
+          className={`cac_section ${selection === "editorial" ? "active" : ""}`}
+        >
           Editorial
-        </a>
-      ) : (
-        <a href="#editorial">Editorial</a>
-      )}
-      {selection === "weeklyProblem" ? (
-        <a className="active" href="#weeklyProblem">
+        </Link>{" "}
+        <Link
+          to="/weekly-problem"
+          className={`cac_section ${
+            selection === "weekly-problem" ? "active" : ""
+          }`}
+        >
           Weekly Problem
-        </a>
-      ) : (
-        <a href="#weeklyProblem">Weekly Problem</a>
-      )}
-      <div className="login">
-        <Login />
+        </Link>
+        <div className="login">
+          <Login />
+        </div>
       </div>
-    </div>
+    </Router>
   );
 };
 

@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  HashRouter
+} from "react-router-dom";
 
 import Header from "./Components/header";
 import Footer from "./Components/footer";
@@ -15,7 +20,7 @@ function App() {
     <UserProvider>
       <Header />
       <div className="cac">
-        <Router>
+        <HashRouter basename={process.env.PUBLIC_URL}>
           <Switch>
             <Route
               exact={true}
@@ -40,7 +45,7 @@ function App() {
             <Route render={({ match }) => <div>Pagina no encontrada :$</div>} />
             <Home />
           </Switch>
-        </Router>
+        </HashRouter>
       </div>
 
       <Footer />

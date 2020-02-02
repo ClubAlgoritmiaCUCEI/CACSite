@@ -7,7 +7,6 @@ import UserSide from "../user_side";
 
 const Side = ({ className }) => {
   const user = useContext(UserContext);
-  // console.log(user);
 
   return (
     <div className={`cac_side ${className}`}>

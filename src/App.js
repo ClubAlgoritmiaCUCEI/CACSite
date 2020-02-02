@@ -12,7 +12,7 @@ import Footer from "./Components/footer";
 import Home from "./Views/home";
 import Profile from "./Views/profile";
 import SignIn from "./Views/signIn";
-
+import Calendar from "./Views/calendar";
 
 import UserProvider from "./Providers/userProvider";
 
@@ -26,12 +26,32 @@ function App() {
             <Route
               exact={true}
               path={"/"}
-              render={({ match }) => <><Header /> <Home match={match} /><Footer /></>}
+              render={({ match }) => (
+                <>
+                  <Header /> <Home match={match} />
+                  <Footer />
+                </>
+              )}
             />
             <Route
               exact={true}
               path={"/home"}
-              render={({ match }) => <><Header /> <Home match={match} /><Footer /></>}
+              render={({ match }) => (
+                <>
+                  <Header /> <Home match={match} />
+                  <Footer />
+                </>
+              )}
+            />
+            <Route
+              exact={true}
+              path={"/calendar"}
+              render={({ match }) => (
+                <>
+                  <Header /> <Calendar match={match} />
+                  <Footer />
+                </>
+              )}
             />
             <Route
               exact={true}
@@ -41,19 +61,35 @@ function App() {
             <Route
               exact={true}
               path={"/profile"}
-              render={({ match }) => <><Header /> <Home match={match} /><Footer /></>}
+              render={({ match }) => (
+                <>
+                  <Header /> <Home match={match} />
+                  <Footer />
+                </>
+              )}
             />
             <Route
               exact={true}
               path={"/profile/:uid"}
-              render={({ match }) => <><Header /> <Home match={match} /><Footer /></>}
+              render={({ match }) => (
+                <>
+                  <Header /> <Home match={match} />
+                  <Footer />
+                </>
+              )}
             />
-            <Route render={({ match }) => <> <Header /> <Home match={match} /> <Footer /></>} />
+            <Route
+              render={({ match }) => (
+                <>
+                  {" "}
+                  <Header /> <Home match={match} /> <Footer />
+                </>
+              )}
+            />
             <Home />
           </Switch>
         </HashRouter>
       </div>
-
     </UserProvider>
   );
 }

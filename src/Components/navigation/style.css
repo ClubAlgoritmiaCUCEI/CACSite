@@ -8,14 +8,14 @@
 }
 .cac_navigation::before {
   content: "";
-  width: calc(100% - var(--padding-width-size) * 2);
+  width: 100%;
   height: calc(var(--border-size));
   border-radius: 1px;
   background-color: #a0c0d2;
   position: absolute;
   top: 100%;
   left: 50%;
-  transform: translate(calc(var(--padding-width-size) + -50%), -50%);
+  transform: translate(calc(var(--padding-width-size) / 2 + -50%), -50%);
 }
 .cac_section {
   color: #000000;

@@ -1,9 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navigation from "../../Components/navigation";
 
 import "./style.css";
 
 const Calendar = () => {
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    const start = () => {
+      window.gapi.client
+        .init({
+          apiKey: "AIzaSyDhGTgrk3_SKm5SVoRecM4050VNPxOVVq0"
+        })
+        .then(() =>
+          window.gapi.client.request({
+            path: `https://www.googleapis.com/calendar/v3/calendars/${"club.algoritmia.cucei@gmail.com"}/events`
+          })
+        )
+        .then(
+          response => setEvents(response.result.items),
+          error => console.error(error)
+        );
+    };
+    window.gapi.load("client", start);
+  }, []);
+  console.log(events);
+
   return (
     <>
       <Navigation selection="calendar" />

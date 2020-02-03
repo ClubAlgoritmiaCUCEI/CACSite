@@ -17,53 +17,46 @@ import Calendar from "./Views/calendar";
 import UserProvider from "./Providers/userProvider";
 
 import "./App.css";
+
 function App() {
   return (
     <UserProvider>
       <div className="cac">
         <HashRouter basename={process.env.PUBLIC_URL}>
           <Switch>
-            <Route
-              exact={true}
-              path={"/"}
-              render={({ match }) => (
-                <>
-                  <Header /> <Home match={match} />
-                  <Footer />
-                </>
-              )}
-            />
-            <Route
-              exact={true}
-              path={"/home"}
-              render={({ match }) => (
-                <>
-                  <Header /> <Home match={match} />
-                  <Footer />
-                </>
-              )}
-            />
-            <Route
-              exact={true}
-              path={"/calendar"}
-              render={({ match }) => (
-                <>
-                  <Header /> <Calendar match={match} />
-                  <Footer />
-                </>
-              )}
-            />
-            <Route
-              exact={true}
-              path={"/login"}
-              render={({ match }) => <SignIn match={match} />}
-            />
+            <Route exact={true} path={"/login"}>
+              <SignIn />
+            </Route>
+            <Route exact={true} path={"/"}>
+              <>
+                <Header />
+                <Home />
+                <Footer />
+              </>
+            </Route>
+            <Route exact={true} path={"/home"}>
+              <>
+                <Header />
+                <Home />
+                <Footer />
+              </>
+            </Route>
+            <Route exact={true} path={"/calendar"}>
+              <>
+                <Header />
+
+                <Calendar />
+                <Footer />
+              </>
+            </Route>
+
             <Route
               exact={true}
               path={"/profile"}
               render={({ match }) => (
                 <>
-                  <Header /> <Home match={match} />
+                  <Header />
+                  <Home match={match} />
                   <Footer />
                 </>
               )}
@@ -73,7 +66,8 @@ function App() {
               path={"/profile/:uid"}
               render={({ match }) => (
                 <>
-                  <Header /> <Home match={match} />
+                  <Header />
+                  <Home match={match} />
                   <Footer />
                 </>
               )}
@@ -81,12 +75,12 @@ function App() {
             <Route
               render={({ match }) => (
                 <>
-                  {" "}
-                  <Header /> <Home match={match} /> <Footer />
+                  <Header />
+                  {"404 page not found"}
+                  <Footer />
                 </>
               )}
             />
-            <Home />
           </Switch>
         </HashRouter>
       </div>

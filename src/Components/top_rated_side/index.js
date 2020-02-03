@@ -5,21 +5,13 @@ const API = "https://codeforces.com/api/";
 const DEFAULT_QUERY = "user.ratedList?activeOnly=true";
 
 const TopRatedSide = ({ children }) => {
-  const [cfusers, setCfusers] = useState({ data: [] });
+  const [users, setUsers] = useState([]);
   useEffect(() => {
-    const fetchData = () =>
-      fetch(API + DEFAULT_QUERY)
-        .then(res => res.json())
-        .then(data => {
-          console.log(data.result);
-          setCfusers({ data: data.result });
-          console.log(cfusers);
-          return data.result;
-        });
-    setCfusers({ data: fetchData() });
-    console.log(cfusers);
-    // fetchData();
+    fetch(API + DEFAULT_QUERY)
+      .then(res => res.json())
+      .then(data => setUsers(data.result));
   }, []);
+  console.log(users);
   return (
     <>
       <ul></ul>;

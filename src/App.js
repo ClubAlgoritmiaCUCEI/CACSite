@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  // eslint-disable-next-line no-unused-vars
   BrowserRouter as Router,
   Switch,
   Route,
@@ -10,7 +11,6 @@ import Header from "./Components/header";
 import Footer from "./Components/footer";
 
 import Home from "./Views/home";
-import Profile from "./Views/profile";
 import SignIn from "./Views/signIn";
 import Calendar from "./Views/calendar";
 
@@ -18,7 +18,8 @@ import UserProvider from "./Providers/userProvider";
 
 import "./App.css";
 
-function App() {
+const App = () => {
+
   return (
     <UserProvider>
       <div className="cac">
@@ -86,6 +87,6 @@ function App() {
       </div>
     </UserProvider>
   );
-}
+};
 
 export default App;

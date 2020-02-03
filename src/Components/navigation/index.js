@@ -1,4 +1,5 @@
 import React from "react";
+// eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
 import Login from "../../Components/login";

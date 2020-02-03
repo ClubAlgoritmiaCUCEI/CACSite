@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
-import Button from "../button";
-import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
 
+// eslint-disable-next-line no-unused-vars
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 import { UserContext } from "../../Providers/userProvider";
+
+import Button from "../button";
 
 import { ReactComponent as Logo } from "../../assets/cac-logo.svg";
 import { ReactComponent as Message } from "../../assets/messages-icon.svg";
@@ -14,8 +16,7 @@ import "./style.css";
 
 const Header = () => {
   const user = useContext(UserContext);
-  const history = useHistory();
-  console.log(history);
+
   return (
     <div className="cac_header">
       <Logo alt="Club de Algoritmia CUCEI logo" className="cac_header_logo" />

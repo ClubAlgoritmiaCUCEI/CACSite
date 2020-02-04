@@ -36,7 +36,6 @@ const Calendar = () => {
   useEffect(() => {
     let currentMonth = null;
     const elements = [];
-    console.log(events);
     events.forEach((e, i) => {
       if (currentMonth !== e.jsDate.getMonth()) {
         currentMonth = e.jsDate.getMonth();

@@ -24,7 +24,6 @@ const Calendar = () => {
     };
     window.gapi.load("client", start);
   }, []);
-  console.log(events);
 
   return (
     <>

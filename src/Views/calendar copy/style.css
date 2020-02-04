@@ -1,0 +1,22 @@
+.cac_calendar {
+  width: 100%;
+  height: 50rem;
+  padding: 2rem;
+  display: block;
+}
+.cac_calendar_title {
+  /* font-family: Roboto; */
+  padding-top: 3rem;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 2.5rem;
+  line-height: 2.6rem;
+  text-align: center;
+}
+.cac_calendar_calendar {
+  /* border: solid 1rem #777; */
+  display: flex;
+  margin: 0rem auto 0rem;
+  width: 105rem;
+  height: 40rem;
+}

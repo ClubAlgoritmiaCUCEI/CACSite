@@ -1,4 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { CalendarContext } from "../../Providers/calendarProvider";
+import { parseMonth } from "../../utilities";
+
+import Switch from "react-switch";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -9,48 +13,18 @@ import "@fullcalendar/daygrid/main.css";
 import Navigation from "../../Components/navigation";
 
 import { ReactComponent as Close } from "../../assets/close-icon.svg";
+import { ReactComponent as Grid } from "../../assets/grid-icon.svg";
+import { ReactComponent as List } from "../../assets/list-icon.svg";
 
 import "./style.css";
 
 const Calendar = () => {
-  const [events, setEvents] = useState([]);
+  const events = useContext(CalendarContext);
   const [box, setBox] = useState({ visible: false, x: 10, y: 0, content: {} });
+  const [checked, setChecked] = useState(false);
+  const [eventsEl, setEventsEl] = useState([]);
 
-  useEffect(() => {
-    const start = () => {
-      window.gapi.client
-        .init({
-          apiKey: "AIzaSyDhGTgrk3_SKm5SVoRecM4050VNPxOVVq0"
-        })
-        .then(() =>
-          window.gapi.client.request({
-            path: `https://www.googleapis.com/calendar/v3/calendars/${"club.algoritmia.cucei@gmail.com"}/events`
-          })
-        )
-        .then(
-          response => {
-            setEvents(
-              response.result.items
-                .filter(
-                  e =>
-                    e.status === "confirmed" &&
-                    e.start.dateTime &&
-                    e.description
-                )
-                .map((e, i) => ({
-                  ...e,
-                  date: e.start.dateTime.slice(0, 10)
-                }))
-            );
-          },
-          error => console.error(error)
-        );
-    };
-    window.gapi.load("client", start);
-  }, []);
   const handleEvent = e => {
-    console.log(e.event);
-
     setBox({
       visible: true,
       x: e.jsEvent.pageX - e.jsEvent.offsetX,
@@ -58,36 +32,74 @@ const Calendar = () => {
       content: { title: e.event.title, ...e.event.extendedProps }
     });
   };
-  console.log(box);
 
+  useEffect(() => {
+    let currentMonth = null;
+    const elements = [];
+    console.log(events);
+    events.forEach((e, i) => {
+      if (currentMonth !== e.jsDate.getMonth()) {
+        currentMonth = e.jsDate.getMonth();
+        elements.push(
+          <div key={-i} className="cac_calendar_list_month">
+            <span>{parseMonth(currentMonth)}</span>
+            <div className="cac_calendar_list_month--line"/>
+          </div>
+        );
+      }
+      elements.push(
+        <div className="cac_calendar_list_event" key={i+ 1}>
+          <span className="cac_calendar_list_title">{e.summary}</span>
+          <span className="cac_calendar_list_date">{e.start}</span>
+          <span className="cac_calendar_list_location">{e.location}</span>
+          <span className="cac_calendar_list_description">{e.description}</span>
+        </div>
+      );
+    });
+    setEventsEl(elements);
+  }, [events]);
   return (
     <>
       <Navigation selection="calendar" />
+      <div
+        className="cac_calendar_info-box"
+        style={{
+          top: box.y,
+          left: box.x,
+          opacity: box.visible ? "100%" : "0%",
+          zIndex: box.visible ? 10 : 0
+        }}
+      >
+        <Close
+          className="cac_calendar_info_close"
+          onClick={() => box.visible && setBox({ ...box, visible: false })}
+        />
+        <span className="cac_calendar_info_title">{box.content.title}</span>
+
+        <span className="cac_calendar_info_location">
+          {box.content.location}
+        </span>
+
+        <span className="cac_calendar_info_description">
+          {box.content.description}
+        </span>
+      </div>
       <div className="cac_calendar">
-        <div className="cac_calendar_container">
-          <div
-            className="cac_calendar_info-box"
-            style={{
-              top: box.y,
-              left: box.x,
-              opacity: box.visible ? "100%" : "0%",
-              zIndex: box.visible ? 10 : 0
-            }}
-          >
-            <Close
-              className="cac_calendar_info_close"
-              onClick={() => setBox({ ...box, visible: false })}
-            />
-            <span className="cac_calendar_info_title">{box.content.title}</span>
-
-            <span className="cac_calendar_info_location">
-              {box.content.location}
-            </span>
-
-            <span className="cac_calendar_info_description">
-              {box.content.description}
-            </span>
-          </div>
+        <label htmlFor="icon-switch" className="cac_calendar_switch_container">
+          <Switch
+            checked={checked}
+            onChange={() => setChecked(!checked)}
+            uncheckedIcon={<List className="cac_calendar_list-icon" />}
+            checkedIcon={<Grid className="cac_calendar_grid-icon" />}
+            offColor="#484848"
+            onColor="#fff"
+            onHandleColor="#484848"
+            activeBoxShadow="1px 1px 1px 10px #484848"
+            width={60}
+            className="cac_calendar_switch"
+          />
+        </label>
+        {checked ? (
           <FullCalendar
             defaultView="dayGridMonth"
             eventClick={handleEvent}
@@ -95,7 +107,7 @@ const Calendar = () => {
             height="auto"
             header={{
               left: "title",
-              center: "prev today next",
+              center: "prev,today,next",
               right: ""
             }}
             buttonText={{
@@ -104,20 +116,20 @@ const Calendar = () => {
             aspectRatio={2}
             events={events.map(e => ({
               title: e.summary,
-              date: e.date,
+              start: e.start,
+              end: e.end,
               id: e.id,
               className: "cac_calendar_event",
               description: e.description,
               location: e.location
             }))}
           />
-        </div>
+        ) : (
+          <div className="cac_calendar_list">{eventsEl}</div>
+        )}
       </div>
     </>
   );
 };
-// events={[
-//   { title: "event 1", date: "2020-02-02" },
-//   { title: "event 2", date: "2020-02-03" }
-// ]}
+
 export default Calendar;

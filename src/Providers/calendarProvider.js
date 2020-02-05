@@ -23,20 +23,30 @@ const CalendarProvider = ({ children }) => {
                 .filter(e => e.status === "confirmed" && e.start)
                 .map((e, i) => ({
                   ...e,
-                  jsDate: new Date( e.start.dateTime
-                    ? e.start.dateTime.slice(0, 10)
-                    : e.start.date),
+                  jsDate: new Date(
+                    e.start.dateTime
+                      ? e.start.dateTime.slice(0, 10)
+                      : e.start.date
+                  ),
                   start: e.start.dateTime
                     ? e.start.dateTime.slice(0, 10)
                     : e.start.date,
                   end: e.end.dateTime ? e.end.dateTime.slice(0, 10) : e.end.date
-                })).sort((a,b) => a.jsDate - b.jsDate)
+                }))
+                .sort((a, b) => a.jsDate - b.jsDate)
             );
           },
           error => console.error(error)
         );
     };
-    window.gapi.load("client", start);
+    const request = () => {
+      try {
+        window.gapi.load("client", start);
+      } catch (e) {
+        setTimeout(() => request(), 500);
+      }
+    };
+    request();
   }, []);
   return (
     <CalendarContext.Provider value={events}>

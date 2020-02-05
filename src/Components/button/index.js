@@ -11,4 +11,15 @@ const Button = props => {
   );
 };
 
+const FormButton = props => {
+  const { onClick, children, className } = props;
+  return (
+    <button className={`cac_button-form cac_button ${className || ""}`} onClick={onClick}>
+      {children}
+    </button>
+  );
+};
+
 export default Button;
+
+export {FormButton};

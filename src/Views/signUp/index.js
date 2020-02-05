@@ -6,23 +6,24 @@ import { BrowserRouter as Router, useHistory } from "react-router-dom";
 import { UserContext } from "../../Providers/userProvider";
 import { signInWithGoogle } from "../../firebase";
 
-import Button, {FormButton} from "../../Components/button";
+import Button, { FormButton } from "../../Components/button";
 
 import { ReactComponent as Logo } from "../../assets/cac-logo.svg";
 import { ReactComponent as GoogleLogo } from "../../assets/google-colored-logo.svg";
 
 import "./style.css";
 
-const SignIn = () => {
+const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const user = useContext(UserContext);
 
   const history = useHistory();
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log("eee");
+    console.log("jejeje");
   };
 
   useEffect(() => {
@@ -31,8 +32,19 @@ const SignIn = () => {
   return (
     <div className="cac_sign-in">
       <Logo alt="Club de Algoritmia CUCEI logo" className="cac_sign-in_logo" />
-
       <form className="cac_sign-in_container" onSubmit={onSubmit}>
+        <div className="cac_sign-in_input-container">
+          <span className="cac_sign-in_label">Username</span>
+          <input
+            className="cac_sign-in_input"
+            type="email"
+            id="email"
+            name="email"
+            required
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+          />
+        </div>
         <div className="cac_sign-in_input-container">
           <span className="cac_sign-in_label">Email address</span>
           <input
@@ -59,7 +71,9 @@ const SignIn = () => {
           />
         </div>
         <input type="submit" hidden />
-        <FormButton className="cac_button--fill cac_sign-in_button">Sign in</FormButton>
+        <FormButton className="cac_button--fill cac_sign-in_button">
+          Sign in
+        </FormButton>
         <span className="cac_sign-in_span">or</span>
         <Button
           className="cac_sign-in_google"
@@ -73,4 +87,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;

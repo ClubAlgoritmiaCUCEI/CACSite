@@ -40,21 +40,19 @@ const Header = () => {
             />
           </>
         ) : (
-            <>
-              <Link to="/login">
-                <Button
-                  className="cac_header_button cac_button--outline"
-                >
-                  {"Sign in "}
-                </Button>
-              </Link>
-              <Button
-                className="cac_header_button  cac_button--fill"
-              >
+          <>
+            <Link to="/login">
+              <Button className="cac_header_button cac_button--outline">
+                {"Sign in "}
+              </Button>
+            </Link>
+            <Link to="signup">
+              <Button className="cac_header_button  cac_button--fill">
                 {"Sign up"}
               </Button>
-            </>
-          )}
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );

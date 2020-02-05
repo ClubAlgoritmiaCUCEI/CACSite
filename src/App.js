@@ -12,6 +12,7 @@ import Footer from "./Components/footer";
 
 import Home from "./Views/home";
 import SignIn from "./Views/signIn";
+import SignUp from "./Views/signUp";
 import Calendar from "./Views/calendar";
 
 import UserProvider from "./Providers/userProvider";
@@ -28,6 +29,9 @@ const App = () => {
             <Switch>
               <Route exact={true} path={"/login"}>
                 <SignIn />
+              </Route>
+              <Route exact={true} path={"/signup"}>
+                <SignUp />
               </Route>
               <Route exact={true} path={"/"}>
                 <>

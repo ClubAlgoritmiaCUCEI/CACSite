@@ -6,7 +6,7 @@ import { BrowserRouter as Router, useHistory } from "react-router-dom";
 import { UserContext } from "../../Providers/userProvider";
 import { signInWithGoogle } from "../../firebase";
 
-import Button, {FormButton} from "../../Components/button";
+import Button, { FormButton } from "../../Components/button";
 
 import { ReactComponent as Logo } from "../../assets/cac-logo.svg";
 import { ReactComponent as GoogleLogo } from "../../assets/google-colored-logo.svg";

@@ -26,6 +26,7 @@ padding-bottom: 5rem;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
 }
 
+
 .cac_sign-up_mail-container{
   display: flex;
   flex-direction: column;
@@ -43,7 +44,12 @@ padding-bottom: 5rem;
   width:100%;
   position: relative;
 }
-
+.cac_sign-up_input-container--double{
+  display: flex;
+}
+.cac_sign-up_input-container--small:not(:last-child){
+  margin-right: 2rem;
+}
 .cac_sign-up_label{
   font-size: 1.6rem;
   margin-bottom: 1rem;

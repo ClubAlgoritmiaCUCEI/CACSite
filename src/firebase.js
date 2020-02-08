@@ -32,7 +32,6 @@ export const signOut = () => auth.signOut();
 //         key: Date.now()
 //     }
 //     return await firestore.collection('posts').add(data);
-
 // }
 
 export const createUserProfileDocument = async (user, aditionalData) => {

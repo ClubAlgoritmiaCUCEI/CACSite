@@ -19,23 +19,77 @@ export const firestore = firebase.firestore();
 
 export const auth = firebase.auth();
 
-export const provider = new firebase.auth.GoogleAuthProvider();
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+export const signInWithGoogle = () =>
+  auth
+    .signInWithPopup(googleProvider)
+    .catch(e => console.log("Error on sign up with google"));
+
+const githubProvider = new firebase.auth.GithubAuthProvider();
+export const signInWithGithub = () => {
+  auth
+    .signInWithPopup(githubProvider)
+    .then(result => {
+      let token = result.credential.accessToken;
+      let user = result.user;
+      console.log(token, user);
+    })
+    .catch(e => {
+      console.error("Error on sign up with github");
+      console.error(e);
+    });
+};
+
+const facebookProvider = new firebase.auth.FacebookAuthProvider();
+export const signInWithFacebook = () =>
+  auth
+    .signInWithPopup(facebookProvider)
+    .catch(e => console.log("Error on sign up with facebook", e));
+
 export const signOut = () => auth.signOut();
 
-// export const publishPost = async (user, post) => {
-//     const data = {
-//         auth: user,
-//         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-//         content: post.content,
-//         comments: [],
-//         key: Date.now()
-//     }
-//     return await firestore.collection('posts').add(data);
-// }
+export const createUserDocumentWithEmailAndPassword = async userData => {
+  console.log(
+    auth
+      .createUserWithEmailAndPassword(userData.email, userData.password)
+      .then(({ user }) => {
+        createUserProfileDocument(user, {
+          displayName: userData.username,
+          name: userData.name,
+          lastName: userData.lastName,
+          codeForcesUsername: userData.cfUsername,
+          vjudgeUsername: userData.vjUsername
+        });
+      })
+      .catch(e => {
+        console.error(e);
+      })
+  );
+};
 
-export const createUserProfileDocument = async (user, aditionalData) => {
+export const signInWithEmailAndPassword = (email, password) =>
+  auth.signInWithEmailAndPassword(email, password);
+
+export const getUserDocument = async user => {
+  const { uid } = user;
+  if (!uid) return null;
+
+  try {
+    const userRef = firestore.doc(`users/${uid}`);
+    let snapshot = await userRef.get();
+    if (!snapshot.exists) {
+      await createUserProfileDocument(user);
+      snapshot = await userRef.get();
+    }
+    return { uid, ...snapshot.data() };
+  } catch (err) {
+    console.error("Error feching user", err.mesage);
+  }
+};
+
+const createUserProfileDocument = async (user, aditionalData) => {
   if (!user) return;
+  console.log(user);
 
   //Get a reference to the place in the database where a user profile might be
   const userRef = firestore.doc(`users/${user.uid}`);
@@ -44,6 +98,7 @@ export const createUserProfileDocument = async (user, aditionalData) => {
   const snapshot = await userRef.get();
 
   if (!snapshot.exists) {
+    console.log("snapshot doesnt exists");
     const { displayName, email, photoURL } = user;
     try {
       await userRef.set({
@@ -55,16 +110,5 @@ export const createUserProfileDocument = async (user, aditionalData) => {
     } catch (err) {
       console.error("Error creating user", err.mesage);
     }
-  }
-  return getUserDocument(user.uid);
-};
-
-export const getUserDocument = async uid => {
-  if (!uid) return null;
-  try {
-    const userDocument = await firestore.doc(`users/${uid}`).get();
-    return { uid, ...userDocument.data() };
-  } catch (err) {
-    console.error("Error feching user", err.mesage);
   }
 };

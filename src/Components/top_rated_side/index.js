@@ -11,10 +11,9 @@ const TopRatedSide = ({ children }) => {
       .then(res => res.json())
       .then(data => setUsers(data.result));
   }, []);
-  console.log(users);
   return (
     <>
-      <ul></ul>;
+      <ul></ul>
     </>
   );
 };

@@ -4,12 +4,19 @@ import React, { useState, useContext, useEffect } from "react";
 import { BrowserRouter as Router, useHistory } from "react-router-dom";
 
 import { UserContext } from "../../Providers/userProvider";
-import { signInWithGoogle } from "../../firebase";
+import {
+  signInWithGoogle,
+  signInWithGithub,
+  signInWithFacebook,
+  signInWithEmailAndPassword
+} from "../../firebase";
 
 import Button, { FormButton } from "../../Components/button";
 
 import { ReactComponent as Logo } from "../../assets/cac-logo.svg";
 import { ReactComponent as GoogleLogo } from "../../assets/google-colored-logo.svg";
+import { ReactComponent as GithubLogo } from "../../assets/github-logo.svg";
+import { ReactComponent as FacebookLogo } from "../../assets/facebook-logo.svg";
 
 import "./style.css";
 
@@ -22,7 +29,12 @@ const SignIn = () => {
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log("eee");
+    console.log(email, password);
+    signInWithEmailAndPassword(email, password);
+  };
+
+  const handleForgotPassword = () => {
+    alert("this hasn't been implemented :p \ncontact an administrator");
   };
 
   useEffect(() => {
@@ -47,7 +59,9 @@ const SignIn = () => {
         </div>
         <div className="cac_sign-in_input-container">
           <span className="cac_sign-in_label">Password</span>
-          <span className="cac_sign-in_add">Forgot password?</span>
+          <span className="cac_sign-in_add" onClick={handleForgotPassword}>
+            Forgot password?
+          </span>
           <input
             className="cac_sign-in_input"
             type="password"
@@ -59,14 +73,30 @@ const SignIn = () => {
           />
         </div>
         <input type="submit" hidden />
-        <FormButton className="cac_button--fill cac_sign-in_button">Sign in</FormButton>
+        <FormButton className="cac_button--fill cac_sign-in_button">
+          Sign in
+        </FormButton>
         <span className="cac_sign-in_span">or</span>
         <Button
-          className="cac_sign-in_google"
+          className="cac_sign-in_social cac_sign-in_social--google"
           onClick={() => signInWithGoogle()}
         >
-          <GoogleLogo className="cac_sign-in_google-logo" />
+          <GoogleLogo className="cac_sign-in_social-logo" />
           <span> Sign in with Google</span>
+        </Button>
+        <Button
+          className="cac_sign-in_social cac_sign-in_social--github"
+          onClick={() => signInWithGithub()}
+        >
+          <GithubLogo className="cac_sign-in_social-logo" />
+          <span> Sign in with Github</span>
+        </Button>
+        <Button
+          className="cac_sign-in_social cac_sign-in_social--facebook"
+          onClick={() => signInWithFacebook()}
+        >
+          <FacebookLogo className="cac_sign-in_social-logo" />
+          <span> Sign in with Facebook</span>
         </Button>
       </form>
     </div>

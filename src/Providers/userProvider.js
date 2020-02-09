@@ -1,5 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
-import { auth, createUserProfileDocument, firestore } from "../firebase.js";
+import { auth, getUserDocument, firestore } from "../firebase.js";
+
+import defaultImage from "../assets/default-photo.jpg";
 
 export const UserContext = createContext({});
 
@@ -12,8 +14,13 @@ const UserProvider = ({ children }) => {
     const unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth != null) {
         setUser({ isLoading: true, logged: true });
-        const userDocument = await createUserProfileDocument(userAuth);
-        setUser({ ...userDocument, isLoading: false, logged: true });
+        const userDocument = await getUserDocument(userAuth);
+        setUser({
+          ...userDocument,
+          photoURL: userDocument.photoURL || defaultImage,
+          isLoading: false,
+          logged: true
+        });
       } else {
         setUser({ isLoading: false, logged: false });
       }

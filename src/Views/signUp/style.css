@@ -1,12 +1,12 @@
-.cac_sign-up{
+.cac_sign-up {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   padding-top: 5rem;
-padding-bottom: 5rem;
+  padding-bottom: 5rem;
 }
 
-.cac_sign-up_logo{
+.cac_sign-up_logo {
   display: block;
   margin: 0 auto;
   margin-bottom: 2rem;
@@ -14,11 +14,11 @@ padding-bottom: 5rem;
   height: 7.2rem;
 }
 
-.cac_sign-up_container{
-  width:80rem;
+.cac_sign-up_container {
+  width: 80rem;
   margin: 0 auto;
   display: flex;
-  background: #FAFAFA;
+  background: #fafafa;
   border: 1px solid #afafaf;
   box-sizing: border-box;
   border-radius: 5px;
@@ -26,31 +26,29 @@ padding-bottom: 5rem;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
 }
 
-
-.cac_sign-up_mail-container{
+.cac_sign-up_mail-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex:1;
+  flex: 1;
   padding: 1rem;
   padding-bottom: 0;
 }
 
-
-.cac_sign-up_input-container{
+.cac_sign-up_input-container {
   margin-bottom: 2rem;
   display: flex;
   flex-direction: column;
-  width:100%;
+  width: 100%;
   position: relative;
 }
-.cac_sign-up_input-container--double{
+.cac_sign-up_input-container--double {
   display: flex;
 }
-.cac_sign-up_input-container--small:not(:last-child){
+.cac_sign-up_input-container--small:not(:last-child) {
   margin-right: 2rem;
 }
-.cac_sign-up_label{
+.cac_sign-up_label {
   font-size: 1.6rem;
   margin-bottom: 1rem;
   font-style: normal;
@@ -61,92 +59,124 @@ padding-bottom: 5rem;
   color: #000000;
 }
 
-.cac_sign-up_input{
-  background: #FFFFFF;
-  border: 1Px solid #b4b4b4;
+.cac_sign-up_input {
+  background: #ffffff;
+  border: 1px solid #b4b4b4;
   box-sizing: border-box;
   border-radius: 3px;
   height: 3rem;
-  width:100%;
+  width: 100%;
   outline: 0px solid white;
-  transition: all .2s;
-  padding-left: .8rem;
+  transition: all 0.2s;
+  padding-left: 0.8rem;
   font-size: 1.4rem;
   color: #111;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
 }
 
-.cac_sign-up_input:focus{
+.cac_sign-up_input:focus {
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 1);
 }
 
-.cac_sign-up_add{
-  color: #387ADC;
+.cac_sign-up_add {
+  color: #387adc;
   font-size: 1.2rem;
   font-weight: 500;
   position: absolute;
-  top:.5rem;
+  top: 0.5rem;
   left: 100%;
   transform: translateX(-100%);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  transition: all .2s;
+  transition: all 0.2s;
 }
-.cac_sign-up_add:hover{
+.cac_sign-up_add:hover {
   cursor: pointer;
   color: rgb(27, 95, 197);
-
 }
-.cac_sign-up_button{
+.cac_sign-up_button {
   font-size: 2rem;
-  width:100%;
+  --button-size: 4rem;
+  width: 100%;
+  height: var(--button-size);
   text-align: center;
-  padding-top: 0;
   margin-bottom: 1rem;
-}
-.cac_sign-up_span{
-  color: #848484;
-  font-weight: 4  00;
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
-}
-
-.cac_sign-up_google{
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
-  height: 3rem;
-  text-align: center;
-  color: #484848;
-  font-size: 1.4rem;
-  font-weight: 500;
+  /* overflow: hidden; */
   position: relative;
-  width:100%;
+  overflow: hidden;
 }
-
-.cac_sign-up_google-logo{
+.cac_sign-up_button_double {
   position: absolute;
-  left:3rem;
-  top:50%;
-  transform: translate(-50%,-50%);
+  top: 50%;
+  transition: all 0.2s;
+  left: 50%;
+  transform: translateX(-50%) translateY(-2.2rem);
+}
+.cac_sign-up_button_double--first {
+  padding-top: 1rem;
+  height: var(--button-size);
+  display: block;
+}
+.cac_sign-up_button_double--second {
+  height: var(--button-size);
+  display: block;
+  padding-top: 1rem;
+}
+.cac_sign-up_span {
+  color: #848484;
+  font-weight: 4 00;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
 }
 
-.cac_sign-up_social{
+.cac_sign-up_social_button {
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #484848;
+  font-size: 1.5rem;
+  font-weight: 600;
+  position: relative;
+  width: 100%;
+  margin-bottom: 1.6rem;
+}
+.cac_sign-up_social_button--github {
+  background-color: #333;
+  color: white;
+}
+.cac_sign-up_social_button--facebook {
+  background-color: #3b5998;
+  color: white;
+}
+.cac_sign-up_social-logo {
+  height: 2.5rem;
+  position: absolute;
+  left: 3rem;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  fill: white;
+}
+
+.cac_sign-up_social {
   padding: 1rem;
-  flex:1;
+  flex: 1;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.cac_sign-up_line{
-  width: .2rem;
+.cac_sign-up_line {
+  width: 0.2rem;
   margin-right: 1rem;
   margin-left: 1rem;
   border-radius: 10rem;
   background-color: #484848af;
 }
 
-.cac_sign-up_social_title{
+.cac_sign-up_social_title {
   font-size: 1.7rem;
   color: #484848;
   font-weight: 500;
@@ -154,21 +184,17 @@ padding-bottom: 5rem;
   margin-bottom: 2rem;
 }
 
-.cac_sign-up_social_buttons-box{
-  width:100%;
+.cac_sign-up_social_buttons-box {
+  width: 100%;
 }
 
-.cac_sign-up_button_social{
-  margin-bottom: 1rem;
-}
-
-.cac_sign-up_alert{
+.cac_sign-up_alert {
   position: absolute;
-  top:0;
-  left:100%;
+  top: 0;
+  left: 100%;
   transform: translateX(-100%);
 }
 
-.cac_sign-up_button_social{
+.cac_sign-up_button_social {
   margin-bottom: 2rem;
 }

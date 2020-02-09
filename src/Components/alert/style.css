@@ -21,7 +21,6 @@
 .cac_alert_box{
   position: absolute;
   padding: .5rem 1rem;
-  max-width: 20rem;
   top:0%;
   left:50%;
   transform:translate(-50%,calc(-100% - .5rem));

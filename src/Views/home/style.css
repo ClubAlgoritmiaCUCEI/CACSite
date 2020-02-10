@@ -1,12 +1,6 @@
 .cac_home {
   width: 100%;
-  height: 50rem;
-  padding: 2rem;
-  display: grid;
-  grid-template-columns: 1fr 25rem;
-  grid-template-areas:
-    "main side"
-    "main side";
+  height: 100rem;
 }
 .cac_home_side {
   grid-area: side;

@@ -1,17 +1,17 @@
 .cac_header {
   width: 100%;
-  max-width: var(--max-content-width);
-  margin: 0 auto;
   padding: 1rem 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  grid-area: header;
 }
 .cac_header_logo {
   --base-width: 12rem;
   --base-height: 6.9rem;
   width: calc(var(--base-width) * 0.8);
   height: calc(var(--base-height) * 0.8);
+  transform: translateX(-35%);
 }
 
 .cac_user-interface {

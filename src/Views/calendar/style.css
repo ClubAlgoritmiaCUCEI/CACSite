@@ -1,6 +1,5 @@
 .cac_calendar {
   width: 100%;
-  padding: 2rem 0;
   margin: 0 auto;
   display: block;
   position: relative;
@@ -121,15 +120,15 @@
   position: absolute;
   top: 0;
   left: 100%;
-  transform: translate(-100%, 1.8rem);
+  transform: translate(-100%, .8rem);
   z-index: 10;
 }
 .react-switch-bg {
   box-shadow: 0 0 0 2px #484848;
 }
 .cac_calendar_grid-icon {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2rem;
+  height: 2rem;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -137,8 +136,8 @@
   fill: #484848;
 }
 .cac_calendar_list-icon {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2rem;
+  height: 22rem;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -186,7 +185,7 @@
   width: 100%;
 }
 .cac_calendar_list_title {
-  font-size: 2.5rem;
+  font-size: 2.3rem;
   font-weight: 600;
   display: block;
 }

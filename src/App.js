@@ -7,8 +7,7 @@ import {
   HashRouter
 } from "react-router-dom";
 
-import Header from "./Components/header";
-import Footer from "./Components/footer";
+
 
 import Home from "./Views/home";
 import SignIn from "./Views/signIn";
@@ -20,6 +19,7 @@ import UserProvider, { AllUsersProvider } from "./Providers/userProvider";
 import CalendarProvider from "./Providers/calendarProvider";
 
 import "./App.css";
+import DefaultView from "./Views/default-view";
 
 const App = () => {
   return (
@@ -36,57 +36,42 @@ const App = () => {
                   <SignUp />
                 </Route>
                 <Route exact={true} path={"/"}>
-                  <>
-                    <Header />
+                  <DefaultView selection="home">
                     <Home />
-                    <Footer />
-                  </>
+                  </DefaultView>
                 </Route>
                 <Route exact={true} path={"/home"}>
-                  <>
-                    <Header />
+                  <DefaultView selection="home">
                     <Home />
-                    <Footer />
-                  </>
+                  </DefaultView>
                 </Route>
                 <Route exact={true} path={"/calendar"}>
-                  <>
-                    <Header />
-
+                  <DefaultView selection="calendar">
                     <Calendar />
-                    <Footer />
-                  </>
+                  </DefaultView>
                 </Route>
 
                 <Route
                   exact={true}
                   path={"/profile"}
                   render={({ match }) => (
-                    <>
-                      <Header />
-                      <Home match={match} />
-                      <Footer />
-                    </>
+                    <DefaultView selection="home">
+                      <Home />
+                    </DefaultView>
                   )}
                 />
                 <Route
                   exact={true}
                   path={"/profile/:uid"}
                   render={({ match }) => (
-                    <>
-                      <Header />
-                      <Home match={match} />
-                      <Footer />
-                    </>
+                    <DefaultView selection="home">
+                      <Home />
+                    </DefaultView>
                   )}
                 />
                 <Route
                   render={({ match }) => (
-                    <>
-                      <Header />
-                      {"404 page not found"}
-                      <Footer />
-                    </>
+                    <DefaultView>{"Error 404"}</DefaultView>
                   )}
                 />
               </Switch>

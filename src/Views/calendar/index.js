@@ -10,8 +10,6 @@ import interactionPlugin from "@fullcalendar/interaction";
 import "@fullcalendar/core/main.css";
 import "@fullcalendar/daygrid/main.css";
 
-import Navigation from "../../Components/navigation";
-
 import { ReactComponent as Close } from "../../assets/close-icon.svg";
 import { ReactComponent as Grid } from "../../assets/grid-icon.svg";
 import { ReactComponent as List } from "../../assets/list-icon.svg";
@@ -59,7 +57,6 @@ const Calendar = () => {
   }, [events]);
   return (
     <>
-      <Navigation selection="calendar" />
       <div
         className="cac_calendar_info-box"
         style={{
@@ -94,7 +91,8 @@ const Calendar = () => {
             onColor="#fff"
             onHandleColor="#484848"
             activeBoxShadow="1px 1px 1px 10px #484848"
-            width={60}
+            width={50}
+            height={20}
             className="cac_calendar_switch"
           />
         </label>
@@ -105,8 +103,8 @@ const Calendar = () => {
             plugins={[dayGridPlugin, interactionPlugin]}
             height="auto"
             header={{
-              left: "title",
-              center: "prev,today,next",
+              left: "prev next",
+              center: "title",
               right: ""
             }}
             buttonText={{

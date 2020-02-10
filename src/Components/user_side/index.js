@@ -1,4 +1,5 @@
 import React from "react";
+import ColoredName from "../colored-name";
 
 import "./style.css";
 
@@ -11,10 +12,9 @@ const UserSide = ({ user }) => {
         className="cac_user-side_photo"
       />
       <div className="cac_user-side_info">
-        <p className="cac_user-side_name">
+        <ColoredName className="cac_user-side_name" rank={user.rank || " "}>
           {user.displayName}
-          <br />{" "}
-        </p>
+        </ColoredName>
         <p className="cac_user-side_mail">{user.email}</p>
       </div>
     </div>

@@ -1,10 +1,8 @@
 .cac_user-side {
-  --photo-size: 6rem;
-  background-color: tomato;
+  --photo-size: 7rem;
   width: 100%;
   display: grid;
   grid-template-columns: var(--photo-size) 1fr;
-  padding: 1rem;
 }
 .cac_user-side_photo {
   width: var(--photo-size);
@@ -17,18 +15,21 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
   overflow-wrap: break-word;
   overflow: auto;
 }
 .cac_user-side_name {
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: 500;
 }
 
 .cac_user-side_mail {
   width: 100%;
-  font-weight: 500;
-  font-size: 1.4rem;
+  font-weight: 600;
+  font-size: 1.2rem;
   display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

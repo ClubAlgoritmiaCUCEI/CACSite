@@ -1,50 +1,50 @@
 .cac_rank_name {
   font-size: 1.5rem;
 }
-.Newbie {
+.newbie {
   color: gray;
 }
-.Pupil {
+.pupil {
   color: rgb(136, 204, 34);
 }
-.Apprentice {
+.apprentice {
   color: green;
 }
 
-.Specialist {
+.specialist {
   color: rgb(3, 168, 158);
 }
 
-.Expert {
+.expert {
   color: blue;
 }
-.CandidateMaster {
+.candidateMaster {
   color: rgb(170, 0, 170);
 }
-.Master {
+.master {
   color: rgb(255, 140, 0);
 }
-.InternationalMaster {
+.internationalMaster {
   color: rgb(255, 140, 0);
 }
-.InternationalMaster::first-letter {
+.internationalMaster::first-letter {
   color: red;
 }
 
-.Grandmaster {
+.grandmaster {
   color: red;
 }
-.InternationalGrandmaster {
+.internationalGrandmaster {
   color: red;
 }
 
-.InternationalGrandmaster::first-letter {
+.internationalGrandmaster::first-letter {
   color: rgb(255, 0, 255);
 }
 
-.LegendaryGrandmaster {
+.legendaryGrandmaster {
   color: red;
 }
-.LegendaryGrandmaster::first-letter {
+.legendaryGrandmaster::first-letter {
   color: black;
 }

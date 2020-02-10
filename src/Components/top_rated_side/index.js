@@ -1,20 +1,33 @@
 import React, { useEffect, useState } from "react";
+
+import ColoredName from "../colored-name";
+
 import "./style.css";
 
-const API = "https://codeforces.com/api/";
-const DEFAULT_QUERY = "user.ratedList?activeOnly=true";
+const TopRatedSide = ({ allUsers }) => {
+  const [ratedList, setRatedList] = useState([]);
 
-const TopRatedSide = ({ children }) => {
-  const [users, setUsers] = useState([]);
   useEffect(() => {
-    fetch(API + DEFAULT_QUERY)
-      .then(res => res.json())
-      .then(data => setUsers(data.result));
-  }, []);
+    console.log(allUsers);
+    if (!allUsers.isCFLoading) {
+      setRatedList(
+        allUsers.usersWithCFAccount.sort((a, b) => b.rating - a.rating)
+      );
+    }
+  }, [allUsers]);
   return (
-    <>
-      <ul></ul>
-    </>
+    <div className="cac_top-rated_side">
+      <span className="cac_top-rated_side_title">Top Rated</span>
+      {ratedList.map((user, i) => (
+        <div key={i} className="cac_top-rated_side_user">
+          <span className="cac_top-rated_side_ranking">{i + 1}</span>
+          <ColoredName rank={user.rank} className="cac_top-rated_side_name">
+            {user.displayName}
+          </ColoredName>
+          <span className="cac_top-rated_side_ranting">{user.rating}</span>
+        </div>
+      ))}
+    </div>
   );
 };
 

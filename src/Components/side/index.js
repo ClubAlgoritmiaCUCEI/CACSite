@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import { UserContext } from "../../Providers/userProvider";
+import { UserContext, AllUsersContext } from "../../Providers/userProvider";
 
 import UserSide from "../user_side";
 import TopRatedSide from "../top_rated_side";
@@ -8,10 +8,20 @@ import TopRatedSide from "../top_rated_side";
 import "./style.css";
 const Side = ({ className }) => {
   const user = useContext(UserContext);
+  const allUsers = useContext(AllUsersContext);
+  
   return (
     <div className={`cac_side ${className}`}>
-      {!user.isLoading && user.logged ? <UserSide user={user} /> : null}
-      <TopRatedSide />
+      {!user.isLoading && user.logged ? (
+        <div className="cac_side_section">
+          <UserSide user={user} />
+        </div>
+      ) : null}
+      {!allUsers.isLoading && (
+        <div className="cac_side_section">
+          <TopRatedSide allUsers={allUsers} />
+        </div>
+      )}
     </div>
   );
 };

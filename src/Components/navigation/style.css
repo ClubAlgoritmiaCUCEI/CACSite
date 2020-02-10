@@ -5,6 +5,7 @@
   --translatedY-hover: 1px;
   display: flex;
   position: relative;
+  height: 5rem;
 }
 .cac_navigation::before {
   content: "";
@@ -15,17 +16,18 @@
   position: absolute;
   top: 100%;
   left: 50%;
-  transform: translate(calc(var(--padding-width-size) / 2 + -50%), -50%);
+  transform: translate(-50%,-50%);
 }
 .cac_section {
   color: #000000;
-  font-size: 2rem;
-  padding: 1rem var(--padding-width-size);
-  font-weight: 500;
+  font-size: 2.3rem;
+  padding: 1rem 0;
+  font-weight: 400;
   position: relative;
   transition: all 0.2s;
   text-decoration: none;
 }
+
 
 .cac_section:hover {
   cursor: pointer;
@@ -34,7 +36,7 @@
 
 .cac_section::after {
   content: "";
-  width: 80%;
+  width: 100%;
   height: calc(var(--border-size) + .1rem);
   border-radius: .1rem;
   background-color: transparent;
@@ -54,5 +56,5 @@
   transform: translate(-50%, calc(-50% + var(--translatedY-hover)));
 }
 .cac_section:not(:last-child) {
-  margin-right: 2rem;
+  margin-right: 4rem;
 }

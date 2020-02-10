@@ -1,0 +1,32 @@
+.cac_top-rated_side {
+  width: 100%;
+  text-align: center;
+}
+.cac_top-rated_side_title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  letter-spacing: 0.35px;
+  margin-bottom: 1rem;
+  display: block;
+}
+.cac_top-rated_side_user {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  display: grid;
+  grid-template-columns: 3rem 1fr 3rem;
+  justify-items: center;
+}
+
+.cac_top-rated_side_ranking {
+  font-weight: 600;
+  display: block;
+}
+.cac_top-rated_side_name {
+  justify-self: start;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width:100%;
+}

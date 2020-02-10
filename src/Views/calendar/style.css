@@ -3,6 +3,7 @@
   margin: 0 auto;
   display: block;
   position: relative;
+  padding: 0 1rem;
 }
 .cac_calendar_title {
   /* font-family: Roboto; */
@@ -120,7 +121,7 @@
   position: absolute;
   top: 0;
   left: 100%;
-  transform: translate(-100%, .8rem);
+  transform: translate(calc(-1 * 100% - 1rem), .8rem);
   z-index: 10;
 }
 .react-switch-bg {

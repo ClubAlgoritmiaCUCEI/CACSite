@@ -11,14 +11,21 @@
 }
 .cac_top-rated_side_user {
   width: 100%;
-  margin-bottom: 0.5rem;
   font-size: 1.6rem;
   font-weight: 500;
   display: grid;
+  column-gap: .2rem;
   grid-template-columns: 3rem 1fr 3rem;
   justify-items: center;
+  padding: .5rem;
+  background-color: white;
+  border-radius: .3rem;
+  transition: background-color .2s;
 }
-
+.cac_top-rated_side_user:hover{
+  background-color: #e3f3f2;
+  cursor: pointer;
+}
 .cac_top-rated_side_ranking {
   font-weight: 600;
   display: block;

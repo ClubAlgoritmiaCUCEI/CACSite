@@ -1,0 +1,111 @@
+.cac_attendance{
+  width:100%;
+  position: relative;
+}
+.cac_attendance--not-in-class{
+  height:30rem;
+}
+.cac_attendance_form{
+  --area-width: 20rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+
+.cac_attendance_label{
+  font-weight: 500;
+  color:#484848;
+  font-size: 3.2rem;
+  margin-bottom: 1rem;
+}
+
+.cac_attendance_text-area{
+  width:var(--area-width);
+  font-size: 4rem;
+  height: 6rem;
+  margin-bottom: 1rem;
+  border: 2px solid #484848;
+  text-align: center;
+  outline: none !important;
+  border-radius: 3px;
+}
+
+.cac_attendance_form_button{
+  width:var(--area-width);
+  background-color: #484848;
+  color:white;
+  border: 2px solid #484848;
+  border-radius: 3px;
+  height: 4rem;
+  font-size: 2.5rem;
+}
+
+.cac_attendance_class{
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr 20rem;
+  grid-template-rows: min-content 2rem min-content;
+  grid-template-areas: 
+  "title title"
+  "date speakers"
+  "content speakers"
+  "attendant attendant";
+}
+
+.cac_attendance_title{
+  font-size: 3rem !important;
+  grid-area: title;
+}
+
+.cac_attendance_speakers-container{
+  grid-area: speakers;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cac_attendance_speakers-title{
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.cac_attendance_speaker_user-box{
+  margin-bottom: .6rem;
+}
+
+.cac_attendance_date{
+  font-size: 1.6rem;
+  line-height: .5rem;
+  font-weight: 600;
+  color: #484848;
+}
+
+.cac_attendance_description-container{
+  margin-top: 2rem;
+  padding-right: 4rem;
+}
+
+.cac_attendance_description-title{
+  font-size: 3rem;
+}
+
+.cac_attendance_description-text{
+  font-size: 2rem;
+}
+
+.cac_attendance_attendant-container{ 
+  margin-top: 3rem;
+  border-top: 1.6px solid #484848;
+  grid-area: attendant;
+  padding: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cac_attendance_attendant{
+  margin: .5rem;
+}

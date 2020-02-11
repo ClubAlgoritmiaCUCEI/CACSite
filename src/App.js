@@ -13,6 +13,7 @@ import Home from "./Views/home";
 import SignIn from "./Views/signIn";
 import SignUp from "./Views/signUp";
 import Calendar from "./Views/calendar";
+import Attendance from "./Views/attendance";
 
 import UserProvider, { AllUsersProvider } from "./Providers/userProvider";
 
@@ -48,6 +49,11 @@ const App = () => {
                 <Route exact={true} path={"/calendar"}>
                   <DefaultView selection="calendar">
                     <Calendar />
+                  </DefaultView>
+                </Route>
+                <Route exact={true} path={"/attendance"}>
+                  <DefaultView selection="attendance">
+                    <Attendance />
                   </DefaultView>
                 </Route>
 

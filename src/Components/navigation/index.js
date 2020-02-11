@@ -31,7 +31,7 @@ const Navigation = props => {
         to="/weekly-problem"
         className={`cac_section ${
           selection === "weekly-problem" ? "active" : ""
-        }`}
+          }`}
       >
         Weekly Problem
       </Link>
@@ -40,6 +40,12 @@ const Navigation = props => {
         className={`cac_section ${selection === "calendar" ? "active" : ""}`}
       >
         Calendar
+      </Link>
+      <Link
+        to="/attendance"
+        className={`cac_section ${selection === "attendance" ? "active" : ""}`}
+      >
+        Attendance
       </Link>
       <div className="login">
         <Login />

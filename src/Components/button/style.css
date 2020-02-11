@@ -28,4 +28,5 @@
 }
 .cac_button-form {
   padding-top:.5rem !important;
+  outline: none !important;
 }

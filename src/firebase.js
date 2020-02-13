@@ -27,17 +27,10 @@ export const signInWithGoogle = () =>
 
 const githubProvider = new firebase.auth.GithubAuthProvider();
 export const signInWithGithub = () => {
-  auth
-    .signInWithPopup(githubProvider)
-    .then(result => {
-      let token = result.credential.accessToken;
-      let user = result.user;
-      console.log(token, user);
-    })
-    .catch(e => {
-      console.error("Error on sign up with github");
-      console.error(e);
-    });
+  auth.signInWithPopup(githubProvider).catch(e => {
+    console.error("Error on sign up with github");
+    console.error(e);
+  });
 };
 
 const facebookProvider = new firebase.auth.FacebookAuthProvider();
@@ -49,22 +42,20 @@ export const signInWithFacebook = () =>
 export const signOut = () => auth.signOut();
 
 export const createUserDocumentWithEmailAndPassword = async userData => {
-  console.log(
-    auth
-      .createUserWithEmailAndPassword(userData.email, userData.password)
-      .then(({ user }) => {
-        createUserProfileDocument(user, {
-          displayName: userData.username,
-          name: userData.name,
-          lastName: userData.lastName,
-          codeForcesUsername: userData.cfUsername,
-          vjudgeUsername: userData.vjUsername
-        });
-      })
-      .catch(e => {
-        console.error(e);
-      })
-  );
+  auth
+    .createUserWithEmailAndPassword(userData.email, userData.password)
+    .then(({ user }) => {
+      createUserProfileDocument(user, {
+        displayName: userData.username,
+        name: userData.name,
+        lastName: userData.lastName,
+        codeForcesUsername: userData.cfUsername,
+        vjudgeUsername: userData.vjUsername
+      });
+    })
+    .catch(e => {
+      console.error(e);
+    });
 };
 
 export const signInWithEmailAndPassword = (email, password) =>
@@ -89,7 +80,6 @@ export const getUserDocument = async user => {
 
 const createUserProfileDocument = async (user, aditionalData) => {
   if (!user) return;
-  console.log(user);
 
   //Get a reference to the place in the database where a user profile might be
   const userRef = firestore.doc(`users/${user.uid}`);

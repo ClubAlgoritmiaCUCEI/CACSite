@@ -8,7 +8,6 @@ const TopRatedSide = ({ allUsers }) => {
   const [ratedList, setRatedList] = useState([]);
 
   useEffect(() => {
-    console.log(allUsers);
     if (!allUsers.isCFLoading) {
       setRatedList(
         allUsers.usersWithCFAccount.sort((a, b) => b.rating - a.rating)

@@ -13,35 +13,51 @@ const UserProvider = ({ children }) => {
   const [user, setUser] = useState({ isLoading: true, isCFLoading: true });
 
   useEffect(() => {
-    const unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      if (userAuth != null) {
-        setUser({ isLoading: true, logged: true });
-        const userDocument = await getUserDocument(userAuth);
-        setUser({
-          ...userDocument,
-          photoURL: userDocument.photoURL || defaultImage,
-          isLoading: false,
-          logged: true,
-          isCFLoading: true
-        });
-        if (userDocument.codeForcesUsername) {
-          //Fetching the CF data for the user;
+    let unsubscribeFromAuth;
+    try {
+      unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+        if (userAuth != null) {
+          setUser({ isLoading: true, logged: true });
           try {
-            fetch(API + DEFAULT_QUERY + userDocument.codeForcesUsername)
-              .then(res => res.json())
-              .then(data => {
-                setUser(u => ({ ...data.result[0], ...u, isCFLoading: false }));
+            const userDocument = await getUserDocument(userAuth);
+            if (userDocument !== undefined) {
+              setUser({
+                ...userDocument,
+                photoURL: userDocument.photoURL || defaultImage,
+                isLoading: false,
+                logged: true,
+                isCFLoading: true
               });
-          } catch (e) {
-            console.error("Error fetching data from Code Forces");
+
+              if (userDocument.codeForcesUsername) {
+                //Fetching the CF data for the user;
+                try {
+                  fetch(API + DEFAULT_QUERY + userDocument.codeForcesUsername)
+                    .then(res => res.json())
+                    .then(data => {
+                      setUser(u => ({ ...data.result[0], ...u, isCFLoading: false }));
+                    });
+                } catch (e) {
+                  console.error("Error fetching data from Code Forces");
+                  console.error(e);
+                }
+
+              }
+            }
+          }
+          catch (e) {
+            console.log("jejeje")
             console.error(e);
           }
+        } else {
+          setUser({ isLoading: false, logged: false });
         }
-      } else {
-        setUser({ isLoading: false, logged: false });
-      }
-    });
-    return unsubscribeFromAuth;
+      });
+      return unsubscribeFromAuth;
+    } catch (e) {
+      console.log("aaaaa")
+      console.log(e);
+    }
   }, []);
   return <UserContext.Provider value={user}>{children}</UserContext.Provider>;
 };

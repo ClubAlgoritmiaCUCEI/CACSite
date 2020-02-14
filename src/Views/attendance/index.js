@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Redirect } from "react-router-dom";
 
 import { AttendanceContext } from "../../Providers/attendanceProvider";
 
-import { FormButton } from "../../Components/button";
 import UserBox from "../../Components/user-box";
 
 import "./style.css";
@@ -107,36 +106,69 @@ const CLASS = {
 };
 
 const Attendance = props => {
-  console.log(props);
-  let classData = CLASS;
+  const atnContext = useContext(AttendanceContext);
+  const [redirect, setRedirect] = useState(false);
+  console.log(atnContext);
 
+  useEffect(() => {
+    const { cid } = props.match.params;
+    if (atnContext.classData.cid === "300") {
+      setRedirect(true);
+      atnContext.setClassData(c => ({ ...c, validCode: false }));
+      atnContext.setIsDataAvailable(false);
+    }
+
+    if (!atnContext.isDataAvailable || cid !== atnContext.classData.cid) {
+      console.log("Fetching data");
+      setTimeout(() => {
+        //// This ocurrs when te feth to the database is wrong
+        // console.log(`Error, code ${cid} isnt real :$`);
+        // setRedirect(true);
+        // atnContext.setClassData(c => ({ ...c, validCode: false }));
+        alert("cambio de clase jejejeje");
+        atnContext.setClassData(c => ({ cid: cid, validCode: true, data: CLASS }))
+        atnContext.setIsDataAvailable(true);
+      }, 2000);
+    }
+  }, [props.match.params]);
+
+  const classData = atnContext.classData.data;
   return (
+
     <div className="cac_attendance cac_attendance--in-class">
-      <div className="cac_attendance_class">
-        <h3 className="cac_attendance_title">{classData.title}</h3>
-        <div className="cac_attendance_speakers-container">
-          <span className="cac_attendance_speakers-title">Speakers</span>
-          {classData.speakers.map((speaker, i) => (
-            <UserBox
-              key={i}
-              className="cac_attendance_speaker_user-box"
-              user={speaker}
-            />
-          ))}
+      {redirect && <Redirect to="/attendance" />}
+      {atnContext.isDataAvailable && (
+        <div className="cac_attendance_class">
+          <h3 className="cac_attendance_title">{classData.title}</h3>
+          <div className="cac_attendance_code-container">
+            <span className="cac_attendance_code-title">Code</span>
+            <span className="cac_attendance_code-code">{atnContext.classData.cid}</span>
+          </div>
+          <div className="cac_attendance_speakers-container">
+            <span className="cac_attendance_speakers-title">Speakers</span>
+            {classData.speakers.map((speaker, i) => (
+              <UserBox
+                key={i}
+                className="cac_attendance_speaker_user-box"
+                user={speaker}
+              />
+            ))}
+          </div>
+          <span className="cac_attendance_date">{classData.date}</span>
+          <div className="cac_attendance_description-container">
+            <span className="cac_attendance_description-title">Description</span>
+            <p className="cac_attendance_description-text">
+              {classData.description}
+            </p>
+          </div>
+          <div className="cac_attendance_attendant-container">
+            {classData.attendances.map((at, i) => (
+              <UserBox key={i} className="cac_attendance_attendant" user={at} />
+            ))}
+          </div>
         </div>
-        <span className="cac_attendance_date">{classData.date}</span>
-        <div className="cac_attendance_description-container">
-          <span className="cac_attendance_description-title">Description</span>
-          <p className="cac_attendance_description-text">
-            {classData.description}
-          </p>
-        </div>
-        <div className="cac_attendance_attendant-container">
-          {classData.attendances.map((at, i) => (
-            <UserBox key={i} className="cac_attendance_attendant" user={at} />
-          ))}
-        </div>
-      </div>
+      )}
+
     </div>
   );
 };

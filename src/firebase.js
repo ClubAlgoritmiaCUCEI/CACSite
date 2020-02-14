@@ -74,7 +74,7 @@ export const getUserDocument = async user => {
     }
     return { uid, ...snapshot.data() };
   } catch (err) {
-    console.error("Error feching user", err.mesage);
+    console.error("Error feching user", err);
   }
 };
 
@@ -99,6 +99,7 @@ const createUserProfileDocument = async (user, aditionalData) => {
       });
     } catch (err) {
       console.error("Error creating user", err.mesage);
+      throw new Error("Cannot reach userDocument");
     }
   }
 };

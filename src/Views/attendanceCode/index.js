@@ -19,18 +19,12 @@ const AttendanceCode = () => {
   const handleSubmit = e => {
     e.preventDefault();
     atnContext.setIsDataAvailable(true);
+    atnContext.setClassData(c => ({ ...c, cid: code }));
 
   };
   return (
     <div className="cac_attendance cac_attendance--not-in-class">
-      {atnContext.isDataAvailable && (
-        <Redirect
-          to={{
-            pathname: `/attendance/${code}`,
-            state: { referrer: "eeeee" }
-          }}
-        />
-      )}
+      {atnContext.isDataAvailable && <Redirect to={`attendance/${code}`} />}
       <form className="cac_attendance_form" onSubmit={handleSubmit}>
         <label htmlFor="code" className="cac_attendance_label">
           Enter Code

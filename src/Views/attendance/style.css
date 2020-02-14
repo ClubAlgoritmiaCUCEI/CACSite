@@ -1,9 +1,10 @@
-.cac_attendance{
+.cac_attenda  nce{
   width:100%;
   position: relative;
 }
 .cac_attendance--not-in-class{
-  height:30rem;
+  min-height: 40rem;
+  position: relative;
 }
 .cac_attendance_form{
   --area-width: 20rem;
@@ -12,7 +13,7 @@
   align-items: center;
   justify-content: center;
   position: absolute;
-  top:50%;
+  top:40%;
   left:50%;
   transform: translate(-50%,-50%);
 }
@@ -52,7 +53,8 @@
   grid-template-rows: min-content 2rem min-content;
   grid-template-areas: 
   "title title"
-  "date speakers"
+  "date ."
+  "content code"
   "content speakers"
   "attendant attendant";
 }
@@ -87,6 +89,7 @@
 .cac_attendance_description-container{
   margin-top: 2rem;
   padding-right: 4rem;
+  grid-area: content;
 }
 
 .cac_attendance_description-title{
@@ -108,4 +111,16 @@
 
 .cac_attendance_attendant{
   margin: .5rem;
+}
+
+.cac_attendance_code-container{
+  padding: 1rem;
+  border-radius: 3px;
+  border: 1px solid black;
+  grid-area: code;
+  text-align: center;
+}
+
+.cac_attendance_code-title{
+  display: block;
 }

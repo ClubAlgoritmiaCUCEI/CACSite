@@ -1,106 +1,69 @@
-.cac_attenda  nce{
-  width:100%;
+.cac_attenda {
+  width: 100%;
   position: relative;
 }
-.cac_attendance--not-in-class{
-  min-height: 40rem;
-  position: relative;
-}
-.cac_attendance_form{
-  --area-width: 20rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top:40%;
-  left:50%;
-  transform: translate(-50%,-50%);
-}
 
-.cac_attendance_label{
-  font-weight: 500;
-  color:#484848;
-  font-size: 3.2rem;
-  margin-bottom: 1rem;
-}
 
-.cac_attendance_text-area{
-  width:var(--area-width);
-  font-size: 4rem;
-  height: 6rem;
-  margin-bottom: 1rem;
-  border: 2px solid #484848;
-  text-align: center;
-  outline: none !important;
-  border-radius: 3px;
-}
-
-.cac_attendance_form_button{
-  width:var(--area-width);
-  background-color: #484848;
-  color:white;
-  border: 2px solid #484848;
-  border-radius: 3px;
-  height: 4rem;
-  font-size: 2.5rem;
-}
-
-.cac_attendance_class{
+.cac_attendance_class {
   padding: 0 2rem;
   display: grid;
   grid-template-columns: 1fr 20rem;
-  grid-template-rows: min-content 2rem min-content;
-  grid-template-areas: 
-  "title title"
-  "date ."
-  "content code"
-  "content speakers"
-  "attendant attendant";
+  grid-template-rows: 4.5rem min-content min-content;
+  grid-template-areas:
+    "title code"
+    "date code"
+    "content speakers"
+    "content speakers"
+    "reference speakers"
+    "attendant attendant";
 }
 
-.cac_attendance_title{
-  font-size: 3rem !important;
+.cac_attendance_title {
+  font-size: 3.2rem !important;
+  font-weight: 600;
   grid-area: title;
+  color:#242424;
 }
 
-.cac_attendance_speakers-container{
+.cac_attendance_speakers-container {
   grid-area: speakers;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 1rem;
 }
 
-.cac_attendance_speakers-title{
-  font-size: 2rem;
+.cac_attendance_speakers-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: rgb(36, 36, 36);
   margin-bottom: 1rem;
 }
-.cac_attendance_speaker_user-box{
-  margin-bottom: .6rem;
+.cac_attendance_speaker_user-box {
+  margin-bottom: 0.6rem;
 }
 
-.cac_attendance_date{
+.cac_attendance_date {
   font-size: 1.6rem;
   line-height: .5rem;
   font-weight: 600;
   color: #484848;
 }
 
-.cac_attendance_description-container{
-  margin-top: 2rem;
+.cac_attendance_description-container {
   padding-right: 4rem;
   grid-area: content;
 }
 
-.cac_attendance_description-title{
+.cac_attendance_description-title {
   font-size: 3rem;
 }
 
-.cac_attendance_description-text{
+.cac_attendance_description-text {
   font-size: 2rem;
 }
 
-.cac_attendance_attendant-container{ 
+.cac_attendance_attendant-container {
   margin-top: 3rem;
   border-top: 1.6px solid #484848;
   grid-area: attendant;
@@ -109,18 +72,29 @@
   flex-wrap: wrap;
 }
 
-.cac_attendance_attendant{
-  margin: .5rem;
+.cac_attendance_attendant {
+  margin: 0.5rem;
 }
 
-.cac_attendance_code-container{
+.cac_attendance_code-container {
   padding: 1rem;
   border-radius: 3px;
-  border: 1px solid black;
   grid-area: code;
   text-align: center;
+  margin-bottom: 0rem;
 }
 
-.cac_attendance_code-title{
+.cac_attendance_code-title {
   display: block;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: rgb(36, 36, 36);
+}
+
+.cac_attendance_code-code {
+  font-size: 5rem;
+  font-weight: 600;
+  line-height: 4rem;
+  letter-spacing: .2rem;
+  color: rgb(53, 53, 53);
 }

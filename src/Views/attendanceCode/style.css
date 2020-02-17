@@ -1,0 +1,53 @@
+.cac_attendance--not-in-class {
+  min-height: 40rem;
+  position: relative;
+}
+
+.cac_attendance_form {
+  --area-width: 20rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.cac_attendance_label {
+  font-weight: 500;
+  color: #484848;
+  font-size: 3.2rem;
+  margin-bottom: 1rem;
+}
+
+.cac_attendance_text-area {
+  width: var(--area-width);
+  font-size: 4rem;
+  height: 6rem;
+  margin-bottom: 1rem;
+  border: 2px solid #484848;
+  text-align: center;
+  outline: none !important;
+  border-radius: 3px;
+}
+
+.cac_attendance_form_button {
+  width: var(--area-width);
+  background-color: #4a79c6;
+
+  color: white;
+  border: 2px solid #4a79c6;
+  border-radius: 3px;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+.cac_attendance_button {
+  background-color: #484848;
+  color: white;
+  width: 100%;
+  font-size: 2.5rem;
+  text-align: center;
+  border-radius: 3px;
+}

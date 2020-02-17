@@ -13,6 +13,7 @@ import SignUp from "./Views/signUp";
 import Calendar from "./Views/calendar";
 import Attendance from "./Views/attendance";
 import AttendanceCode from "./Views/attendanceCode";
+import Create from "./Views/create";
 
 import UserProvider, { AllUsersProvider } from "./Providers/userProvider";
 import CalendarProvider from "./Providers/calendarProvider";
@@ -62,6 +63,20 @@ const App = () => {
                     render={({ match }) => (
                       <DefaultView selection="attendance">
                         <Attendance match={match} />
+                      </DefaultView>
+                    )}
+                  ></Route>
+                  <Route exact={true} path={"/create"}>
+                    <DefaultView selection="create">
+                      <Create />
+                    </DefaultView>
+                  </Route>
+                  <Route
+                    exact={true}
+                    path={"/create/:cid"}
+                    render={({ match }) => (
+                      <DefaultView selection="create">
+                        <Create match={match} />
                       </DefaultView>
                     )}
                   ></Route>

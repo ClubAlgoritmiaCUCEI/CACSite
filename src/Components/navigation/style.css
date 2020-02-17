@@ -16,7 +16,7 @@
   position: absolute;
   top: 100%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
 }
 .cac_section {
   color: #000000;
@@ -28,17 +28,16 @@
   text-decoration: none;
 }
 
-
 .cac_section:hover {
   cursor: pointer;
-  transform: translateY(calc(-1*var(--translatedY-hover)));
+  transform: translateY(calc(-1 * var(--translatedY-hover)));
 }
 
 .cac_section::after {
   content: "";
   width: 100%;
-  height: calc(var(--border-size) + .1rem);
-  border-radius: .1rem;
+  height: calc(var(--border-size) + 0.1rem);
+  border-radius: 0.1rem;
   background-color: transparent;
   transition: all 0.2s;
 
@@ -57,4 +56,7 @@
 }
 .cac_section:not(:last-child) {
   margin-right: 4rem;
+}
+.cac_section--admin {
+  color: #4a79c6;
 }

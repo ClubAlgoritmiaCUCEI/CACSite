@@ -1,0 +1,29 @@
+.cac_create {
+  padding-right: 2rem;
+  display: grid;
+  grid-template-columns: 20rem 1fr 20rem;
+  grid-template-areas: "dropdown . drafts";
+  align-items: start;
+}
+
+.cac_create_dropdown {
+  font-size: 1.6rem;
+  color:red !important;
+  font-weight: 600;
+}
+.Dropdown-control:hover{
+  cursor: pointer;
+}
+
+.cac_create_dropdown--sections {
+  grid-area: dropdown;
+}
+
+.cac_create_dropdown--drafts {
+  grid-area: drafts;
+}
+.Dropdown-arrow {
+  top: 50%;
+  left: 100%;
+  transform: translate(calc(-100% - 1rem), -50%);
+}

@@ -14,8 +14,7 @@
 }
 
 .cac_user-box_photo{
-  width:4rem;
-  height:4rem;
+  width:4rem !important;
   border-radius: 3px;
   grid-area: photo;
 }

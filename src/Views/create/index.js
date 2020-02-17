@@ -15,10 +15,9 @@ import "./style.css";
 const Create = props => {
   const [redirect, setRedirect] = useState(false);
   const [path, setPath] = useState("");
-  const [section, setSection] = useState("Select");
 
   const sections = [
-    { value: "class", label: "Class", component: CreateClass },
+    { value: "class", label: "Class" },
     { value: "weeklyProblem", label: "Weekly problem" },
     { value: "editorial", label: "Editorial" },
     { value: "homePost", label: "Home Post" },
@@ -26,13 +25,11 @@ const Create = props => {
   ];
 
   const onChange = e => {
-    console.log(e);
     setPath(`/create/${e.value}`);
     setRedirect(true);
   };
 
-  useEffect(() => {
-  }, [props]);
+  useEffect(() => {}, [props]);
 
   const match = props.match || { params: { cid: "" } };
   return (
@@ -45,6 +42,7 @@ const Create = props => {
         placeholder="Select"
       />
       {redirect && <Redirect to={path} />}
+      {match.params.cid === "class" && <CreateClass />}
     </div>
   );
 };

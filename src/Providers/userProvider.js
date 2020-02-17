@@ -35,18 +35,19 @@ const UserProvider = ({ children }) => {
                   fetch(API + DEFAULT_QUERY + userDocument.codeForcesUsername)
                     .then(res => res.json())
                     .then(data => {
-                      setUser(u => ({ ...data.result[0], ...u, isCFLoading: false }));
+                      setUser(u => ({
+                        ...data.result[0],
+                        ...u,
+                        isCFLoading: false
+                      }));
                     });
                 } catch (e) {
                   console.error("Error fetching data from Code Forces");
                   console.error(e);
                 }
-
               }
             }
-          }
-          catch (e) {
-            console.log("jejeje")
+          } catch (e) {
             console.error(e);
           }
         } else {
@@ -55,7 +56,6 @@ const UserProvider = ({ children }) => {
       });
       return unsubscribeFromAuth;
     } catch (e) {
-      console.log("aaaaa")
       console.log(e);
     }
   }, []);
@@ -78,33 +78,44 @@ export const AllUsersProvider = ({ children }) => {
       await firestore
         .collection("users")
         .get()
-        .then(querySnapshot =>
-          querySnapshot.forEach(doc =>
-            fetchedUsers.push({ id: doc.id, ...doc.data() })
-          )
-        );
+        .then(querySnapshot => {
+          for (let i = 0; i < querySnapshot.size; i++) {
+            const doc = querySnapshot.docs[i];
+            fetchedUsers.push({
+              id: doc.id,
+              ...doc.data(),
+              index: i
+            });
+          }
+        });
       setUsers(c => ({ ...c, isLoading: false, users: fetchedUsers }));
 
       /// set state and then fetch users that have an acount on codeforces
       let usersWithCFAccount = fetchedUsers.filter(
         user => user.codeForcesUsername
       );
-      let usersQuery = usersWithCFAccount.reduce(
-        (acc, user) => `${acc};${user.codeForcesUsername}`,
+      let usersQuery = fetchedUsers.reduce(
+        (acc, user) => `${acc};${user.codeForcesUsername || ""}`,
         ""
       );
 
       fetch(API + DEFAULT_QUERY + usersQuery)
         .then(res => res.json())
         .then(data => {
-          let usersMaped = usersWithCFAccount.map((user, i) => ({
+          let usersOnlyWithCFMaped = usersWithCFAccount.map((user, i) => ({
             ...data.result[i],
             ...user
           }));
+          const usersCopy = fetchedUsers;
+          usersOnlyWithCFMaped.forEach(
+            user =>
+              (usersCopy[user.index] = { ...usersCopy[user.index], ...user })
+          );
           setUsers(c => ({
             ...c,
+            users: usersCopy,
             isCFLoading: false,
-            usersWithCFAccount: usersMaped
+            usersWithCFAccount: usersOnlyWithCFMaped
           }));
         });
     };

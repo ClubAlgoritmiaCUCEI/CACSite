@@ -1,4 +1,41 @@
-.cac_create_class{
+.cac_create_class {
   height: 20rem;
-  background-color: pink;
+  grid-area: component;
+}
+.cac_create_class {
+  display: flex;
+}
+
+.cac_create_class--left {
+  flex: 5;
+  padding-right: 2rem;
+}
+
+.cac_create_class--right {
+  flex: 2;
+  padding-left: 2rem;
+  text-align: center;
+}
+
+.cac_create_class .cac_create_class_code {
+  font-size: 3rem;
+  width: 16rem;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+}
+.cac_create_class_button {
+  width: 16rem;
+  padding: 1rem 0;
+}
+
+.cac_create_cass_speakers{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cac_create_speaker{
+  margin-bottom: .5rem;
+}
+.cac_create_speaker{
+  text-align: left;
 }

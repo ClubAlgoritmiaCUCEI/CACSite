@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+// eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Redirect } from "react-router-dom";
 
 import Button, { FormButton } from "../../Components/button";

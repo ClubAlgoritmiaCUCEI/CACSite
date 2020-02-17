@@ -1,0 +1,49 @@
+.cac_select-users {
+  background-color: rgb(255, 255, 255);
+  border-radius: 0.5rem;
+  box-shadow: 0 0 3px black;
+  padding: 1rem;
+  min-width: 64rem;
+}
+
+.cac_select-users_title {
+  margin-top: 1rem;
+  font-size: 2rem;
+  display: inline-block;
+  position: relative;
+}
+
+.cac_select-users_users {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, min-content);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.cac_select-users_button-container{
+  width:100%;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.cac_select-users_button{
+  flex: 1;
+  background-color: #4A79C6;
+  text-align: center;
+  color:white;
+}
+
+.cac_select-users_button--cancel{
+  background-color: rgb(182, 14, 14);
+}
+
+.cac_select-users_button-container--disabled{
+  background-color: rgb(64, 87, 124);
+}
+
+.cac_select-users_button-container--disabled:hover{
+  cursor: initial;
+  box-shadow: none;
+}

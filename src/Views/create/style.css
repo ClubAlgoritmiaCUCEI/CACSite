@@ -2,16 +2,19 @@
   padding-right: 2rem;
   display: grid;
   grid-template-columns: 20rem 1fr 20rem;
-  grid-template-areas: "dropdown . drafts";
+  grid-template-areas:
+    "dropdown . drafts"
+    "component component component";
+  gap: 1rem;
   align-items: start;
 }
 
 .cac_create_dropdown {
   font-size: 1.6rem;
-  color:red !important;
+  color: red !important;
   font-weight: 600;
 }
-.Dropdown-control:hover{
+.Dropdown-control:hover {
   cursor: pointer;
 }
 
@@ -26,4 +29,65 @@
   top: 50%;
   left: 100%;
   transform: translate(calc(-100% - 1rem), -50%);
+}
+
+/* ------ Components -------- */
+
+.cac_create_section {
+  margin-bottom: 1rem;
+}
+
+.cac_create_input {
+  padding: 0.5rem 1rem;
+  font-size: 1.6rem;
+  border: 1.5px solid #8f8f8f;
+  box-shadow: 0 0 1px rgb(94, 94, 94);
+  outline: none !important;
+  border-radius: 0.3rem;
+  transition: all 0.2s;
+  display: block;
+}
+.cac_create_input:focus {
+  border: 1.5px solid #707070;
+  box-shadow: 0 0 3px rgb(94, 94, 94);
+}
+
+.cac_create_input--title {
+  font-size: 2rem;
+  width: 100%;
+}
+
+.cac_create_textarea {
+  font: inherit;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  font-size: 1.6rem;
+  border: 1.4px solid #8f8f8f;
+  box-shadow: 0 0 1px rgb(94, 94, 94);
+  outline: none !important;
+  resize: vertical;
+  border-radius: 0.3rem;
+  display: block;
+  transition: all .2s;
+  min-height: 8rem;
+}
+
+.cac_create_textarea:focus {
+  border: 1.5px solid #707070;
+  box-shadow: 0 0 3px rgb(94, 94, 94);
+}
+
+.cac_create_title {
+  font-size: 3rem;
+  letter-spacing: 0.25px;
+  font-weight: 500;
+  color: #484848;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.cac_create_button{
+  background-color: #4a79c6;
+  color: white;
+  border-radius: 3px;
 }

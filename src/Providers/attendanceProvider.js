@@ -3,7 +3,7 @@ import React, { createContext, useState } from "react";
 export const AttendanceContext = createContext({});
 
 const AttendanceProvider = ({ children }) => {
-  const [classData, setclassData] = useState({ cid: "", validCode: true, data: {} });
+  const [classData, setclassData] = useState({ code: "", validCode: true });
   const [isDataAvailable, setIsDataAvailable] = useState(false);
 
   return (

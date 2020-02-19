@@ -59,7 +59,7 @@ const App = () => {
                   </Route>
                   <Route
                     exact={true}
-                    path={"/attendance/:cid"}
+                    path={"/attendance/:code"}
                     render={({ match }) => (
                       <DefaultView selection="attendance">
                         <Attendance match={match} />

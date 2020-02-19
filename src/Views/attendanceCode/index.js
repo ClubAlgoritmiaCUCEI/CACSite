@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 // eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Redirect } from "react-router-dom";
+import { firestore } from "../../firebase";
 
 import Button, { FormButton } from "../../Components/button";
 
@@ -108,17 +109,28 @@ const CLASS = {
 
 const AttendanceCode = () => {
   const atnContext = useContext(AttendanceContext);
-  const [code, setCode] = useState(atnContext.classData.cid);
-  console.log(atnContext);
+  const [code, setCode] = useState(atnContext.classData.code);
+  const [isFetching, setIsFetching] = useState(false);
 
   const handleTextChange = e => {
     setCode(e.target.value);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    atnContext.setIsDataAvailable(true);
-    atnContext.setClassData(c => ({ ...c, cid: code, data: CLASS }));
+    if (!isFetching) {
+      setIsFetching(true);
+      const classRef = firestore.doc(`class/${code}`);
+      const snapshot = await classRef.get();
+      if (snapshot.exists) {
+        console.log(snapshot.data());
+        atnContext.setClassData(c => ({ ...c, ...snapshot.data() }));
+        atnContext.setIsDataAvailable(true);
+      } else {
+        alert("wrong code");
+      }
+      setIsFetching(false);
+    }
   };
   return (
     <div className="cac_attendance cac_attendance--not-in-class">

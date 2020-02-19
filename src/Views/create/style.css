@@ -1,17 +1,14 @@
 .cac_create {
   padding-right: 2rem;
-
 }
 
-.cac_create_header{
+.cac_create_header {
   display: grid;
-  grid-template-columns: 20rem 1fr 20rem;
-  grid-template-areas:
-    "dropdown preview drafts";
+  grid-template-columns: 20rem 1fr 30rem;
+  grid-template-areas: "dropdown . preview";
   gap: 1rem;
   align-items: start;
   margin-bottom: 1rem;
-  
 }
 
 .cac_create_dropdown {
@@ -36,9 +33,9 @@
   transform: translate(calc(-100% - 1rem), -50%);
 }
 
-.cac_create_preview{
+.cac_create_preview {
   grid-area: preview;
-  width:16rem;
+  width: 16rem;
   background-color: #4a79c6;
   height: 100%;
   margin: 0 auto;
@@ -46,6 +43,15 @@
   color: white;
 }
 
+.cac_create_post {
+  grid-area: post;
+  width: 16rem;
+  background-color: #4a79c6;
+  height: 100%;
+  margin: 0 auto;
+  text-align: center;
+  color: white;
+}
 /* ------ Components -------- */
 
 .cac_create_section {
@@ -77,13 +83,13 @@
   padding: 0.5rem 1rem;
   width: 100%;
   font-size: 1.6rem;
-  border: 1.4px solid #8f8f8f;
+  border: 1.5px solid #8f8f8f;
   box-shadow: 0 0 1px rgb(94, 94, 94);
   outline: none !important;
   resize: vertical;
   border-radius: 0.3rem;
   display: block;
-  transition: all .2s;
+  transition: all 0.2s;
   min-height: 8rem;
 }
 
@@ -101,7 +107,7 @@
   display: inline-block;
 }
 
-.cac_create_button{
+.cac_create_button {
   background-color: #4a79c6;
   color: white;
   border-radius: 3px;

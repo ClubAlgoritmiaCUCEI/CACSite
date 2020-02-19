@@ -30,3 +30,16 @@ const parseMonth = month => {
 };
 
 export { parseMonth };
+
+const generateRandomCode = n => {
+  var result = "";
+  var characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var charactersLength = characters.length;
+  for (var i = 0; i < n; i++) {
+    result += characters[Math.floor(Math.random() * charactersLength)];
+  }
+  return result;
+};
+
+export { generateRandomCode };

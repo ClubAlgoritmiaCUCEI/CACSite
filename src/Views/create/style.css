@@ -1,12 +1,17 @@
 .cac_create {
   padding-right: 2rem;
+
+}
+
+.cac_create_header{
   display: grid;
   grid-template-columns: 20rem 1fr 20rem;
   grid-template-areas:
-    "dropdown . drafts"
-    "component component component";
+    "dropdown preview drafts";
   gap: 1rem;
   align-items: start;
+  margin-bottom: 1rem;
+  
 }
 
 .cac_create_dropdown {
@@ -29,6 +34,16 @@
   top: 50%;
   left: 100%;
   transform: translate(calc(-100% - 1rem), -50%);
+}
+
+.cac_create_preview{
+  grid-area: preview;
+  width:16rem;
+  background-color: #4a79c6;
+  height: 100%;
+  margin: 0 auto;
+  text-align: center;
+  color: white;
 }
 
 /* ------ Components -------- */

@@ -1,67 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 // eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Redirect } from "react-router-dom";
+import { firestore } from "../../firebase";
 
 import { AttendanceContext } from "../../Providers/attendanceProvider";
 
 import UserBox from "../../Components/user-box";
 
 import "./style.css";
-
-const CLASS = {
-  title: "Introduccion a la programación competitiva",
-  date: "11/2/2020",
-  isAvailable: true,
-  speakers: [
-    {
-      hasAccount: true,
-      uid: "uid de erick",
-      displayName: "erickborquez",
-      rank: "expert",
-      ranking: 1528
-    }
-  ],
-  description:
-    "Aqui vamos a dar una descripcion a la introduccion a la programacion competitiva. Aqui vamos a dar una descripcion a la introduccion a la programacion competitiva. Aqui vamos a dar una descripcion a la introduccion a la programacion competitiva.",
-  attendances: [
-    {
-      hasAccount: true,
-      uid: "uid de otro wey",
-      displayName: "Isaac",
-      rank: "pupil"
-    },
-    {
-      hasAccount: true,
-      uid: "uid de otro wey",
-      displayName: "Isaac",
-      rank: "pupil"
-    },
-    {
-      hasAccount: true,
-      uid: "uid de otro wey",
-      displayName: "Isaac",
-      rank: "pupil"
-    },
-    {
-      hasAccount: true,
-      uid: "uid de otro wey",
-      displayName: "Isaac",
-      rank: "pupil"
-    },
-    {
-      hasAccount: true,
-      uid: "uid de otro wey",
-      displayName: "Isaac",
-      rank: "pupil"
-    },
-    {
-      hasAccount: true,
-      uid: "uid de otro wey",
-      displayName: "Isaac",
-      rank: "pupil"
-    }
-  ]
-};
 
 const Attendance = props => {
   const atnContext = useContext(AttendanceContext);
@@ -72,23 +18,32 @@ const Attendance = props => {
   useEffect(() => {
     if (!preview) {
       const { code } = props.match.params;
-      if (atnContext.classData.code === "300") {
-        setRedirect(true);
-        atnContext.setClassData(c => ({ ...c, validCode: false }));
-        atnContext.setIsDataAvailable(false);
-      }
-
-      if (code !== atnContext.classData.code) {
-        console.log("Fetching data");
-        setTimeout(() => {
-          alert("cambio de clase jejejeje");
-          atnContext.setClassData(c => ({
-            ...CLASS,
-            validCode: true,
-            code: code
-          }));
-          atnContext.setIsDataAvailable(true);
-        }, 2000);
+      if (
+        !atnContext.classData.isDataAvailable ||
+        code !== atnContext.classData.code
+      ) {
+        const fetchClass = async () => {
+          const classRef = firestore.doc(`class/${code}`);
+          const snapshot = await classRef.get();
+          if (snapshot.exists) {
+            atnContext.setClassData(c => ({
+              ...c,
+              isDataAvailable: true,
+              validCode: true,
+              code: code,
+              ...snapshot.data()
+            }));
+          } else {
+            atnContext.setClassData(c => ({
+              ...c,
+              isDataAvailable: false,
+              code: code,
+              validCode: false
+            }));
+            setRedirect("true");
+          }
+        };
+        fetchClass();
       }
     }
   }, [props.match.params, atnContext, preview]);
@@ -98,7 +53,7 @@ const Attendance = props => {
   return (
     <div className="cac_attendance cac_attendance--in-class">
       {redirect && <Redirect to="/attendance" />}
-      {(atnContext.isDataAvailable || preview) && (
+      {(classData.isDataAvailable || preview) && (
         <div className="cac_attendance_class">
           <h3 className="cac_attendance_title">{classData.title}</h3>
           <span className="cac_attendance_date">{classData.date}</span>

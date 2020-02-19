@@ -31,6 +31,11 @@
   text-align: center;
   outline: none !important;
   border-radius: 3px;
+  transition: all .2s;
+}
+
+.cac_attendance_text-area--invalid {
+  border: 2px solid #ab1c21;
 }
 
 .cac_attendance_form_button {
@@ -51,4 +56,3 @@
   text-align: center;
   border-radius: 3px;
 }
-

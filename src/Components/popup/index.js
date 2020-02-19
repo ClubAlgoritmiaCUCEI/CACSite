@@ -7,3 +7,16 @@ const Popup = ({ children }) => {
 };
 
 export default Popup;
+
+const TopPopup = ({ children, className, onClick }) => {
+  return (
+    <div
+      onClick={onClick}
+      className={`cac_popup-top ${className ? className : ""}`}
+    >
+      {children}
+    </div>
+  );
+};
+
+export { TopPopup };

@@ -1,116 +1,22 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 // eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Redirect } from "react-router-dom";
 import { firestore } from "../../firebase";
 
 import Button, { FormButton } from "../../Components/button";
+import { TopPopup } from "../../Components/popup";
 
 import { AttendanceContext } from "../../Providers/attendanceProvider";
 
 import "./style.css";
 
-const CLASS = {
-  title: "Introduccion a la programación competitiva",
-  date: "11/2/2020",
-  isAvailable: true,
-  speakers: [
-    {
-      hasAccount: true,
-      uid: "uid de erick",
-      displayName: "erickborquez",
-      rank: "expert",
-      ranking: 1528
-    },
-    {
-      hasAccount: true,
-      uid: "uid de erick",
-      displayName: "erickborquez",
-      rank: "expert",
-      ranking: 1528
-    }
-  ],
-  description:
-    "Aqui vamos a dar una descripcion a la introduccion a la programacion competitiva. Aqui vamos a dar una descripcion a la introduccion a la programacion competitiva. Aqui vamos a dar una descripcion a la introduccion a la programacion competitiva.",
-  attendances: [
-    {
-      hasAccount: true,
-      uid: "uid de otro wey",
-      displayName: "Isaac",
-      rank: "pupil"
-    },
-    {
-      hasAccount: true,
-      uid: "uid de otro wey",
-      displayName: "Isaac",
-      rank: "pupil"
-    },
-    {
-      hasAccount: true,
-      uid: "uid de otro wey",
-      displayName: "Isaac",
-      rank: "pupil"
-    },
-    {
-      hasAccount: true,
-      uid: "uid de otro wey",
-      displayName: "Isaac",
-      rank: "pupil"
-    },
-    {
-      hasAccount: true,
-      uid: "uid de otro wey",
-      displayName: "Isaac",
-      rank: "pupil"
-    },
-    {
-      hasAccount: true,
-      uid: "uid de otro wey",
-      displayName: "Isaac",
-      rank: "pupil"
-    },
-    {
-      hasAccount: true,
-      uid: "uid de otro wey",
-      displayName: "Isaac",
-      rank: "pupil"
-    },
-    {
-      hasAccount: true,
-      uid: "uid de otro wey",
-      displayName: "Isaac",
-      rank: "pupil"
-    },
-    {
-      hasAccount: true,
-      uid: "uid de otro wey",
-      displayName: "Isaac",
-      rank: "pupil"
-    },
-    {
-      hasAccount: true,
-      uid: "uid de otro wey",
-      displayName: "Isaac",
-      rank: "pupil"
-    },
-    {
-      hasAccount: true,
-      uid: "uid de otro wey",
-      displayName: "Isaac",
-      rank: "pupil"
-    },
-    {
-      hasAccount: true,
-      uid: "uid de otro wey",
-      displayName: "Isaac",
-      rank: "pupil"
-    }
-  ]
-};
-
 const AttendanceCode = () => {
   const atnContext = useContext(AttendanceContext);
   const [code, setCode] = useState(atnContext.classData.code);
   const [isFetching, setIsFetching] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [isPopoupClosing, setIsPopupClosing] = useState(false);
+  const [popupClassname, setPopupClassname] = useState("");
 
   const handleTextChange = e => {
     setCode(e.target.value);
@@ -123,18 +29,54 @@ const AttendanceCode = () => {
       const classRef = firestore.doc(`class/${code}`);
       const snapshot = await classRef.get();
       if (snapshot.exists) {
-        console.log(snapshot.data());
-        atnContext.setClassData(c => ({ ...c, ...snapshot.data() }));
-        atnContext.setIsDataAvailable(true);
+        closePopup();
+        atnContext.setClassData(c => ({
+          ...c,
+          isDataAvailable: true,
+          validCode: true,
+          code: code,
+          ...snapshot.data()
+        }));
       } else {
-        alert("wrong code");
+        atnContext.setClassData(c => ({
+          ...c,
+          isDataAvailable: false,
+          code: code,
+          validCode: false
+        }));
+        setCode("");
       }
       setIsFetching(false);
     }
   };
+
+  useEffect(() => {
+    if (!atnContext.validCode && code) {
+      setShowPopup(true);
+    }
+  }, [atnContext]);
+
+  const closePopup = () => {
+    if (!isPopoupClosing) {
+      setIsPopupClosing(true);
+      setPopupClassname("close");
+      setTimeout(() => {
+        setShowPopup(false);
+        setPopupClassname("");
+        setIsPopupClosing(false);
+      }, 300);
+    }
+  };
   return (
     <div className="cac_attendance cac_attendance--not-in-class">
-      {atnContext.isDataAvailable && <Redirect to={`/attendance/${code}`} />}
+      {atnContext.classData.isDataAvailable && (
+        <Redirect to={`/attendance/${code}`} />
+      )}
+      {showPopup && (
+        <TopPopup className={popupClassname} onClick={closePopup}>
+          Wrong Code
+        </TopPopup>
+      )}
       <form className="cac_attendance_form" onSubmit={handleSubmit}>
         <label htmlFor="code" className="cac_attendance_label">
           Enter Code
@@ -143,7 +85,11 @@ const AttendanceCode = () => {
           type="text"
           name="code"
           id="code"
-          className="cac_attendance_text-area"
+          className={`cac_attendance_text-area ${
+            atnContext.classData.validCode
+              ? ""
+              : "cac_attendance_text-area--invalid"
+          }`}
           required
           value={code}
           onChange={handleTextChange}

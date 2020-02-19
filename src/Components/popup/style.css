@@ -7,7 +7,43 @@
   background-color: rgb(46, 46, 46, 0.3);
   z-index: 200;
   display: flex;
-
   align-items: center;
   justify-content: center;
+}
+
+.cac_popup-top {
+  width: 30rem;
+  text-align: center;
+  padding: 1.6rem;
+  font-weight: 500;
+  color:rgb(49, 49, 49);
+  font-size:  2rem;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100%);
+  background-color: #FFE3E0;
+  border-bottom: 3px solid #EA5C40;
+  border-radius: 0.3rem;
+  z-index: 100;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgb(46, 46, 46, 0.6);
+  transition: all .2s;
+  filter: opacity(100);
+  animation-duration: .5s;
+  animation-name: slidein;
+  animation-fill-mode: forwards;  
+}
+
+.cac_popup-top.close{
+  filter:opacity(0)
+}
+
+@keyframes slidein {
+  from {
+    transform: translateX(-50%) translateY(-100%);
+  }
+  to {
+    transform: translateX(-50%) translateY(calc(0% + 2rem));
+  }
 }

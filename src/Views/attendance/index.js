@@ -19,7 +19,7 @@ const Attendance = props => {
   const { preview } = props;
 
   const classData = preview ? props.classData : atnContext.classData;
-  const { code } = props.match.params;
+  const { code } = props.match.params || classData;
 
   useEffect(() => {
     const pushData = async () => {
@@ -38,6 +38,7 @@ const Attendance = props => {
       setInList(true);
     };
     if (
+      !preview &&
       !inList &&
       classData.isDataAvailable &&
       !user.isLoading &&
@@ -50,44 +51,16 @@ const Attendance = props => {
   useEffect(() => {
     let destroyerFunction = () => null;
     if (!preview) {
-      if (
-        !atnContext.classData.isDataAvailable ||
-        code !== atnContext.classData.code
-      ) {
-        const fetchClass = async () => {
-          const classRef = firestore.doc(`class/${code}`);
-          const snapshot = await classRef.get();
-          if (snapshot.exists) {
-            atnContext.setClassData(c => ({
-              ...c,
-              isDataAvailable: true,
-              validCode: true,
-              code: code,
-              ...snapshot.data()
-            }));
-            destroyerFunction = classRef.onSnapshot(async snapshot => {
-              atnContext.setClassData(c => ({
-                ...c,
-                ...snapshot.data()
-              }));
-            });
-          } else {
-            atnContext.setClassData(c => ({
-              ...c,
-              isDataAvailable: false,
-              code: code,
-              validCode: false
-            }));
-            setRedirect("true");
-          }
-        };
-        fetchClass();
+      if (code !== classData.code) {
+        atnContext.setClassData(c => ({...c,code}));
+      } else {
+        if (!classData.validCode) {
+          setRedirect(true);
+        }
       }
     }
     return destroyerFunction;
-  }, [props.match.params, atnContext, preview, code]);
-
-  console.log(usersMap);
+  }, [code, user, classData, atnContext, preview]);
 
   return (
     <div className="cac_attendance cac_attendance--in-class">

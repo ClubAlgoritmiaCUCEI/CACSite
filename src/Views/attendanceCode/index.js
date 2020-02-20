@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 // eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Redirect } from "react-router-dom";
-import { firestore } from "../../firebase";
 
 import Button, { FormButton } from "../../Components/button";
 import { TopPopup } from "../../Components/popup";
@@ -13,7 +12,6 @@ import "./style.css";
 const AttendanceCode = () => {
   const atnContext = useContext(AttendanceContext);
   const [code, setCode] = useState(atnContext.classData.code);
-  const [isFetching, setIsFetching] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [isPopoupClosing, setIsPopupClosing] = useState(false);
   const [popupClassname, setPopupClassname] = useState("");
@@ -24,37 +22,17 @@ const AttendanceCode = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    if (!isFetching) {
-      setIsFetching(true);
-      const classRef = firestore.doc(`class/${code}`);
-      const snapshot = await classRef.get();
-      if (snapshot.exists) {
-        closePopup();
-        atnContext.setClassData(c => ({
-          ...c,
-          isDataAvailable: true,
-          validCode: true,
-          code: code,
-          ...snapshot.data()
-        }));
-      } else {
-        atnContext.setClassData(c => ({
-          ...c,
-          isDataAvailable: false,
-          code: code,
-          validCode: false
-        }));
-        setCode("");
-      }
-      setIsFetching(false);
+    if (!atnContext.fetching) {
+      atnContext.setClassData(c => ({ ...c, code: code }));
     }
   };
 
   useEffect(() => {
-    if (!atnContext.validCode && code) {
+    if (!atnContext.validCode && code && !atnContext.fetching) {
+      console.log(atnContext);
       setShowPopup(true);
     }
-  }, [atnContext]);
+  }, [atnContext.valieCode, atnContext.fetching]);
 
   const closePopup = () => {
     if (!isPopoupClosing) {

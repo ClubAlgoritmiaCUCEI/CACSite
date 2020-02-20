@@ -38,6 +38,8 @@ const UserProvider = ({ children }) => {
                       setUser(u => ({
                         ...data.result[0],
                         ...u,
+                        logged: true,
+                        isLoading: false,
                         isCFLoading: false
                       }));
                     });
@@ -45,6 +47,11 @@ const UserProvider = ({ children }) => {
                   console.error("Error fetching data from Code Forces");
                   console.error(e);
                 }
+              } else {
+                setUser(u => ({
+                  ...u,
+                  isCFLoading: false
+                }));
               }
             }
           } catch (e) {
@@ -68,10 +75,12 @@ export const AllUsersProvider = ({ children }) => {
     isLoading: true,
     users: [],
     isCFLoading: true,
-    usersWithCFAccount: []
+    usersWithCFAccount: [],
+    usersMap: {}
   });
 
   useEffect(() => {
+    const usersMap = {};
     const fetchData = async () => {
       const fetchedUsers = [];
       //// fetch users from firebase
@@ -81,6 +90,7 @@ export const AllUsersProvider = ({ children }) => {
         .then(querySnapshot => {
           for (let i = 0; i < querySnapshot.size; i++) {
             const doc = querySnapshot.docs[i];
+            usersMap[doc.id] = doc.data();
             fetchedUsers.push({
               id: doc.id,
               ...doc.data(),
@@ -107,15 +117,16 @@ export const AllUsersProvider = ({ children }) => {
             ...user
           }));
           const usersCopy = fetchedUsers;
-          usersOnlyWithCFMaped.forEach(
-            user =>
-              (usersCopy[user.index] = { ...usersCopy[user.index], ...user })
-          );
+          usersOnlyWithCFMaped.forEach(user => {
+            usersMap[user.id] = { ...usersMap[user.id], ...user };
+            usersCopy[user.index] = { ...usersCopy[user.index], ...user };
+          });
           setUsers(c => ({
             ...c,
             users: usersCopy,
             isCFLoading: false,
-            usersWithCFAccount: usersOnlyWithCFMaped
+            usersWithCFAccount: usersOnlyWithCFMaped,
+            usersMap: usersMap
           }));
         });
     };

@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 // eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Redirect } from "react-router-dom";
-import { firestore } from "../../firebase";
+import { firebase, firestore } from "../../firebase";
 
 import { AttendanceContext } from "../../Providers/attendanceProvider";
+import { UserContext, AllUsersContext } from "../../Providers/userProvider";
 
 import UserBox from "../../Components/user-box";
 
@@ -11,13 +12,44 @@ import "./style.css";
 
 const Attendance = props => {
   const atnContext = useContext(AttendanceContext);
+  const user = useContext(UserContext);
+  const { usersMap } = useContext(AllUsersContext);
   const [redirect, setRedirect] = useState(false);
+  const [inList, setInList] = useState(false);
   const { preview } = props;
-  console.log(props);
+
+  const classData = preview ? props.classData : atnContext.classData;
+  const { code } = props.match.params;
 
   useEffect(() => {
+    const pushData = async () => {
+      const classRef = firestore.doc(`class/${code}`);
+      if (
+        classData.attendances.find(attendance => attendance.id === user.uid) ===
+        undefined
+      ) {
+        await classRef.update({
+          attendances: firebase.firestore.FieldValue.arrayUnion({
+            id: user.uid,
+            displayName: user.displayName
+          })
+        });
+      }
+      setInList(true);
+    };
+    if (
+      !inList &&
+      classData.isDataAvailable &&
+      !user.isLoading &&
+      user.logged
+    ) {
+      pushData();
+    }
+  }, [inList, user, classData, code]);
+
+  useEffect(() => {
+    let destroyerFunction = () => null;
     if (!preview) {
-      const { code } = props.match.params;
       if (
         !atnContext.classData.isDataAvailable ||
         code !== atnContext.classData.code
@@ -33,6 +65,12 @@ const Attendance = props => {
               code: code,
               ...snapshot.data()
             }));
+            destroyerFunction = classRef.onSnapshot(async snapshot => {
+              atnContext.setClassData(c => ({
+                ...c,
+                ...snapshot.data()
+              }));
+            });
           } else {
             atnContext.setClassData(c => ({
               ...c,
@@ -46,9 +84,10 @@ const Attendance = props => {
         fetchClass();
       }
     }
-  }, [props.match.params, atnContext, preview]);
+    return destroyerFunction;
+  }, [props.match.params, atnContext, preview, code]);
 
-  const classData = preview ? props.classData : atnContext.classData;
+  console.log(usersMap);
 
   return (
     <div className="cac_attendance cac_attendance--in-class">
@@ -67,7 +106,7 @@ const Attendance = props => {
               <UserBox
                 key={i}
                 className="cac_attendance_speaker_user-box"
-                user={speaker}
+                user={usersMap[speaker.id] || speaker}
               />
             ))}
           </div>
@@ -78,8 +117,12 @@ const Attendance = props => {
             </p>
           </div>
           <div className="cac_attendance_attendant-container">
-            {classData.attendances.map((at, i) => (
-              <UserBox key={i} className="cac_attendance_attendant" user={at} />
+            {classData.attendances.map((attendant, i) => (
+              <UserBox
+                key={i}
+                className="cac_attendance_attendant"
+                user={usersMap[attendant.id] || attendant}
+              />
             ))}
           </div>
         </div>

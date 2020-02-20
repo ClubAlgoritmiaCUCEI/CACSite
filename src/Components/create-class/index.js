@@ -46,8 +46,8 @@ const CreateClass = ({ preview }) => {
   const [description, setDescription] = useState("");
   const [code, setCode] = useState("");
   const [speakers, setSpeakers] = useState([]);
-  const [popupOpen, setPopupOpen] = useState(false);
   const [isSubmiting, setIsSubmiting] = useState(false);
+  const [popupOpen, setPopupOpen] = useState(false);
 
   const handlePostButton = async () => {
     if (!isSubmiting) {

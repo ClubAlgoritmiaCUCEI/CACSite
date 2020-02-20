@@ -7,6 +7,9 @@ import { AttendanceContext } from "../../Providers/attendanceProvider";
 import { UserContext, AllUsersContext } from "../../Providers/userProvider";
 
 import UserBox from "../../Components/user-box";
+import Button from "../../Components/button";
+import Popup from "../../Components/popup";
+import SelectUsers from "../../Components/select-users";
 
 import "./style.css";
 
@@ -16,6 +19,7 @@ const Attendance = props => {
   const { usersMap } = useContext(AllUsersContext);
   const [redirect, setRedirect] = useState(false);
   const [inList, setInList] = useState(false);
+  const [popupOpen, setPopupOpen] = useState(false);
   const { preview } = props;
 
   const classData = preview ? props.classData : atnContext.classData;
@@ -52,7 +56,7 @@ const Attendance = props => {
     let destroyerFunction = () => null;
     if (!preview) {
       if (code !== classData.code) {
-        atnContext.setClassData(c => ({...c,code}));
+        atnContext.setClassData(c => ({ ...c, code }));
       } else {
         if (!classData.validCode) {
           setRedirect(true);
@@ -62,9 +66,28 @@ const Attendance = props => {
     return destroyerFunction;
   }, [code, user, classData, atnContext, preview]);
 
+  const handleConfirm = async users => {
+    setPopupOpen(false);
+    const classRef = firestore.doc(`class/${code}`);
+    await classRef.update({
+      attendances: firebase.firestore.FieldValue.arrayUnion(
+        ...users.map(user => ({ id: user.id, displayName: user.displayName }))
+      )
+    });
+    console.log("???");
+  };
+
   return (
     <div className="cac_attendance cac_attendance--in-class">
       {redirect && <Redirect to="/attendance" />}
+      {popupOpen && (
+        <Popup>
+          <SelectUsers
+            close={() => setPopupOpen(false)}
+            handleConfirm={handleConfirm}
+          />
+        </Popup>
+      )}
       {(classData.isDataAvailable || preview) && (
         <div className="cac_attendance_class">
           <h3 className="cac_attendance_title">{classData.title}</h3>
@@ -100,6 +123,9 @@ const Attendance = props => {
           </div>
         </div>
       )}
+      <Button className="cac_attendance_add" onClick={() => setPopupOpen(true)}>
+        Add people
+      </Button>
     </div>
   );
 };

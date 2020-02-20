@@ -32,7 +32,7 @@ const AttendanceCode = () => {
       console.log(atnContext);
       setShowPopup(true);
     }
-  }, [atnContext.valieCode, atnContext.fetching]);
+  }, [atnContext.validCode, atnContext.fetching]);
 
   const closePopup = () => {
     if (!isPopoupClosing) {

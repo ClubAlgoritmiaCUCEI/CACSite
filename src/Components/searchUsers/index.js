@@ -8,7 +8,6 @@ import "./style.css";
 const SearchUsers = ({ handleUserClick }) => {
   const allUsers = useContext(AllUsersContext);
   const [displayName, setDisplayName] = useState("");
-  const [selected, setSelected] = useState([]);
   const [canFilter, setCanFilter] = useState(true);
   const [match, setMatch] = useState([]);
   const [lastQuery, setLastQuery] = useState();

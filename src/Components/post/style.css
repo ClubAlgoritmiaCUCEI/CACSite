@@ -1,0 +1,67 @@
+.cac_post{
+  display: grid;
+  grid-template-rows: min-content;
+  gap: 1rem;
+}
+
+.cac_post:not(:last-child){
+  margin-bottom: 4rem;
+}
+
+.cac_post_heading{
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  gap:1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.cac_post_heading_photo{
+  width: 6rem;
+  height: 6rem;
+  border-radius: .5rem;
+}
+
+.cac_post_text-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.cac_post_title{
+  font-size: 2.4rem;
+  font-weight: 600;
+  line-height: 2rem;
+}
+
+.cac_post_author{
+  font-size: 1.6rem;
+  line-height: 1.8rem;
+}
+.cac_post_date{
+  font-size: 1.2rem;
+  font-weight: 600;
+  color:rgb(46, 46, 46);
+}
+
+.cac_post_content{
+  margin-left:1rem;
+  border-left: .2rem solid #a0c0d2;
+  padding-left: 1rem;
+}
+
+.cac_post pre {
+  border-left: 2px solid #a0c0d2;
+  font-size: 1.6rem;
+  padding-top: .5rem !important;
+  padding-bottom: .5rem !important;
+  padding-left: 1rem !important;
+  margin-left: 1rem !important;
+}
+
+.cac_post_content{
+  font-size: 1.6rem;
+}
+
+.cac_post_content ul {
+  margin-left: 3rem;
+}

@@ -50,7 +50,7 @@ const Attendance = props => {
     ) {
       pushData();
     }
-  }, [inList, user, classData, code]);
+  }, [inList, user, classData, code, preview]);
 
   useEffect(() => {
     let destroyerFunction = () => null;

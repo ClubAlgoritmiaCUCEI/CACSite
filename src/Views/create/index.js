@@ -9,6 +9,7 @@ import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 
 import CreateClass from "../../Components/create-class";
+import CreatePost from '../../Components/create-post';
 import Button from "../../Components/button";
 
 import "./style.css";
@@ -31,7 +32,7 @@ const Create = props => {
     setRedirect(true);
   };
 
-  useEffect(() => {}, [props]);
+  useEffect(() => { }, [props]);
 
   const handlePreviewClick = () => {
     setPreview(!preview);
@@ -56,6 +57,7 @@ const Create = props => {
         {redirect && <Redirect to={path} />}
       </div>
       {match.params.cid === "class" && <CreateClass preview={preview} />}
+      {match.params.cid === "homePost" && <CreatePost preview={preview} />}
     </div>
   );
 };

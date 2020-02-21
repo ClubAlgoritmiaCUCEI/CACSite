@@ -43,7 +43,7 @@
   color: white;
 }
 
-.cac_create_post {
+.cac_create_post_button {
   grid-area: post;
   width: 16rem;
   background-color: #4a79c6;

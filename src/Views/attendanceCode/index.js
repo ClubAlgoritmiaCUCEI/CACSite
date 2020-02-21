@@ -29,10 +29,9 @@ const AttendanceCode = () => {
 
   useEffect(() => {
     if (!atnContext.validCode && code && !atnContext.fetching) {
-      console.log(atnContext);
       setShowPopup(true);
     }
-  }, [atnContext.validCode, atnContext.fetching]);
+  }, [atnContext.validCode, atnContext.fetching, code]);
 
   const closePopup = () => {
     if (!isPopoupClosing) {
@@ -67,7 +66,7 @@ const AttendanceCode = () => {
             atnContext.classData.validCode
               ? ""
               : "cac_attendance_text-area--invalid"
-          }`}
+            }`}
           required
           value={code}
           onChange={handleTextChange}

@@ -5,7 +5,7 @@ import { firestore } from "../../firebase";
 import Button from "../button";
 import SelectUsers from "../select-users";
 import UserBox from "../user-box";
-import Popup from "../popup";
+import Popup, { TopPopup } from "../popup";
 import Attendance from "../../Views/attendance";
 
 import { generateRandomCode } from "../../utilities";
@@ -48,40 +48,74 @@ const CreateClass = ({ preview }) => {
   const [speakers, setSpeakers] = useState([]);
   const [isSubmiting, setIsSubmiting] = useState(false);
   const [popupOpen, setPopupOpen] = useState(false);
+  const [alert, setAlert] = useState({
+    open: false,
+    description: "",
+    type: ""
+  });
 
   const handlePostButton = async () => {
     if (!isSubmiting) {
-      setIsSubmiting(true);
-      const classData = {
-        title,
-        date,
-        description,
-        code,
-        speakers: speakers.map(speaker => ({
-          id: speaker.id,
-          displayName: speaker.displayName
-        })),
-        attendances: []
-      };
+      if (title && code && date && description && speakers.length > 0) {
+        setIsSubmiting(true);
+        const classData = {
+          title,
+          date,
+          description,
+          code,
+          speakers: speakers.map(speaker => ({
+            id: speaker.id,
+            displayName: speaker.displayName
+          })),
+          attendances: []
+        };
 
-      console.log(classData);
-      const classRef = firestore.doc(`class/${code}`);
-      const snapshot = await classRef.get();
-      if (!snapshot.exists) {
-        try {
-          await classRef.set(classData);
-        } catch (err) {
-          console.error("Error creating class", err.mesage);
+        const classRef = firestore.doc(`class/${code}`);
+        const snapshot = await classRef.get();
+        if (!snapshot.exists) {
+          try {
+            await classRef.set(classData);
+            setAlert({
+              open: true,
+              description: "Class created successfully",
+              type: "success"
+            });
+            setTitle("");
+            setDate("");
+            setCode("");
+            setSpeakers([]);
+          } catch (err) {
+            console.error("Error creating class", err.mesage);
+          }
+        } else {
+          setAlert({
+            open: true,
+            description: "Code is already in use",
+            type: "error"
+          });
         }
+        setIsSubmiting(false);
       } else {
-        alert("Code is already in use!");
+        setAlert({
+          open: true,
+          description: "Fill all the inputs",
+          type: "error"
+        });
       }
     }
-    setIsSubmiting(false);
+  };
+
+  const closeAlert = () => {
+    setAlert({ open: false });
   };
 
   return (
     <>
+      {alert.open && (
+        <TopPopup onClick={closeAlert} className={alert.type}>
+          {alert.description}
+        </TopPopup>
+      )}
       {preview ? (
         <Attendance
           preview={true}

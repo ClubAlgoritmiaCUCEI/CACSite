@@ -56,6 +56,7 @@
 
 .cac_create_section {
   margin-bottom: 1rem;
+
 }
 
 .cac_create_input {
@@ -89,7 +90,6 @@
   resize: vertical;
   border-radius: 0.3rem;
   display: block;
-  transition: all 0.2s;
   min-height: 8rem;
 }
 

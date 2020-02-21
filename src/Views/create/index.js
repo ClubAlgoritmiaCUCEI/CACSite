@@ -20,11 +20,11 @@ const Create = props => {
   const [preview, setPreview] = useState(false);
 
   const sections = [
-    { value: "class", label: "Class" },
-    { value: "weeklyProblem", label: "Weekly problem" },
-    { value: "editorial", label: "Editorial" },
     { value: "homePost", label: "Home Post" },
-    { value: "Announcement", label: "Announcement" }
+    { value: "class", label: "Class" },
+    { value: "Announcement", label: "Announcement" },
+    { value: "weeklyProblem", label: "Weekly problem" },
+    { value: "editorial", label: "Editorial" }
   ];
 
   const onChange = e => {

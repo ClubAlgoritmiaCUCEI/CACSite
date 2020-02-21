@@ -16,27 +16,36 @@
   text-align: center;
   padding: 1.6rem;
   font-weight: 500;
-  color:rgb(49, 49, 49);
-  font-size:  2rem;
+  color: rgb(49, 49, 49);
+  font-size: 2rem;
   position: fixed;
   top: 0;
   left: 50%;
   transform: translateX(-50%) translateY(-100%);
-  background-color: #FFE3E0;
-  border-bottom: 3px solid #EA5C40;
+  background-color: #dfdfdf;
+  border-bottom: 3px solid #3a3a3a;
   border-radius: 0.3rem;
   z-index: 100;
   cursor: pointer;
   box-shadow: 0 0 5px rgb(46, 46, 46, 0.6);
-  transition: all .2s;
+  transition: all 0.2s;
   filter: opacity(100);
-  animation-duration: .5s;
+  animation-duration: 0.5s;
   animation-name: slidein;
-  animation-fill-mode: forwards;  
+  animation-fill-mode: forwards;
 }
 
-.cac_popup-top.close{
-  filter:opacity(0)
+.cac_popup-top.error {
+  background-color: #ffe3e0;
+  border-bottom: 3px solid #ea5c40;
+}
+
+.cac_popup-top.success {
+  background-color: #B5EBCC;
+  border-bottom: 3px solid #1BB56A;
+}
+.cac_popup-top.close {
+  filter: opacity(0);
 }
 
 @keyframes slidein {

@@ -2,11 +2,9 @@
   display: grid;
   grid-template-rows: min-content;
   gap: 1rem;
-}
-
-.cac_post:not(:last-child){
   margin-bottom: 4rem;
 }
+
 
 .cac_post_heading{
   display: grid;
@@ -30,7 +28,7 @@
 .cac_post_title{
   font-size: 2.4rem;
   font-weight: 600;
-  line-height: 2rem;
+  line-height: 2.2rem;
 }
 
 .cac_post_author{
@@ -46,22 +44,23 @@
 .cac_post_content{
   margin-left:1rem;
   border-left: .2rem solid #a0c0d2;
-  padding-left: 1rem;
+  padding-left: 2rem;
+  
 }
 
 .cac_post pre {
-  border-left: 2px solid #a0c0d2;
-  font-size: 1.6rem;
+  border-top: 2px solid #a0c0d2;
+  border-bottom: 2px solid #a0c0d2;
+
+  background-color: rgb(250, 250, 250) !important;
+  font-size: 1.6rem !important;
   padding-top: .5rem !important;
   padding-bottom: .5rem !important;
   padding-left: 1rem !important;
-  margin-left: 1rem !important;
+  margin-left: 2rem !important;
+  margin-right: 2rem !important;
 }
 
 .cac_post_content{
   font-size: 1.6rem;
-}
-
-.cac_post_content ul {
-  margin-left: 3rem;
 }

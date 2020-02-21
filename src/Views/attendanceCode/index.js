@@ -28,10 +28,15 @@ const AttendanceCode = () => {
   };
 
   useEffect(() => {
-    if (!atnContext.validCode && code && !atnContext.fetching) {
+    if (
+      !atnContext.classData.validCode &&
+      code &&
+      !atnContext.classData.fetching
+    ) {
+      console.log(atnContext);
       setShowPopup(true);
     }
-  }, [atnContext.validCode, atnContext.fetching, code]);
+  }, [atnContext.classData.validCode, atnContext.classData.fetching]);
 
   const closePopup = () => {
     if (!isPopoupClosing) {
@@ -50,7 +55,7 @@ const AttendanceCode = () => {
         <Redirect to={`/attendance/${code}`} />
       )}
       {showPopup && (
-        <TopPopup className={popupClassname} onClick={closePopup}>
+        <TopPopup className={`${popupClassname} error`} onClick={closePopup}>
           Wrong Code
         </TopPopup>
       )}
@@ -66,7 +71,7 @@ const AttendanceCode = () => {
             atnContext.classData.validCode
               ? ""
               : "cac_attendance_text-area--invalid"
-            }`}
+          }`}
           required
           value={code}
           onChange={handleTextChange}

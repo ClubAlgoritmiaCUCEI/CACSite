@@ -2,21 +2,24 @@ import React from "react";
 
 import ReactMarkdown from "react-markdown";
 import htmlParser from "react-markdown/plugins/html-parser";
+import TimeAgo from "react-timeago";
 
 import CodeBlock from "../code-block";
 import ColoredName from "../colored-name";
 
 import DefaultPhoto from "../../assets/default-photo.jpg";
-import "github-markdown-css";
+import HeartFilled from "../../assets/heart-outline.svg";
 
 import "./style.css";
+import "github-markdown-css";
 
 const parseHtml = htmlParser({
   isValidNode: node => node.type !== "script"
 });
 
-const Post = ({ data }) => {
-  const { author } = data;
+const Post = ({ user, data, allUsers, preview = false }) => {
+  let { author } = data;
+  author = allUsers[author.id] || author;
   return (
     <div className="cac_post">
       <div className="cac_post_heading">
@@ -30,7 +33,11 @@ const Post = ({ data }) => {
           <ColoredName className="cac_post_author" rank={author.rank}>
             {author.displayName}
           </ColoredName>
-          <span className="cac_post_date">{data.date}</span>
+          {preview ? (
+            <span className="cac_post_date">{data.date}</span>
+          ) : (
+            <TimeAgo className="cac_post_date" date={data.timestamp.toDate()} />
+          )}
         </div>
       </div>
       <ReactMarkdown

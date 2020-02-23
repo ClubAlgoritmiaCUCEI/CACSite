@@ -1,34 +1,40 @@
 .cac_side {
+  position: sticky;
   grid-area: side;
   border-left: 1.5px solid #a0c0d2;
-  
+
   /* padding-left: 1rem; */
   box-sizing: border-box;
-  padding-left: .1rem;
+  padding-left: 0.1rem;
   padding-top: 1rem;
   z-index: 1;
 }
-.cac_side_section{
+.cac_side_sections{
+  position: sticky;
+  top:1rem;
+}
+.cac_side_section {
+  position: relative;
   padding: 1rem;
   border-radius: 3px;
-  transition: all .2s;
+  transition: all 0.2s;
   position: relative;
   padding-bottom: 2rem;
   z-index: 0;
 }
 
-.cac_side_section::after{
+.cac_side_section::after {
   content: "";
-  width:90%;
-  height: .2rem;
+  width: 90%;
+  height: 0.2rem;
   position: absolute;
-  top:100%;
-  left:50%;
-  transform: translate(-50%,-50%);
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: #a0c0d2;
   z-index: 10000;
-  transition: all .2s;
+  transition: all 0.2s;
 }
-.cac_side_section:hover::after{
-  width:100%;
+.cac_side_section:hover::after {
+  width: 100%;
 }

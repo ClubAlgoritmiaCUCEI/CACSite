@@ -9,19 +9,21 @@ import "./style.css";
 const Side = ({ className }) => {
   const user = useContext(UserContext);
   const allUsers = useContext(AllUsersContext);
-  
+
   return (
-    <div className={`cac_side ${className}`}>
-      {!user.isLoading && user.logged ? (
-        <div className="cac_side_section">
-          <UserSide user={user} />
-        </div>
-      ) : null}
-      {!allUsers.isLoading && (
-        <div className="cac_side_section">
-          <TopRatedSide allUsers={allUsers} />
-        </div>
-      )}
+    <div className={`cac_side ${className || ""}`}>
+      <div className="cac_side_sections">
+        {!user.isLoading && user.logged ? (
+          <div className="cac_side_section">
+            <UserSide user={user} />
+          </div>
+        ) : null}
+        {!allUsers.isLoading && (
+          <div className="cac_side_section">
+            <TopRatedSide allUsers={allUsers} />
+          </div>
+        )}
+      </div>
     </div>
   );
 };

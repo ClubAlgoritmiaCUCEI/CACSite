@@ -17,17 +17,18 @@
 .cac_user-interface {
   display: flex;
   align-items: center;
+  position: relative;
 }
-.cac_user-interface > *:not(:last-child) {
-  margin-right: 1.6rem;
+.cac_user-interface > *:not(:first-child) {
+  margin-left: 1.6rem;
 }
-.cac_header_user-photo{
-  width:2.3rem;
+.cac_header_user-photo {
+  width: 2.3rem;
   height: 2.3rem;
   border-radius: 10rem;
 }
 
-.cac_header_user-photo:hover{
+.cac_header_user-photo:hover {
   cursor: pointer;
 }
 
@@ -45,13 +46,13 @@
   font-weight: 600;
   border-radius: 3px;
   box-shadow: 0px 0px 0px white;
-  transition: all .2s;
+  transition: all 0.2s;
 }
-.cac_header_button:hover{
+.cac_header_button:hover {
   cursor: pointer;
   box-shadow: 2px 2px 3px #989898;
 }
-.cac_header_button:active{
+.cac_header_button:active {
   box-shadow: 1px 1px 1px #989898;
 }
 .cac_header_sign-in {
@@ -61,5 +62,56 @@
 .cac_header_sign-up {
   background-color: #484848;
   border: 2px solid #484848;
+  color: white;
+}
+
+.cac_header_options {
+  margin-left: 0 !important;
+  position: absolute;
+  width: 20rem;
+  /* height: 20rem; */
+  background-color: rgb(252, 252, 252);
+  top: 100%;
+  left: 100%;
+  transform: translateX(-100%) translateY(1rem);
+  border-radius: 0.3rem;
+  padding: 0;
+  z-index: 100;
+  box-shadow: 0px 1px 2px rgb(54, 54, 54);
+  border: 1px solid rgb(143, 143, 143);
+  font-size: 1.6rem;
+}
+
+.cac_header_options::after {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  transform: translate(calc(-50% - 1.1rem), calc(-50% - 0.5px)) rotate(45deg);
+  z-index: -1;
+  border-left: 1px solid rgb(143, 143, 143);
+  border-top: 1px solid rgb(143, 143, 143);
+  background-color: rgb(248, 248, 248);
+}
+
+.cac_header_options-section {
+  padding: 0.5rem 0;
+}
+
+.cac_header_options-section:not(:last-child) {
+  border-bottom: 1px solid rgb(173, 173, 173);
+}
+.cac_header_option{
+  padding: .8rem 2rem;
+  transition: all .2s;
+  display: block;
+  text-decoration: none;
+  color:black;
+}
+.cac_header_option:hover{
+  cursor: pointer;
   color:white;
+  background-color: rgb(90, 90, 90);
 }

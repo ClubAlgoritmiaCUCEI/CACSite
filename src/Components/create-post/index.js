@@ -25,6 +25,9 @@ const CreatePost = ({ preview }) => {
       const postData = {
         title,
         content,
+        comments: [],
+        likesList: [],
+        likesCounter: 0,
         author: { id: user.uid, displayName: user.displayName },
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         key: Date.now()
@@ -63,11 +66,12 @@ const CreatePost = ({ preview }) => {
       {preview ? (
         <Post
           preview={true}
+          allUsers={{}}
           data={{
             title: title,
             author: user,
             content: content,
-            date: "0 seconds ago"
+            date: "just now"
           }}
         />
       ) : (

@@ -14,6 +14,7 @@ import Calendar from "./Views/calendar";
 import Attendance from "./Views/attendance";
 import AttendanceCode from "./Views/attendanceCode";
 import Create from "./Views/create";
+import Profile from './Views/profile';
 
 import UserProvider, { AllUsersProvider } from "./Providers/userProvider";
 import CalendarProvider from "./Providers/calendarProvider";
@@ -86,11 +87,7 @@ const App = () => {
                     <Route
                       exact={true}
                       path={"/profile"}
-                      render={({ match }) => (
-                        <DefaultView selection="home">
-                          <Home />
-                        </DefaultView>
-                      )}
+                      render={({ match }) => <Profile />}
                     />
                     <Route
                       exact={true}

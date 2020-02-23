@@ -2,10 +2,11 @@
   padding-top: 1rem;
   display: grid;
   grid-template-columns: 1fr 25rem;
-  grid-template-rows: 7rem 5rem 1fr;
+  grid-template-rows: 7rem 5rem max-content;
   row-gap: 1.6rem;
   grid-template-areas:
     "header header"
     "navigation side"
-    "main side";
+    "main side"
+    "footer footer";
 }

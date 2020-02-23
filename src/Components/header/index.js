@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef, useState, useEffect } from "react";
 
 // eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import { signOut } from "../../firebase";
 
 import { UserContext } from "../../Providers/userProvider";
 
@@ -14,8 +15,33 @@ import { ReactComponent as Search } from "../../assets/search-icon.svg";
 
 import "./style.css";
 
+const useOutsideAlerter = (ref, opener, handle) => {
+  const handleClickOutside = event => {
+    if (
+      ref.current &&
+      !ref.current.contains(event.target) &&
+      !opener.current.contains(event.target)
+    ) {
+      handle();
+    }
+  };
+
+  useEffect(() => {
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  });
+};
 const Header = () => {
   const user = useContext(UserContext);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const wrapperRef = useRef(null);
+  const wrapperOpenerRef = useRef(null);
+  useOutsideAlerter(wrapperRef, wrapperOpenerRef, () => setIsOpen(false));
 
   return (
     <div className="cac_header">
@@ -36,10 +62,31 @@ const Header = () => {
                 />
 
                 <img
+                  ref={wrapperOpenerRef}
+                  onClick={() => setIsOpen(!isOpen)}
                   src={user.photoURL}
                   alt="user"
                   className="cac_header_user-photo"
                 />
+                {isOpen && (
+                  <div className="cac_header_options" ref={wrapperRef}>
+                    <div className="cac_header_options-section">
+                      <Link to="/profile" className="cac_header_option">
+                        Your profile
+                      </Link>
+                      <div className="cac_header_option">Your likes</div>
+                    </div>
+                    <div className="cac_header_options-section">
+                      <div className="cac_header_option">Help</div>
+                      <div
+                        className="cac_header_option"
+                        onClick={() => signOut()}
+                      >
+                        Sign out
+                      </div>
+                    </div>
+                  </div>
+                )}
               </>
             ) : (
               <>

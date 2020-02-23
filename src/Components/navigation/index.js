@@ -2,7 +2,6 @@ import React from "react";
 // eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
-import Login from "../../Components/login";
 import "./style.css";
 
 const Navigation = props => {
@@ -53,9 +52,6 @@ const Navigation = props => {
       >
         Create
       </Link>
-      <div className="login">
-        <Login />
-      </div>
     </div>
   );
 };

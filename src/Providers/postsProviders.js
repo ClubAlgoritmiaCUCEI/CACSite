@@ -9,7 +9,10 @@ const PostsProvider = ({ children }) => {
   useEffect(() => {
     const init = async () => {
       const fetchedData = [];
-      const postsRef = firestore.collection("posts");
+      const postsRef = firestore
+        .collection("posts")
+        .orderBy("timestamp", "desc")
+        .limitToLast(10);
       const snapshot = await postsRef.get();
       snapshot.forEach(doc => {
         fetchedData.push(doc.data());
@@ -19,6 +22,7 @@ const PostsProvider = ({ children }) => {
     init();
   }, []);
 
+  useEffect(() => {});
   return (
     <PostsContext.Provider value={posts}>{children}</PostsContext.Provider>
   );

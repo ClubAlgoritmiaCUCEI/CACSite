@@ -8,7 +8,9 @@ import CodeBlock from "../code-block";
 import ColoredName from "../colored-name";
 
 import DefaultPhoto from "../../assets/default-photo.jpg";
-import HeartFilled from "../../assets/heart-outline.svg";
+import { ReactComponent as Heart } from "../../assets/heart.svg";
+import { ReactComponent as Comment } from "../../assets/chatbox.svg";
+import { ReactComponent as Bookmark } from "../../assets/bookmark.svg";
 
 import "./style.css";
 import "github-markdown-css";
@@ -39,7 +41,9 @@ const Post = ({ user, data, allUsers, preview = false }) => {
             <TimeAgo className="cac_post_date" date={data.timestamp.toDate()} />
           )}
         </div>
+        <div className="cac_post_icons"></div>
       </div>
+
       <ReactMarkdown
         className="cac_post_content markdown-body"
         source={data.content}
@@ -47,6 +51,20 @@ const Post = ({ user, data, allUsers, preview = false }) => {
         escapeHtml={false}
         astPlugins={[parseHtml]}
       />
+      <div className="cac_post_interaction">
+        <div className="cac_post_interaction-box">
+          <Heart className="cac_post_icon cac_post_heart" />
+          <span className="cac_post_interaction-label">Like</span>
+        </div>
+        <div className="cac_post_interaction-box">
+          <Comment className="cac_post_icon cac_post_comment" />
+          <span className="cac_post_interaction-label">Comment</span>
+        </div>
+        <div className="cac_post_interaction-box">
+          <Bookmark className="cac_post_icon cac_post_bookmark" />
+          <span className="cac_post_interaction-label">Save</span>
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,7 +1,6 @@
 .cac_side {
   position: sticky;
   grid-area: side;
-  border-left: 1.5px solid #a0c0d2;
 
   /* padding-left: 1rem; */
   box-sizing: border-box;
@@ -9,9 +8,9 @@
   padding-top: 1rem;
   z-index: 1;
 }
-.cac_side_sections{
+.cac_side_sections {
   position: sticky;
-  top:1rem;
+  top: 1rem;
 }
 .cac_side_section {
   position: relative;
@@ -21,20 +20,14 @@
   position: relative;
   padding-bottom: 2rem;
   z-index: 0;
+  background-color: #fff;
+  border-radius: 3px;
+  border: 1px solid rgb(216, 216, 216);
+  padding: 1rem;
+  box-shadow: 0 0 2px rgb(216, 216, 216);
+
 }
 
-.cac_side_section::after {
-  content: "";
-  width: 90%;
-  height: 0.2rem;
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #a0c0d2;
-  z-index: 10000;
-  transition: all 0.2s;
-}
-.cac_side_section:hover::after {
-  width: 100%;
+.cac_side_section:not(:last-child){
+  margin-bottom: 1rem;
 }

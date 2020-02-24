@@ -96,6 +96,8 @@ const createUserProfileDocument = async (user, aditionalData) => {
         displayName,
         photoURL,
         email,
+        likes: [],
+        saves: [],
         ...aditionalData
       });
     } catch (err) {

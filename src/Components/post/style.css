@@ -10,7 +10,7 @@
   box-shadow: 0 0 2px rgb(216, 216, 216);
   transition: all 0.2s;
 }
-.cac_post:hover {
+.cac_post--crop:hover {
   cursor: pointer;
   border: 1px solid rgb(180, 180, 180);
 }
@@ -53,15 +53,20 @@
 }
 
 .cac_post_content {
-  --max-height: 33rem;
   margin-left: 1rem;
   border-left: 0.2rem solid #a0c0d2;
   padding-left: 2rem;
+}
+.cac_post_content--crop {
+  --max-height: 33rem;
   max-height: var(--max-height);
   overflow: hidden;
   position: relative;
 }
-.cac_post_content::after {
+
+.cac_post_content--crop:hover {
+}
+.cac_post_content--crop::after {
   position: absolute;
   top: var(--max-height);
   left: 0;

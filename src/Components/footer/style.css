@@ -1,4 +1,21 @@
 .cac_footer {
   width: 100%;
-  height: 20rem;
+  font-style: 1.4rem;
+  padding: 3rem 0;
+}
+.cac_footer_text {
+  font-size: 1.4rem;
+  text-align: center;
+  color: rgb(34, 34, 34);
+}
+.cac_footer_text a {
+  color: rgb(74, 121, 198);
+  text-decoration: none;
+}
+.cac_footer_logo {
+  height: 4rem;
+  width: auto;
+  fill:rgb(48, 48, 48);
+  margin: 0 auto;
+  display: block;
 }

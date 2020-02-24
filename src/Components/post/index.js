@@ -19,11 +19,21 @@ const parseHtml = htmlParser({
   isValidNode: node => node.type !== "script"
 });
 
-const Post = ({ user, data, allUsers, preview = false }) => {
+const Post = ({
+  user,
+  data,
+  allUsers,
+  preview = false,
+  cropContent = false,
+  onClick = () => null
+}) => {
   let { author } = data;
   author = allUsers[author.id] || author;
   return (
-    <div className="cac_post">
+    <div
+      className={`cac_post ${cropContent ? "cac_post--crop" : ""}`}
+      onClick={onClick}
+    >
       <div className="cac_post_heading">
         <img
           src={author.photoURL || DefaultPhoto}
@@ -45,7 +55,9 @@ const Post = ({ user, data, allUsers, preview = false }) => {
       </div>
 
       <ReactMarkdown
-        className="cac_post_content markdown-body"
+        className={`cac_post_content markdown-body ${
+          cropContent ? "cac_post_content--crop" : ""
+        }`}
         source={data.content}
         renderers={{ code: CodeBlock }}
         escapeHtml={false}

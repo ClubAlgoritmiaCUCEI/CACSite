@@ -1,8 +1,9 @@
-import React, { useContext, useRef, useState, useEffect } from "react";
+import React, { useContext, useRef, useState } from "react";
 
 // eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import { signOut } from "../../firebase";
+import useOutsideAlerter from "../../Hooks/useOutsideAlerter";
 
 import { UserContext } from "../../Providers/userProvider";
 
@@ -15,33 +16,13 @@ import { ReactComponent as Search } from "../../assets/search-icon.svg";
 
 import "./style.css";
 
-const useOutsideAlerter = (ref, opener, handle) => {
-  const handleClickOutside = event => {
-    if (
-      ref.current &&
-      !ref.current.contains(event.target) &&
-      !opener.current.contains(event.target)
-    ) {
-      handle();
-    }
-  };
-
-  useEffect(() => {
-    // Bind the event listener
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      // Unbind the event listener on clean up
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  });
-};
 const Header = () => {
   const user = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false);
 
   const wrapperRef = useRef(null);
   const wrapperOpenerRef = useRef(null);
-  useOutsideAlerter(wrapperRef, wrapperOpenerRef, () => setIsOpen(false));
+  useOutsideAlerter(wrapperRef, () => setIsOpen(false), wrapperOpenerRef);
 
   return (
     <div className="cac_header">

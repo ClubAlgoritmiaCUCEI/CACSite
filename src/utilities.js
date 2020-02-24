@@ -1,3 +1,4 @@
+
 const parseMonth = month => {
   switch (month) {
     case 0:
@@ -43,3 +44,4 @@ const generateRandomCode = n => {
 };
 
 export { generateRandomCode };
+

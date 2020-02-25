@@ -31,14 +31,14 @@ const SignUp = () => {
   const dbUsers = useContext(AllUsersContext);
 
   const [form, setForm] = useState({
-    username: "erickborquez",
-    name: "erick",
-    lastName: "borquez",
-    email: "erickborquez@gmail.com",
-    password: "123456",
-    passwordConfirmation: "123456",
-    vjUsername: "erickborquez",
-    cfUsername: "erickborquez"
+    username: "",
+    name: "",
+    lastName: "",
+    email: "",
+    password: "",
+    passwordConfirmation: "",
+    vjUsername: "",
+    cfUsername: ""
   });
   const [confirmations, setConfirmations] = useState({
     arePasswordsEqual: true,

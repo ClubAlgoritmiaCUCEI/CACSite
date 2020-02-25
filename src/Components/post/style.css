@@ -113,13 +113,17 @@
 .cac_post_interaction-box:hover {
   cursor: pointer;
 }
-.cac_post_interaction-box:hover .cac_post_icon {
- 
-}
+
 .cac_post_interaction-label {
   font-size: 1.2rem;
   font-weight: 600;
   color: rgb(73, 73, 73);
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
 }
 .cac_post_icon {
   width: 2rem;
@@ -141,8 +145,15 @@
   stroke: currentColor;
   fill: white;
 }
+
+.cac_post_interaction-box--comment:hover .cac_post_comment {
+  fill: currentColor;
+}
 .cac_post_bookmark {
   color: #fad306;
   stroke: currentColor;
   fill: white;
+}
+.cac_post_bookmark--filled {
+  fill: currentColor;
 }

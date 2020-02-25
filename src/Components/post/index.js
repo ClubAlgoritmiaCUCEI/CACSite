@@ -32,6 +32,7 @@ const Post = ({
   let { author } = data;
   author = allUsers[author.id] || author;
   const [like, setLike] = useState(data.likesList.includes(user.uid));
+  const [saved, setSaved] = useState(user.saved.includes(data.id));
 
   const onLikeClick = e => {
     e.stopPropagation();
@@ -49,6 +50,24 @@ const Post = ({
       }
     };
     updateLike();
+  };
+
+  const onSaveClick = e => {
+    e.stopPropagation();
+    const updateSaves = async () => {
+      setSaved(!saved);
+      const userRef = firestore.doc(`users/${user.uid}`);
+      if (!saved) {
+        await userRef.update({
+          saved: firebase.firestore.FieldValue.arrayUnion(data.id)
+        });
+      } else {
+        await userRef.update({
+          saved: firebase.firestore.FieldValue.arrayRemove(data.id)
+        });
+      }
+    };
+    updateSaves();
   };
   return (
     <div
@@ -93,12 +112,16 @@ const Post = ({
           />
           <span className="cac_post_interaction-label">Like</span>
         </div>
-        <div className="cac_post_interaction-box">
+        <div className="cac_post_interaction-box cac_post_interaction-box--comment">
           <Comment className="cac_post_icon cac_post_comment" />
           <span className="cac_post_interaction-label">Comment</span>
         </div>
-        <div className="cac_post_interaction-box">
-          <Bookmark className={`cac_post_icon cac_post_bookmark ${""}`} />
+        <div className="cac_post_interaction-box" onClick={onSaveClick}>
+          <Bookmark
+            className={`cac_post_icon cac_post_bookmark ${
+              saved ? "cac_post_bookmark--filled" : ""
+            }`}
+          />
           <span className="cac_post_interaction-label">Save</span>
         </div>
       </div>

@@ -25,6 +25,7 @@ const CreatePost = ({ preview }) => {
       const postData = {
         title,
         content,
+        type: "home-post",
         comments: [],
         likesList: [],
         likesCounter: 0,

@@ -22,6 +22,7 @@ const UserProvider = ({ children }) => {
             const userDocument = await getUserDocument(userAuth);
             if (userDocument !== undefined) {
               setUser({
+                saved: [],
                 ...userDocument,
                 photoURL: userDocument.photoURL || defaultImage,
                 isLoading: false,
@@ -93,6 +94,7 @@ export const AllUsersProvider = ({ children }) => {
             usersMap[doc.id] = doc.data();
             fetchedUsers.push({
               id: doc.id,
+              saved: [],
               ...doc.data(),
               index: i
             });

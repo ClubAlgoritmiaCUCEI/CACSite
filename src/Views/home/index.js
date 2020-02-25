@@ -33,21 +33,24 @@ const Home = () => {
               data={postData}
               cropContent={false}
               showComments={true}
+              user={user}
             />
           </div>
         </div>
       )}
-      {posts.map((post, i) => (
-        <Post
-          user={user}
-          key={i}
-          data={post}
-          allUsers={allUsers.usersMap}
-          cropContent={true}
-          onClick={() => handlePostClick(post)}
-          showComments={false}
-        />
-      ))}
+
+      {!user.isLoading &&
+        posts.map((post, i) => (
+          <Post
+            user={user}
+            key={i}
+            data={post}
+            allUsers={allUsers.usersMap}
+            cropContent={true}
+            onClick={() => handlePostClick(post)}
+            showComments={false}
+          />
+        ))}
     </div>
   );
 };

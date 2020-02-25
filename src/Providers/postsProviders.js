@@ -15,7 +15,7 @@ const PostsProvider = ({ children }) => {
         .limitToLast(10);
       const snapshot = await postsRef.get();
       snapshot.forEach(doc => {
-        fetchedData.push(doc.data());
+        fetchedData.push({ id: doc.id, ...doc.data() });
       });
       setPosts(fetchedData);
     };

@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+
+import { firebase, firestore } from "../../firebase";
 
 import ReactMarkdown from "react-markdown";
 import htmlParser from "react-markdown/plugins/html-parser";
@@ -29,6 +31,25 @@ const Post = ({
 }) => {
   let { author } = data;
   author = allUsers[author.id] || author;
+  const [like, setLike] = useState(data.likesList.includes(user.uid));
+
+  const onLikeClick = e => {
+    e.stopPropagation();
+    const updateLike = async () => {
+      setLike(!like);
+      const postRef = firestore.doc(`posts/${data.id}`);
+      if (!like) {
+        await postRef.update({
+          likesList: firebase.firestore.FieldValue.arrayUnion(user.uid)
+        });
+      } else {
+        await postRef.update({
+          likesList: firebase.firestore.FieldValue.arrayRemove(user.uid)
+        });
+      }
+    };
+    updateLike();
+  };
   return (
     <div
       className={`cac_post ${cropContent ? "cac_post--crop" : ""}`}
@@ -64,8 +85,12 @@ const Post = ({
         astPlugins={[parseHtml]}
       />
       <div className="cac_post_interaction">
-        <div className="cac_post_interaction-box">
-          <Heart className="cac_post_icon cac_post_heart" />
+        <div className="cac_post_interaction-box" onClick={onLikeClick}>
+          <Heart
+            className={`cac_post_icon cac_post_heart ${
+              like ? "cac_post_heart--filled" : ""
+            }`}
+          />
           <span className="cac_post_interaction-label">Like</span>
         </div>
         <div className="cac_post_interaction-box">
@@ -73,7 +98,7 @@ const Post = ({
           <span className="cac_post_interaction-label">Comment</span>
         </div>
         <div className="cac_post_interaction-box">
-          <Bookmark className="cac_post_icon cac_post_bookmark" />
+          <Bookmark className={`cac_post_icon cac_post_bookmark ${""}`} />
           <span className="cac_post_interaction-label">Save</span>
         </div>
       </div>

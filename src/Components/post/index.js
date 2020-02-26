@@ -29,11 +29,11 @@ const Post = ({
   cropContent = false,
   onClick = () => null
 }) => {
+  console.log(user);
   let { author } = data;
   author = allUsers[author.id] || author;
-  const [like, setLike] = useState(data.likesList.includes(user.uid));
-  const [saved, setSaved] = useState(user.saved.includes(data.id));
-
+  const [like, setLike] = useState(!preview && user.logged && data.likesList.includes(user.uid));
+  const [saved, setSaved] = useState(!preview && user.logged && user.saved.includes(data.id));
   const onLikeClick = e => {
     e.stopPropagation();
     const updateLike = async () => {
@@ -49,7 +49,11 @@ const Post = ({
         });
       }
     };
-    updateLike();
+    if (!preview && user.logged) {
+      updateLike();
+    } else {
+      alert("You need to sign in to like posts");
+    }
   };
 
   const onSaveClick = e => {
@@ -67,7 +71,11 @@ const Post = ({
         });
       }
     };
-    updateSaves();
+    if (!preview && user.logged) {
+      updateSaves();
+    } else {
+      alert("you need to sign in to save posts");
+    }
   };
   return (
     <div
@@ -88,8 +96,8 @@ const Post = ({
           {preview ? (
             <span className="cac_post_date">{data.date}</span>
           ) : (
-            <TimeAgo className="cac_post_date" date={data.timestamp.toDate()} />
-          )}
+              <TimeAgo className="cac_post_date" date={data.timestamp.toDate()} />
+            )}
         </div>
         <div className="cac_post_icons"></div>
       </div>
@@ -97,7 +105,7 @@ const Post = ({
       <ReactMarkdown
         className={`cac_post_content markdown-body ${
           cropContent ? "cac_post_content--crop" : ""
-        }`}
+          }`}
         source={data.content}
         renderers={{ code: CodeBlock }}
         escapeHtml={false}
@@ -108,7 +116,7 @@ const Post = ({
           <Heart
             className={`cac_post_icon cac_post_heart ${
               like ? "cac_post_heart--filled" : ""
-            }`}
+              }`}
           />
           <span className="cac_post_interaction-label">Like</span>
         </div>
@@ -120,7 +128,7 @@ const Post = ({
           <Bookmark
             className={`cac_post_icon cac_post_bookmark ${
               saved ? "cac_post_bookmark--filled" : ""
-            }`}
+              }`}
           />
           <span className="cac_post_interaction-label">Save</span>
         </div>

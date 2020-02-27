@@ -8,6 +8,8 @@ import TimeAgo from "react-timeago";
 
 import CodeBlock from "../code-block";
 import ColoredName from "../colored-name";
+import Commentary from "../comentary";
+import Button from "../button";
 
 import DefaultPhoto from "../../assets/default-photo.jpg";
 import { ReactComponent as Heart } from "../../assets/heart.svg";
@@ -27,13 +29,20 @@ const Post = ({
   allUsers,
   preview = false,
   cropContent = false,
+  showCommentaries = false,
   onClick = () => null
 }) => {
-  console.log(user);
   let { author } = data;
   author = allUsers[author.id] || author;
-  const [like, setLike] = useState(!preview && user.logged && data.likesList.includes(user.uid));
-  const [saved, setSaved] = useState(!preview && user.logged && user.saved.includes(data.id));
+  const [like, setLike] = useState(
+    !preview && user.logged && data.likesList.includes(user.uid)
+  );
+  const [saved, setSaved] = useState(
+    !preview && user.logged && user.saved.includes(data.id)
+  );
+  const [publishingCommentary, setPublishingCommentary] = useState(false);
+  const [textValue, setTextValue] = useState("");
+
   const onLikeClick = e => {
     e.stopPropagation();
     const updateLike = async () => {
@@ -77,6 +86,24 @@ const Post = ({
       alert("you need to sign in to save posts");
     }
   };
+
+  const publishCommentary = () => {
+    const publish = async () => {
+      setPublishingCommentary(true);
+      const postRef = firestore.doc(`posts/${data.id}`);
+      const commentContent = {
+        author: user.uid,
+        content: textValue,
+        date: new Date()
+      };
+      await postRef.update({
+        comments: firebase.firestore.FieldValue.arrayUnion(commentContent)
+      });
+      setPublishingCommentary(false);
+      setTextValue("");
+    };
+    if (!publishingCommentary && textValue) publish();
+  };
   return (
     <div
       className={`cac_post ${cropContent ? "cac_post--crop" : ""}`}
@@ -96,8 +123,8 @@ const Post = ({
           {preview ? (
             <span className="cac_post_date">{data.date}</span>
           ) : (
-              <TimeAgo className="cac_post_date" date={data.timestamp.toDate()} />
-            )}
+            <TimeAgo className="cac_post_date" date={data.timestamp.toDate()} />
+          )}
         </div>
         <div className="cac_post_icons"></div>
       </div>
@@ -105,7 +132,7 @@ const Post = ({
       <ReactMarkdown
         className={`cac_post_content markdown-body ${
           cropContent ? "cac_post_content--crop" : ""
-          }`}
+        }`}
         source={data.content}
         renderers={{ code: CodeBlock }}
         escapeHtml={false}
@@ -116,7 +143,7 @@ const Post = ({
           <Heart
             className={`cac_post_icon cac_post_heart ${
               like ? "cac_post_heart--filled" : ""
-              }`}
+            }`}
           />
           <span className="cac_post_interaction-label">Like</span>
         </div>
@@ -128,11 +155,42 @@ const Post = ({
           <Bookmark
             className={`cac_post_icon cac_post_bookmark ${
               saved ? "cac_post_bookmark--filled" : ""
-              }`}
+            }`}
           />
           <span className="cac_post_interaction-label">Save</span>
         </div>
       </div>
+      {showCommentaries && (
+        <div className="cac_post_commentaries-section">
+          {user.logged && (
+            <div className="cac_post_create-commentary">
+              <textarea
+                className="cac_post_create-commentary_textarea"
+                value={textValue}
+                onChange={e => setTextValue(e.target.value)}
+              />
+              <Button
+                className="cac_poist_create-commentary_button"
+                onClick={publishCommentary}
+              >
+                {"Comment"}
+              </Button>
+            </div>
+          )}
+          <div className="cac_post_commentaries">
+            {data.comments
+              .sort((a, b) => b.date.toDate() - a.date.toDate())
+              .map(({ author, content, date }, i) => (
+                <Commentary
+                  key={i}
+                  author={allUsers[author]}
+                  content={content}
+                  date={date}
+                />
+              ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -7,19 +7,23 @@ const PostsProvider = ({ children }) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
+    let destroyerFunction = () => null;
     const init = async () => {
-      const fetchedData = [];
       const postsRef = firestore
         .collection("posts")
         .orderBy("timestamp", "desc")
         .limitToLast(10);
-      const snapshot = await postsRef.get();
-      snapshot.forEach(doc => {
-        fetchedData.push({ id: doc.id, ...doc.data() });
+      destroyerFunction = postsRef.onSnapshot(async snapshot => {
+        const fetchedData = [];
+        snapshot.forEach(doc => {
+          fetchedData.push({ id: doc.id, ...doc.data() });
+        });
+        console.log(fetchedData);
+        setPosts(fetchedData);
       });
-      setPosts(fetchedData);
     };
     init();
+    return destroyerFunction;
   }, []);
 
   useEffect(() => {});

@@ -12,14 +12,14 @@ const Home = () => {
   const posts = useContext(PostsContext);
   const allUsers = useContext(AllUsersContext);
   const user = useContext(UserContext);
-  const [postData, setPostData] = useState(null);
+  const [postSelected, setPostSelected] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const postRef = useRef(null);
 
   useOutsideAlerter(postRef, () => setIsOpen(false));
 
-  const handlePostClick = postData => {
-    setPostData(postData);
+  const handlePostClick = id => {
+    setPostSelected(id);
     setIsOpen(true);
   };
   return (
@@ -30,9 +30,9 @@ const Home = () => {
             <Post
               allUsers={allUsers.usersMap}
               className="cac_home_post"
-              data={postData}
+              data={posts.find(post => post.id === postSelected)}
               cropContent={false}
-              showComments={true}
+              showCommentaries={true}
               user={user}
             />
           </div>
@@ -47,8 +47,8 @@ const Home = () => {
             data={post}
             allUsers={allUsers.usersMap}
             cropContent={true}
-            onClick={() => handlePostClick(post)}
-            showComments={false}
+            onClick={() => handlePostClick(post.id)}
+            showCommentaries={false}
           />
         ))}
     </div>

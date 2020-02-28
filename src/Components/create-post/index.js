@@ -6,8 +6,7 @@ import { UserContext } from "../../Providers/userProvider";
 
 import Post from "../post";
 import Button from "../button";
-import UserBox from "../user-box";
-import Popup, { TopPopup } from "../popup";
+import { TopPopup } from "../popup";
 
 import "./style.css";
 import "../../Views/create/style.css";

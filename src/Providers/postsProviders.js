@@ -18,7 +18,6 @@ const PostsProvider = ({ children }) => {
         snapshot.forEach(doc => {
           fetchedData.push({ id: doc.id, ...doc.data() });
         });
-        console.log(fetchedData);
         setPosts(fetchedData);
       });
     };

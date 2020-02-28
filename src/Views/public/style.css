@@ -1,0 +1,73 @@
+.cac_public_create {
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  grid-template-areas: "title post" "content cancel";
+  gap: 1rem;
+  align-items: start;
+  margin-bottom: 1rem;
+}
+.cac_public_create_button {
+  width: 10rem;
+  text-align: center;
+  color: white;
+  padding: .5rem 0;
+}
+.cac_public_create_button--post {
+  background-color: #4a79c6;
+  grid-area: post;
+}
+.cac_public_create_button--cancel {
+  background-color: #ab1c21;
+  grid-area: cancel;
+}
+.cac_public_create_text-area{
+  padding: .8rem 1rem;
+  font-size: 2rem;
+  resize: vertical;
+  height: 3.7rem;
+  border-radius: .3rem;
+  outline: none !important;
+  transition: border .2s;
+  min-height: 3.7rem;
+}
+
+.cac_public_create_text-area:focus{
+  border: 1px solid rgb(99, 99, 99);
+}
+.cac_public_create_text-area--title{
+  grid-area: title;
+  resize: none;
+}
+
+.cac_public_create_text-area--content{
+  grid-area: content;
+  height: 10rem;
+}
+
+.cac_public_create_button--disabled{
+  filter:grayscale(.5);
+  box-shadow: none !important;
+}
+
+.cac_public_create_button--disabled:hover{
+  cursor: not-allowed;
+}
+
+.cac_public_background-black {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(39, 39, 39, 0.6);
+  z-index: 200;
+  padding: 5rem;
+  padding-top: 10rem;
+  overflow-y: scroll;
+}
+.cac_public_post-container {
+  width: 100%;
+  max-width: 100rem;
+  margin: 0 auto;
+
+}

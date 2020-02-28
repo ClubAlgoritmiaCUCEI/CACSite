@@ -25,6 +25,7 @@ const parseHtml = htmlParser({
 
 const Post = ({
   user,
+  from = "posts",
   data,
   allUsers,
   preview = false,
@@ -32,6 +33,7 @@ const Post = ({
   showCommentaries = false,
   onClick = () => null
 }) => {
+  
   let { author } = data;
   author = allUsers[author.id] || author;
   const [like, setLike] = useState(
@@ -47,7 +49,7 @@ const Post = ({
     e.stopPropagation();
     const updateLike = async () => {
       setLike(!like);
-      const postRef = firestore.doc(`posts/${data.id}`);
+      const postRef = firestore.doc(`${from}/${data.id}`);
       if (!like) {
         await postRef.update({
           likesList: firebase.firestore.FieldValue.arrayUnion(user.uid)
@@ -90,7 +92,7 @@ const Post = ({
   const publishCommentary = () => {
     const publish = async () => {
       setPublishingCommentary(true);
-      const postRef = firestore.doc(`posts/${data.id}`);
+      const postRef = firestore.doc(`${from}/${data.id}`);
       const commentContent = {
         author: user.uid,
         content: textValue,
@@ -123,7 +125,10 @@ const Post = ({
           {preview ? (
             <span className="cac_post_date">{data.date}</span>
           ) : (
-            <TimeAgo className="cac_post_date" date={data.timestamp.toDate()} />
+            <TimeAgo
+              className="cac_post_date"
+              date={data.timestamp ? data.timestamp.toDate() : new Date()}
+            />
           )}
         </div>
         <div className="cac_post_icons"></div>

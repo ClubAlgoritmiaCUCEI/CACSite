@@ -12,7 +12,7 @@ const PostsProvider = ({ children }) => {
       const postsRef = firestore
         .collection("posts")
         .orderBy("timestamp", "desc")
-        .limitToLast(10);
+        .limit(10);
       destroyerFunction = postsRef.onSnapshot(async snapshot => {
         const fetchedData = [];
         snapshot.forEach(doc => {

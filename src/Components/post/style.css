@@ -39,6 +39,14 @@
   letter-spacing: 0.025rem;
   font-weight: 600;
   line-height: 1.8rem;
+  text-decoration: none;
+  color: rgb(54, 54, 54);
+  transition: all 0.2s;
+}
+
+.cac_post_title--link:hover {
+  text-decoration: underline;
+  color: black;
 }
 
 .cac_post_author {
@@ -109,12 +117,12 @@
   align-items: center;
   justify-content: center;
   padding: 0.5rem 2rem;
-  width:12rem;
-  border-radius: .5rem;
-  transition: all .2s;
+  width: 12rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
 }
 
-.cac_post_interaction-box:hover{
+.cac_post_interaction-box:hover {
   background-color: rgb(240, 240, 240);
 }
 
@@ -139,7 +147,6 @@
   transition: all 0.2s;
   margin-right: 0.5rem;
 }
-
 
 .cac_post_heart {
   color: #ab1c21;
@@ -166,40 +173,40 @@
 .cac_post_bookmark--filled {
   fill: currentColor;
 }
-.cac_post_commentaries-section{
-  width:100%;
+.cac_post_commentaries-section {
+  width: 100%;
   overflow: hidden;
-  padding: 0 4rem;
+  padding: 0 2rem;
 }
 
-.cac_post_create-commentary{
-  padding-top:0;
+.cac_post_create-commentary {
+  padding-top: 0;
   display: flex;
-  width:100%;
+  width: 100%;
   margin-bottom: 1rem;
 }
 
-.cac_post_create-commentary_textarea{
-  flex:1;
+.cac_post_create-commentary_textarea {
+  flex: 1;
   display: inline-block;
   height: 4rem;
   min-height: 4rem;
   resize: vertical;
-  border-radius: .3rem;
+  border-radius: 0.3rem;
   outline: none !important;
   font-size: 1.8rem;
   font-weight: 500;
-  padding: .5rem;
-  padding-left: .7rem;
+  padding: 0.5rem;
+  padding-left: 0.7rem;
 }
 
-.cac_poist_create-commentary_button{
-  width:12rem;
+.cac_poist_create-commentary_button {
+  width: 12rem;
   margin-left: 1rem;
   font-size: 1.6rem;
-  padding-top: .8rem;
+  padding-top: 0.8rem;
   height: 4rem;
- 
+
   background-color: #4a79c6;
-  color:white;
+  color: white;
 }

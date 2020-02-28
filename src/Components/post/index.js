@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { firebase, firestore } from "../../firebase";
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 import ReactMarkdown from "react-markdown";
 import htmlParser from "react-markdown/plugins/html-parser";
@@ -26,6 +27,7 @@ const parseHtml = htmlParser({
 const Post = ({
   user,
   from = "posts",
+  enableLink = true,
   data,
   allUsers,
   preview = false,
@@ -33,22 +35,19 @@ const Post = ({
   showCommentaries = false,
   onClick = () => null
 }) => {
-  
   let { author } = data;
   author = allUsers[author.id] || author;
-  const [like, setLike] = useState(
-    !preview && user.logged && data.likesList.includes(user.uid)
-  );
+  const [publishingCommentary, setPublishingCommentary] = useState(false);
+  const [textValue, setTextValue] = useState("");
+  const like = !preview && user.logged && data.likesList.includes(user.uid);
   const [saved, setSaved] = useState(
     !preview && user.logged && user.saved.includes(data.id)
   );
-  const [publishingCommentary, setPublishingCommentary] = useState(false);
-  const [textValue, setTextValue] = useState("");
 
+  console.log(saved);
   const onLikeClick = e => {
     e.stopPropagation();
     const updateLike = async () => {
-      setLike(!like);
       const postRef = firestore.doc(`${from}/${data.id}`);
       if (!like) {
         await postRef.update({
@@ -70,8 +69,8 @@ const Post = ({
   const onSaveClick = e => {
     e.stopPropagation();
     const updateSaves = async () => {
-      setSaved(!saved);
       const userRef = firestore.doc(`users/${user.uid}`);
+      setSaved(!saved);
       if (!saved) {
         await userRef.update({
           saved: firebase.firestore.FieldValue.arrayUnion(data.id)
@@ -118,7 +117,13 @@ const Post = ({
           alt={author.displayName}
         />
         <div className="cac_post_text-container">
-          <span className="cac_post_title">{data.title}</span>
+          {enableLink ? (
+            <Link to={`/${from}/${data.id}`} className="cac_post_title cac_post_title--link">
+              {data.title}
+            </Link>
+          ) : (
+            <span className="cac_post_title">{data.title}</span>
+          )}
           <ColoredName className="cac_post_author" rank={author.rank}>
             {author.displayName}
           </ColoredName>

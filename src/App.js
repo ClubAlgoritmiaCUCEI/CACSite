@@ -15,7 +15,7 @@ import Attendance from "./Views/attendance";
 import AttendanceCode from "./Views/attendanceCode";
 import Create from "./Views/create";
 import Profile from "./Views/profile";
-import Public from './Views/public';
+import Public from "./Views/public";
 
 import UserProvider, { AllUsersProvider } from "./Providers/userProvider";
 import CalendarProvider from "./Providers/calendarProvider";
@@ -25,6 +25,7 @@ import OtherPostsProvider from "./Providers/otherPostsProvider";
 
 import "./App.css";
 import DefaultView from "./Views/default-view";
+import HomePost from "./Components/single-post/home-post";
 
 const App = () => {
   return (
@@ -53,6 +54,15 @@ const App = () => {
                           <Home />
                         </DefaultView>
                       </Route>
+                      <Route
+                        exact={true}
+                        path={"/posts/:id"}
+                        render={({ match }) => (
+                          <DefaultView>
+                            <HomePost match={match} />
+                          </DefaultView>
+                        )}
+                      />
                       <Route exact={true} path={"/public"}>
                         <DefaultView selection="public">
                           <Public />

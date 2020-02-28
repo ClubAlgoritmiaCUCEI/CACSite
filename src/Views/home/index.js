@@ -1,6 +1,6 @@
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 
-import { PostsContext } from "../../Providers/postsProviders";
+import { PostsContext } from "../../Providers/postsProvider";
 import { UserContext, AllUsersContext } from "../../Providers/userProvider";
 import useOutsideAlerter from "../../Hooks/useOutsideAlerter";
 
@@ -18,6 +18,10 @@ const Home = () => {
 
   useOutsideAlerter(postRef, () => setIsOpen(false));
 
+  useEffect(() => {
+    posts.fetch.home();
+  }, [posts.fetch]);
+
   const handlePostClick = id => {
     setPostSelected(id);
     setIsOpen(true);
@@ -30,7 +34,7 @@ const Home = () => {
             <Post
               allUsers={allUsers.usersMap}
               className="cac_home_post"
-              data={posts.find(post => post.id === postSelected)}
+              data={posts.posts.home.find(post => post.id === postSelected)}
               cropContent={false}
               showCommentaries={true}
               user={user}
@@ -40,7 +44,7 @@ const Home = () => {
       )}
 
       {!user.isLoading &&
-        posts.map((post, i) => (
+        posts.posts.home.map((post, i) => (
           <Post
             user={user}
             key={i}

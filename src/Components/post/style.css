@@ -35,6 +35,7 @@
   justify-content: center;
 }
 .cac_post_title {
+  width:max-content;
   font-size: 2.3rem;
   letter-spacing: 0.025rem;
   font-weight: 600;

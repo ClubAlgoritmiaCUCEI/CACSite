@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 
 import { firestore, firebase } from "../../firebase";
 
-import { OtherPostsContext } from "../../Providers/otherPostsProvider";
+import { PostsContext } from "../../Providers/postsProvider";
 import { UserContext, AllUsersContext } from "../../Providers/userProvider";
 import useOutsideAlerter from "../../Hooks/useOutsideAlerter";
 
@@ -14,7 +14,7 @@ import { TopPopup } from "../../Components/popup";
 import "./style.css";
 
 const Public = () => {
-  const otherPosts = useContext(OtherPostsContext);
+  const posts = useContext(PostsContext);
   const user = useContext(UserContext);
   const allUsers = useContext(AllUsersContext);
 
@@ -28,8 +28,8 @@ const Public = () => {
   const postRef = useRef(null);
 
   useEffect(() => {
-    otherPosts.fetch.public();
-  }, [otherPosts.fetch]);
+    posts.fetch.public();
+  }, [posts.fetch]);
 
   const handleUserCreate = e => {
     setEditing(true);
@@ -93,7 +93,7 @@ const Public = () => {
             <Post
               allUsers={allUsers.usersMap}
               className="cac_public_post"
-              data={otherPosts.posts.public.find(
+              data={posts.posts.public.find(
                 post => post.id === postSelected
               )}
               cropContent={false}
@@ -159,7 +159,7 @@ const Public = () => {
       )}
       <div className="cac_public_posts">
         {!user.isLoading &&
-          otherPosts.posts.public.map((postData, i) => {
+          posts.posts.public.map((postData, i) => {
             return (
               <Post
                 user={user}

@@ -39,7 +39,7 @@ const PublicPost = ({ match }) => {
   }, [id, posts]);
 
   return (
-    <div className="cac_home-post">
+    <>
       {postData && !user.isLoading && (
         <Post
           enableLink={false}
@@ -52,7 +52,7 @@ const PublicPost = ({ match }) => {
           user={user}
         />
       )}
-    </div>
+    </>
   );
 };
 

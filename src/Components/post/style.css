@@ -18,6 +18,7 @@
 .cac_post_heading {
   display: grid;
   grid-template-columns: min-content 1fr 3rem;
+  grid-template-areas: "photo data";
   gap: 1rem;
   justify-content: center;
   align-items: center;
@@ -26,20 +27,22 @@
 .cac_post_heading_photo {
   width: 6rem;
   height: 6rem;
+  grid-area: photo;
   border-radius: 0.5rem;
 }
 
 .cac_post_text-container {
   display: flex;
+  grid-area: data;
   flex-direction: column;
   justify-content: center;
 }
 .cac_post_title {
-  width:max-content;
+  width: max-content;
   font-size: 2.3rem;
   letter-spacing: 0.025rem;
   font-weight: 600;
-  line-height: 1.8rem;
+  line-height: 2.2rem;
   text-decoration: none;
   color: rgb(54, 54, 54);
   transition: all 0.2s;
@@ -147,12 +150,12 @@
   height: auto;
   transition: all 0.2s;
   margin-right: 0.5rem;
+  fill: transparent;
 }
 
 .cac_post_heart {
   color: #ab1c21;
   stroke: currentColor;
-  fill: white;
 }
 .cac_post_heart--filled {
   fill: currentColor;
@@ -160,7 +163,6 @@
 .cac_post_comment {
   color: #4a79c6;
   stroke: currentColor;
-  fill: white;
 }
 
 .cac_post_interaction-box--comment:hover .cac_post_comment {
@@ -169,7 +171,6 @@
 .cac_post_bookmark {
   color: #fad306;
   stroke: currentColor;
-  fill: white;
 }
 .cac_post_bookmark--filled {
   fill: currentColor;

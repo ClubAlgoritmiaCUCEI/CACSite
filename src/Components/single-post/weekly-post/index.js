@@ -3,12 +3,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { firestore } from "../../../firebase";
 
 import { PostsContext } from "../../../Providers/postsProvider";
-
 import { UserContext, AllUsersContext } from "../../../Providers/userProvider";
 
 import Post from "../../post";
 
-const HomePost = ({ match }) => {
+const WeeklyPost = ({ match }) => {
   const posts = useContext(PostsContext);
   const user = useContext(UserContext);
   const allUsers = useContext(AllUsersContext);
@@ -16,13 +15,13 @@ const HomePost = ({ match }) => {
   const { id } = match.params;
 
   useEffect(() => {
-    posts.fetch.public();
+    posts.fetch.weeklyProblems();
   }, [posts.fetch]);
 
   useEffect(() => {
     let destroyerFunction = () => null;
     const fetchPost = async () => {
-      const postsRef = firestore.doc(`posts/${id}`);
+      const postsRef = firestore.doc(`weekly-problems/${id}`);
       try {
         destroyerFunction = postsRef.onSnapshot(async snapshot => {
           setPostData(snapshot.data());
@@ -31,14 +30,14 @@ const HomePost = ({ match }) => {
         console.error(e);
       }
     };
-    if (posts.length !== 0) {
-      const post = posts.posts.home.find(p => p.id === id);
+    if (posts.status.weeklyProblems) {
+      const post = posts.posts.weeklyProblems.find(p => p.id === id);
       if (post) setPostData(post);
       else fetchPost();
     }
     return destroyerFunction;
-  }, [posts, id]);
-  console.log(postData);
+  }, [id, posts]);
+
   return (
     <>
       {postData && !user.isLoading && (
@@ -47,6 +46,7 @@ const HomePost = ({ match }) => {
           allUsers={allUsers.usersMap}
           className="cac_home_post"
           data={postData}
+          from="weekly-problems"
           cropContent={false}
           showCommentaries={true}
           user={user}
@@ -56,4 +56,4 @@ const HomePost = ({ match }) => {
   );
 };
 
-export default HomePost;
+export default WeeklyPost;

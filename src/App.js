@@ -27,6 +27,8 @@ import PostsProvider from "./Providers/postsProvider";
 
 import "./App.css";
 import DefaultView from "./Views/default-view";
+import WeeklyProblems from "./Views/weeklyProblems";
+import WeeklyPost from "./Components/single-post/weekly-post";
 
 const App = () => {
   return (
@@ -74,6 +76,21 @@ const App = () => {
                       render={({ match }) => (
                         <DefaultView>
                           <PublicPost match={match} />
+                        </DefaultView>
+                      )}
+                    />
+
+                    <Route exact={true} path={"/weekly-problem"}>
+                      <DefaultView selection="weekly-problem">
+                        <WeeklyProblems />
+                      </DefaultView>
+                    </Route>
+                    <Route
+                      exact={true}
+                      path={"/weekly-problem/:id"}
+                      render={({ match }) => (
+                        <DefaultView>
+                          <WeeklyPost match={match} />
                         </DefaultView>
                       )}
                     />

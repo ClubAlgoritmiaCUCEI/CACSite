@@ -11,7 +11,12 @@ import { TopPopup } from "../popup";
 import "./style.css";
 import "../../Views/create/style.css";
 
-const CreatePost = ({ preview }) => {
+const CreatePost = ({
+  preview,
+  type = "home",
+  to = "posts",
+  showAuthor = true
+}) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [isSubmiting, setIsSubmiting] = useState(false);
@@ -24,7 +29,7 @@ const CreatePost = ({ preview }) => {
       const postData = {
         title,
         content,
-        type: "home-post",
+        type: type,
         comments: [],
         likesList: [],
         likesCounter: 0,
@@ -33,7 +38,7 @@ const CreatePost = ({ preview }) => {
         key: Date.now()
       };
       try {
-        await firestore.collection("posts").add(postData);
+        await firestore.collection(to).add(postData);
         setAlert({
           visible: true,
           content: "Post published succesfully",
@@ -67,6 +72,8 @@ const CreatePost = ({ preview }) => {
         <Post
           preview={true}
           allUsers={{}}
+          enableLink={false}
+          showAuthor={showAuthor}
           data={{
             title: title,
             author: user,

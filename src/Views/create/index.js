@@ -9,7 +9,7 @@ import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 
 import CreateClass from "../../Components/create-class";
-import CreatePost from '../../Components/create-post';
+import CreatePost from "../../Components/create-post";
 import Button from "../../Components/button";
 
 import "./style.css";
@@ -20,24 +20,24 @@ const Create = props => {
   const [preview, setPreview] = useState(false);
 
   const sections = [
-    { value: "homePost", label: "Home Post" },
     { value: "class", label: "Class" },
-    { value: "Announcement", label: "Announcement" },
+    { value: "homePost", label: "Home Post" },
     { value: "weeklyProblem", label: "Weekly problem" },
-    { value: "editorial", label: "Editorial" }
+    { value: "editorial", label: "Editorial" },
+    { value: "announcement", label: "Announcement" }
   ];
 
   const onChange = e => {
     setPath(`/create/${e.value}`);
     setRedirect(true);
+    setPreview(false);
   };
 
-  useEffect(() => { }, [props]);
+  useEffect(() => {}, [props]);
 
   const handlePreviewClick = () => {
     setPreview(!preview);
   };
-
 
   const match = props.match || { params: { cid: "" } };
   return (
@@ -57,7 +57,17 @@ const Create = props => {
         {redirect && <Redirect to={path} />}
       </div>
       {match.params.cid === "class" && <CreateClass preview={preview} />}
-      {match.params.cid === "homePost" && <CreatePost preview={preview} />}
+      {match.params.cid === "homePost" && (
+        <CreatePost preview={preview} to="posts" type="home" />
+      )}
+      {match.params.cid === "weeklyProblem" && (
+        <CreatePost
+          preview={preview}
+          to="weekly-problems"
+          type="weekly-problem"
+          showAuthor={false}
+        />
+      )}
     </div>
   );
 };

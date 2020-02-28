@@ -1,0 +1,13 @@
+.cac_weekly .cac_post:first-child {
+  background-color: rgb(244, 253, 244);
+  border-color: rgb(147, 202, 147);
+}
+.cac_weekly .cac_post:first-child .cac_post_content {
+  border-color: rgb(147, 202, 147);
+}
+.cac_weekly .cac_post:first-child:hover {
+  border-color: rgb(122, 165, 122);
+}
+.cac_weekly_link {
+  text-decoration: none;
+}

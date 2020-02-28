@@ -27,6 +27,7 @@ const parseHtml = htmlParser({
 const Post = ({
   user,
   from = "posts",
+  showAuthor = true,
   enableLink = true,
   data,
   allUsers,
@@ -110,22 +111,29 @@ const Post = ({
       onClick={onClick}
     >
       <div className="cac_post_heading">
-        <img
-          src={author.photoURL || DefaultPhoto}
-          className="cac_post_heading_photo"
-          alt={author.displayName}
-        />
+        {showAuthor && (
+          <img
+            src={author.photoURL || DefaultPhoto}
+            className="cac_post_heading_photo"
+            alt={author.displayName}
+          />
+        )}
         <div className="cac_post_text-container">
           {enableLink ? (
-            <Link to={`/${from}/${data.id}`} className="cac_post_title cac_post_title--link">
+            <Link
+              to={`/${from}/${data.id}`}
+              className="cac_post_title cac_post_title--link"
+            >
               {data.title}
             </Link>
           ) : (
             <span className="cac_post_title">{data.title}</span>
           )}
-          <ColoredName className="cac_post_author" rank={author.rank}>
-            {author.displayName}
-          </ColoredName>
+          {showAuthor && (
+            <ColoredName className="cac_post_author" rank={author.rank}>
+              {author.displayName}
+            </ColoredName>
+          )}
           {preview ? (
             <span className="cac_post_date">{data.date}</span>
           ) : (

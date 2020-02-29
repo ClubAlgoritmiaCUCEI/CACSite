@@ -1,4 +1,4 @@
-const parseMonth = month => {
+export const parseMonth = month => {
   switch (month) {
     case 0:
       return "January";
@@ -28,8 +28,6 @@ const parseMonth = month => {
       return null;
   }
 };
-
-export { parseMonth };
 
 export const generateRandomCode = n => {
   var result = "";

@@ -73,7 +73,7 @@ const CreateClass = ({ preview }) => {
         setIsSubmiting(true);
         const classData = {
           title,
-          date,
+          date: new Date(date),
           description,
           code,
           active: true,

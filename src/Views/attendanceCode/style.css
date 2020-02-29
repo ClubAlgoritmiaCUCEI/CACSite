@@ -1,6 +1,9 @@
 .cac_attendance--not-in-class {
   min-height: 40rem;
   position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 30rem min-content;
 }
 
 .cac_attendance_form {
@@ -9,10 +12,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .cac_attendance_label {
@@ -31,7 +30,7 @@
   text-align: center;
   outline: none !important;
   border-radius: 3px;
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
 .cac_attendance_text-area--invalid {
@@ -55,4 +54,58 @@
   font-size: 2.5rem;
   text-align: center;
   border-radius: 3px;
+}
+
+.cac_attendance_classes{
+  margin-bottom: 1rem;
+}
+.cac_attendance_classes_title {
+  font-size: 3rem;
+  font-weight: 600;
+  color: rgb(80, 80, 80);
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.cac_attendance_class-box {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 0.3rem;
+  border: 1px solid rgb(216, 216, 216);
+  box-shadow: 0 0 2px rgb(216, 216, 216);
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  grid-template-rows: max-content min-content max-content;
+  grid-template-areas: "title code" "date counter" "description .";
+  gap: .5rem;
+}
+.cac_attendance_class-box:not(:last-child) {
+  margin-bottom: 1rem;
+}
+.cac_attendance_class_title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: rgb(60, 60, 60);
+  grid-area: title;
+}
+.cac_attendance_class_date {
+  grid-area: date;
+  font-size: 1.5rem;
+  color: rgb(60,60,60);
+}
+
+.cac_attendance_classes_code {
+  grid-area: code;
+  margin: 0 auto;
+  font-size: 2rem;
+}
+
+.cac_attendance_classes_description {
+  grid-area: description;
+  font-size: 1.5rem;
+}
+
+.cac_attendance_classes_counter {
+  grid-area: counter;
+  font-size: 1.3rem;
 }

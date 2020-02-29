@@ -6,6 +6,7 @@ import Button, { FormButton } from "../../Components/button";
 import { TopPopup } from "../../Components/popup";
 
 import { AttendanceContext } from "../../Providers/attendanceProvider";
+import { ClassContext } from "../../Providers/classProvider";
 
 import "./style.css";
 
@@ -15,6 +16,12 @@ const AttendanceCode = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [isPopoupClosing, setIsPopupClosing] = useState(false);
   const [popupClassname, setPopupClassname] = useState("");
+
+  const classes = useContext(ClassContext);
+
+  classes.fetchPreviousClasses();
+  classes.fetchNextClasses();
+  console.log(classes.previousClasses);
 
   const handleTextChange = e => {
     setCode(e.target.value);
@@ -79,8 +86,43 @@ const AttendanceCode = () => {
         <FormButton className="cac_attendance_form_button ">
           Continue
         </FormButton>
-        <Button className="cac_attendance_button ">Create class</Button>
       </form>
+      <div className="cac_attendance_classes cac_attendance_classes--previous">
+        <span className="cac_attendance_classes_title">Next classes</span>
+        {classes.nextClasses.map((c, i) => (
+          <div key={i} className="cac_attendance_class-box">
+            <span className="cac_attendance_class_title">{c.title}</span>
+            <span className="cac_attendance_class_date">
+              {c.date.toDate().toDateString()}
+            </span>
+            <span className="cac_attendance_classes_code">{c.code}</span>
+            <p className="cac_attendance_classes_description">
+              {c.description}
+            </p>
+            <span className="cac_attendance_classes_counter">
+              {c.attendances.length} attendants.
+            </span>
+          </div>
+        ))}
+      </div>
+      <div className="cac_attendance_classes cac_attendance_classes--previous">
+        <span className="cac_attendance_classes_title">Previous classes</span>
+        {classes.previousClasses.map((c, i) => (
+          <div key={i} className="cac_attendance_class-box">
+            <span className="cac_attendance_class_title">{c.title}</span>
+            <span className="cac_attendance_class_date">
+              {c.date.toDate().toDateString()}
+            </span>
+            <span className="cac_attendance_classes_code">{c.code}</span>
+            <p className="cac_attendance_classes_description">
+              {c.description}
+            </p>
+            <span className="cac_attendance_classes_counter">
+              {c.attendances.length} attendants.
+            </span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

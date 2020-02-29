@@ -29,7 +29,6 @@ const Attendance = props => {
 
   const classData = preview ? props.classData : atnContext.classData;
   const { code } = props.match.params || classData;
-
   useEffect(() => {
     const pushData = async () => {
       const classRef = firestore.doc(`class/${code}`);
@@ -97,10 +96,10 @@ const Attendance = props => {
   };
 
   useEffect(() => {
-    if (!classData.active) {
+    if (classData.isDataAvailable && !classData.active) {
       setAlert({ open: true, type: "error", description: "Class ended" });
     }
-  }, [classData.active]);
+  }, [classData.isDataAvailable, classData.active]);
 
   return (
     <div className="cac_attendance cac_attendance--in-class">
@@ -124,7 +123,9 @@ const Attendance = props => {
       {(classData.isDataAvailable || preview) && (
         <div className="cac_attendance_class">
           <h3 className="cac_attendance_title">{classData.title}</h3>
-          <span className="cac_attendance_date">{classData.date}</span>
+          <span className="cac_attendance_date">
+            {preview ? classData.date : classData.date.toDate().toDateString()}
+          </span>
           <div className="cac_attendance_code-container">
             <span className="cac_attendance_code-title">Code</span>
             <span className="cac_attendance_code-code">{classData.code}</span>

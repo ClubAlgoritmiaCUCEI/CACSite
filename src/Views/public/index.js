@@ -6,7 +6,6 @@ import { PostsContext } from "../../Providers/postsProvider";
 import { UserContext, AllUsersContext } from "../../Providers/userProvider";
 import useOutsideAlerter from "../../Hooks/useOutsideAlerter";
 
-
 import Button from "../../Components/button";
 import Post from "../../Components/post";
 import { TopPopup } from "../../Components/popup";
@@ -26,7 +25,7 @@ const Public = () => {
   const [postSelected, setPostSelected] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const postRef = useRef(null);
-
+  console.log(user);
   useEffect(() => {
     posts.fetch.public();
   }, [posts.fetch]);
@@ -74,7 +73,13 @@ const Public = () => {
       }
       setIsPosting(false);
     };
-    if (!(isPosting || title === "" || content === "")) {
+    if (!user.logged) {
+      setAlert({
+        visible: true,
+        type: "error",
+        content: "You need to sign in to post"
+      });
+    } else if (!(isPosting || title === "" || content === "")) {
       post();
     }
   };
@@ -93,9 +98,7 @@ const Public = () => {
             <Post
               allUsers={allUsers.usersMap}
               className="cac_public_post"
-              data={posts.posts.public.find(
-                post => post.id === postSelected
-              )}
+              data={posts.posts.public.find(post => post.id === postSelected)}
               cropContent={false}
               showCommentaries={true}
               user={user}

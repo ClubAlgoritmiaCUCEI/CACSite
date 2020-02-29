@@ -121,7 +121,7 @@
   align-items: center;
   justify-content: center;
   padding: 0.5rem 2rem;
-  width: 12rem;
+  width: 14rem;
   border-radius: 0.5rem;
   transition: all 0.2s;
 }
@@ -146,7 +146,7 @@
   user-select: none;
 }
 .cac_post_icon {
-  width: 2rem;
+  width: 2rem !important;
   height: auto;
   transition: all 0.2s;
   margin-right: 0.5rem;
@@ -187,7 +187,13 @@
   width: 100%;
   margin-bottom: 1rem;
 }
-
+.cac_post_interaction-counter {
+  font-size: 1.3rem;
+  margin-right: 0.6rem;
+  font-weight: 600;
+  color: rgb(66, 66, 66);
+  transform: translateY(-1px);
+}
 .cac_post_create-commentary_textarea {
   flex: 1;
   display: inline-block;

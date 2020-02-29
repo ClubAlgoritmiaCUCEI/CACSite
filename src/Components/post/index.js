@@ -161,6 +161,9 @@ const Post = ({
       />
       <div className="cac_post_interaction">
         <div className="cac_post_interaction-box" onClick={onLikeClick}>
+          <span className="cac_post_interaction-counter">
+            {data.likesList.length}
+          </span>
           <Heart
             className={`cac_post_icon cac_post_heart ${
               like ? "cac_post_heart--filled" : ""
@@ -169,6 +172,9 @@ const Post = ({
           <span className="cac_post_interaction-label">Like</span>
         </div>
         <div className="cac_post_interaction-box cac_post_interaction-box--comment">
+          <span className="cac_post_interaction-counter">
+            {data.comments.length}
+          </span>
           <Comment className="cac_post_icon cac_post_comment" />
           <span className="cac_post_interaction-label">Comment</span>
         </div>

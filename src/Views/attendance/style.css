@@ -102,12 +102,11 @@
 .cac_attendance_add{
   color:white;
   background-color: #4A79C6;
-  margin: 0 auto;
+  margin: 2rem auto;
   width:20rem;
   text-align: center;
   font-size: 2.3rem;
   display: block;
-  margin-top: 2rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
 }

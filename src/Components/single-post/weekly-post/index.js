@@ -43,6 +43,7 @@ const WeeklyPost = ({ match }) => {
       {postData && !user.isLoading && (
         <Post
           enableLink={false}
+          showAuthor={false}
           allUsers={allUsers.usersMap}
           className="cac_home_post"
           data={postData}

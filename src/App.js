@@ -29,6 +29,7 @@ import "./App.css";
 import DefaultView from "./Views/default-view";
 import WeeklyProblems from "./Views/weeklyProblems";
 import WeeklyPost from "./Components/single-post/weekly-post";
+import Editorial from "./Views/editorial";
 
 const App = () => {
   return (
@@ -76,6 +77,21 @@ const App = () => {
                       render={({ match }) => (
                         <DefaultView>
                           <PublicPost match={match} />
+                        </DefaultView>
+                      )}
+                    />
+
+                    <Route exact={true} path={"/editorial"}>
+                      <DefaultView selection="editorial">
+                        <Editorial />
+                      </DefaultView>
+                    </Route>
+                    <Route
+                      exact={true}
+                      path={"/editorial/:id"}
+                      render={({ match }) => (
+                        <DefaultView>
+                          <Editorial match={match} />
                         </DefaultView>
                       )}
                     />

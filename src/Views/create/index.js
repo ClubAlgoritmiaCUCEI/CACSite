@@ -68,6 +68,14 @@ const Create = props => {
           showAuthor={false}
         />
       )}
+      {match.params.cid === "editorial" && (
+        <CreatePost
+          preview={preview}
+          to="editorial"
+          type="editorial"
+          showAuthor={false}
+        />
+      )}
     </div>
   );
 };

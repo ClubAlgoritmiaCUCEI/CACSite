@@ -7,10 +7,12 @@ const PostsProvider = ({ children }) => {
   const [publicPosts, setPublicPosts] = useState([]);
   const [homePosts, setHomePosts] = useState([]);
   const [weeklyProblems, setWeeklyProblems] = useState([]);
+  const [editorial, setEditorial] = useState([]);
   const [status, setStatus] = useState({
     public: false,
     home: false,
-    weeklyProblems: false
+    weeklyProblems: false,
+    editorial: false
   });
 
   const fetchPublicPosts = () => {
@@ -27,6 +29,12 @@ const PostsProvider = ({ children }) => {
   const fetchWeeklyProblems = () => {
     if (!status.weeklyProblems) {
       setStatus(s => ({ ...s, weeklyProblems: true }));
+    }
+  };
+
+  const fetchEditorial = () => {
+    if (!status.editorial) {
+      setStatus(s => ({ ...s, editorial: true }));
     }
   };
 
@@ -79,7 +87,6 @@ const PostsProvider = ({ children }) => {
         .collection("weekly-problems")
         .orderBy("timestamp", "desc")
         .limit(10);
-      console.log(postsRef);
       destroyerFunction = postsRef.onSnapshot(async snapshot => {
         const fetchedData = [];
         snapshot.forEach(doc => {
@@ -94,6 +101,27 @@ const PostsProvider = ({ children }) => {
     return destroyerFunction;
   }, [status.weeklyProblems]);
 
+  useEffect(() => {
+    let destroyerFunction = () => null;
+    const init = async () => {
+      const postsRef = firestore
+        .collection("editorial")
+        .orderBy("timestamp", "desc")
+        .limit(10);
+      destroyerFunction = postsRef.onSnapshot(async snapshot => {
+        const fetchedData = [];
+        snapshot.forEach(doc => {
+          fetchedData.push({ id: doc.id, ...doc.data() });
+        });
+        setEditorial(fetchedData);
+      });
+    };
+    if (status.editorial) {
+      init();
+    }
+    return destroyerFunction;
+  }, [status.editorial]);
+
   useEffect(() => {});
   return (
     <PostsContext.Provider
@@ -101,12 +129,14 @@ const PostsProvider = ({ children }) => {
         posts: {
           public: publicPosts,
           home: homePosts,
-          weeklyProblems: weeklyProblems
+          weeklyProblems: weeklyProblems,
+          editorial: editorial
         },
         fetch: {
           public: fetchPublicPosts,
           home: fetchHomePosts,
-          weeklyProblems: fetchWeeklyProblems
+          weeklyProblems: fetchWeeklyProblems,
+          editorial: fetchEditorial
         },
         status: status
       }}

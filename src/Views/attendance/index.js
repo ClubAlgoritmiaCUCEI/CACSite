@@ -8,7 +8,7 @@ import { UserContext, AllUsersContext } from "../../Providers/userProvider";
 
 import UserBox from "../../Components/user-box";
 import Button from "../../Components/button";
-import Popup from "../../Components/popup";
+import Popup, { TopPopup } from "../../Components/popup";
 import SelectUsers from "../../Components/select-users";
 
 import "./style.css";
@@ -20,6 +20,11 @@ const Attendance = props => {
   const [redirect, setRedirect] = useState(false);
   const [inList, setInList] = useState(false);
   const [popupOpen, setPopupOpen] = useState(false);
+  const [alert, setAlert] = useState({
+    open: false,
+    description: "",
+    type: ""
+  });
   const { preview } = props;
 
   const classData = preview ? props.classData : atnContext.classData;
@@ -43,17 +48,17 @@ const Attendance = props => {
     };
     if (
       !preview &&
-      !inList &&
-      classData.isDataAvailable &&
+      user.logged &&
       !user.isLoading &&
-      user.logged
+      classData.isDataAvailable &&
+      !inList &&
+      classData.active
     ) {
       pushData();
     }
   }, [inList, user, classData, code, preview]);
 
   useEffect(() => {
-    let destroyerFunction = () => null;
     if (!preview) {
       if (code !== classData.code) {
         atnContext.setClassData(c => ({ ...c, code }));
@@ -63,7 +68,6 @@ const Attendance = props => {
         }
       }
     }
-    return destroyerFunction;
   }, [code, user, classData, atnContext, preview]);
 
   const handleConfirm = async users => {
@@ -77,8 +81,37 @@ const Attendance = props => {
     console.log("???");
   };
 
+  const handleAdd = () => {
+    if (!preview) {
+      setPopupOpen(true);
+    }
+  };
+
+  const endClass = async () => {
+    if (!preview && classData.active) {
+      const classRef = firestore.doc(`class/${code}`);
+      await classRef.update({
+        active: false
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (!classData.active) {
+      setAlert({ open: true, type: "error", description: "Class ended" });
+    }
+  }, [classData.active]);
+
   return (
     <div className="cac_attendance cac_attendance--in-class">
+      {alert.open && (
+        <TopPopup
+          onClick={() => setAlert({ open: false })}
+          className={alert.type}
+        >
+          {alert.description}
+        </TopPopup>
+      )}
       {redirect && <Redirect to="/attendance" />}
       {popupOpen && (
         <Popup>
@@ -123,9 +156,20 @@ const Attendance = props => {
           </div>
         </div>
       )}
-      <Button className="cac_attendance_add" onClick={() => setPopupOpen(true)}>
-        Add people
-      </Button>
+      <div className="cac_attendance_buttons">
+        <Button
+          className="cac_attendance_button cac_attendance_end"
+          onClick={endClass}
+        >
+          End class
+        </Button>
+        <Button
+          className="cac_attendance_button cac_attendance_add"
+          onClick={handleAdd}
+        >
+          Add people
+        </Button>
+      </div>
     </div>
   );
 };

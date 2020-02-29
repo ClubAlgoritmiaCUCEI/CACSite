@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { firestore } from "../../firebase";
+import { firebase, firestore } from "../../firebase";
 
 import Button from "../button";
 import SelectUsers from "../select-users";
@@ -54,15 +54,29 @@ const CreateClass = ({ preview }) => {
     type: ""
   });
 
+  const canPost = () => {
+    if (!(title && code && description && speakers.length > 0)) {
+      console.log("hohoho");
+      return false;
+    }
+    const dateFormated = new Date(date);
+    if (isNaN(dateFormated.getTime())) {
+      console.log(dateFormated);
+      return false;
+    }
+    return true;
+  };
+
   const handlePostButton = async () => {
-    if (!isSubmiting) {
-      if (title && code && date && description && speakers.length > 0) {
+    if (!isSubmiting)
+      if (canPost()) {
         setIsSubmiting(true);
         const classData = {
           title,
           date,
           description,
           code,
+          active: true,
           speakers: speakers.map(speaker => ({
             id: speaker.id,
             displayName: speaker.displayName
@@ -84,6 +98,7 @@ const CreateClass = ({ preview }) => {
             setDate("");
             setCode("");
             setSpeakers([]);
+            setDescription("");
           } catch (err) {
             console.error("Error creating class", err.mesage);
           }
@@ -98,11 +113,10 @@ const CreateClass = ({ preview }) => {
       } else {
         setAlert({
           open: true,
-          description: "Fill all the inputs",
+          description: "Verify all information",
           type: "error"
         });
       }
-    }
   };
 
   const closeAlert = () => {
@@ -155,7 +169,7 @@ const CreateClass = ({ preview }) => {
             </div>
             <div className="cac_create_section">
               <label htmlFor="title" className="cac_create_title">
-                Date
+                Date (mm/dd/yy)
               </label>
               <input
                 name="date"

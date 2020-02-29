@@ -47,7 +47,7 @@ const EditorialPost = ({ match }) => {
           allUsers={allUsers.usersMap}
           className="cac_home_post"
           data={postData}
-          from="weekly-problems"
+          from="editorial"
           cropContent={false}
           showCommentaries={true}
           user={user}

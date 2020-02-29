@@ -30,6 +30,7 @@ import DefaultView from "./Views/default-view";
 import WeeklyProblems from "./Views/weeklyProblems";
 import WeeklyPost from "./Components/single-post/weekly-post";
 import Editorial from "./Views/editorial";
+import EditorialPost from "./Components/single-post/editorial-post";
 
 const App = () => {
   return (
@@ -91,7 +92,7 @@ const App = () => {
                       path={"/editorial/:id"}
                       render={({ match }) => (
                         <DefaultView>
-                          <Editorial match={match} />
+                          <EditorialPost match={match} />
                         </DefaultView>
                       )}
                     />

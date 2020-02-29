@@ -6,7 +6,7 @@
   grid-area: header;
 }
 .cac_header_logo {
-  width:10rem;
+  width: 10rem;
   height: auto;
   transform: translateX(-50%);
 }
@@ -53,12 +53,12 @@
   box-shadow: 1px 1px 1px #989898;
 }
 .cac_header_sign-in {
-  border: 2px solid #484848;
+  border: 2px solid rgb(74, 121, 198);
 }
 
 .cac_header_sign-up {
-  background-color: #484848;
-  border: 2px solid #484848;
+  background-color: rgb(74, 121, 198);
+  border: 2px solid rgb(74, 121, 198);
   color: white;
 }
 
@@ -100,15 +100,15 @@
 .cac_header_options-section:not(:last-child) {
   border-bottom: 1px solid rgb(173, 173, 173);
 }
-.cac_header_option{
-  padding: .8rem 2rem;
-  transition: all .2s;
+.cac_header_option {
+  padding: 0.8rem 2rem;
+  transition: all 0.2s;
   display: block;
   text-decoration: none;
-  color:black;
+  color: black;
 }
-.cac_header_option:hover{
+.cac_header_option:hover {
   cursor: pointer;
-  color:white;
+  color: white;
   background-color: rgb(90, 90, 90);
 }

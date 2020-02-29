@@ -17,11 +17,13 @@ import { ReactComponent as Heart } from "../../assets/heart.svg";
 import { ReactComponent as Comment } from "../../assets/chatbox.svg";
 import { ReactComponent as Bookmark } from "../../assets/bookmark.svg";
 
+import { removeDangerousHTML } from "../../utilities";
+
 import "./style.css";
 import "github-markdown-css";
 
 const parseHtml = htmlParser({
-  isValidNode: node => node.type !== "script"
+  isValidNode: node => node.type !== "script" && node.type !== "break"
 });
 
 const Post = ({
@@ -44,6 +46,8 @@ const Post = ({
   const [saved, setSaved] = useState(
     !preview && user.logged && user.saved.includes(data.id)
   );
+
+  console.log(removeDangerousHTML("<br></br><br/>"));
 
   const onLikeClick = e => {
     e.stopPropagation();
@@ -150,7 +154,7 @@ const Post = ({
         className={`cac_post_content markdown-body ${
           cropContent ? "cac_post_content--crop" : ""
         }`}
-        source={data.content}
+        source={removeDangerousHTML(data.content)}
         renderers={{ code: CodeBlock }}
         escapeHtml={false}
         astPlugins={[parseHtml]}

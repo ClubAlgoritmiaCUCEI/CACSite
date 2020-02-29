@@ -1,4 +1,3 @@
-
 const parseMonth = month => {
   switch (month) {
     case 0:
@@ -32,7 +31,7 @@ const parseMonth = month => {
 
 export { parseMonth };
 
-const generateRandomCode = n => {
+export const generateRandomCode = n => {
   var result = "";
   var characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -43,5 +42,8 @@ const generateRandomCode = n => {
   return result;
 };
 
-export { generateRandomCode };
+const regex = /<br>|<\/br>|<br\/>/gi;
 
+export const removeDangerousHTML = text => {
+  return text.replace(regex, "");
+};

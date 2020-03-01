@@ -25,9 +25,26 @@
   border: 1px solid rgb(216, 216, 216);
   padding: 1rem;
   box-shadow: 0 0 2px rgb(216, 216, 216);
-
 }
 
-.cac_side_section:not(:last-child){
+.cac_side_section:not(:last-child) {
+  margin-bottom: 1rem;
+}
+.cac_side_section--loading {
+}
+.cac_side_loading_title {
+  width: 60%;
+  margin: 0 auto;
+  height: 3rem;
+  background-color: red;
+  margin-bottom: 1.6rem;
+}
+.cac_side_loading_large {
+  width: 80%;
+  height: 2rem;
+  background-color: blue;
+  margin: 0 auto;
+}
+.cac_side_loading_large:not(:last-child) {
   margin-bottom: 1rem;
 }

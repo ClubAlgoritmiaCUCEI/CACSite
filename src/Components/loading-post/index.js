@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./style.css";
-
+import '../../animations.css';
 const LoadingPost = ({ type = "large", showUser = true }) => {
   console.log(showUser);
   return (

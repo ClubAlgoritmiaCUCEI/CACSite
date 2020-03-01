@@ -27,7 +27,7 @@ const Navigation = props => {
         Editorial
       </Link>{" "}
       <Link
-        to="/weekly-problem"
+        to="/weekly-problems"
         className={`cac_section ${
           selection === "weekly-problem" ? "active" : ""
         }`}

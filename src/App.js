@@ -119,7 +119,7 @@ const App = () => {
                         )}
                       />
 
-                      <Route exact={true} path={"/weekly-problem"}>
+                      <Route exact={true} path={"/weekly-problems"}>
                         <DefaultView
                           selection="weekly-problem"
                           lazyImport={() => import("./Views/weeklyProblems")}
@@ -128,7 +128,7 @@ const App = () => {
                       </Route>
                       <Route
                         exact={true}
-                        path={"/weekly-problem/:id"}
+                        path={"/weekly-problems/:id"}
                         render={({ match }) => (
                           <DefaultView
                             selection="weekly-problem"
@@ -187,7 +187,11 @@ const App = () => {
                       ></Route>
                       <Route
                         render={({ match }) => (
-                          <DefaultView>{"Error 404"}</DefaultView>
+                          <DefaultView
+                            selection="a"
+                            lazyImport={() => import("./Views/home")}
+                            fallback={DefaultLoadingPosts}
+                          />
                         )}
                       />
                     </Switch>

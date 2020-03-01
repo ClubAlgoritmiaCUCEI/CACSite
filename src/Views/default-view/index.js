@@ -7,15 +7,21 @@ import Footer from "../../Components/footer";
 
 import "./style.css";
 
-const DefaultView = ({ selection, children, lazyImport, ...params }) => {
+const DefaultView = ({
+  selection,
+  children,
+  lazyImport,
+  fallback,
+  ...params
+}) => {
   const LazyComponent = lazy(lazyImport);
   return (
     <div className="cac_view">
       <Header />
       <Navigation selection={selection} />
       <Side />
-      <Suspense fallback={<div />}>
-        <LazyComponent {...params} />
+      <Suspense fallback={fallback()}>
+        <LazyComponent {...params} Fallback={fallback} />
       </Suspense>
       <Footer />
     </div>

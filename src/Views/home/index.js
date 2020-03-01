@@ -4,11 +4,12 @@ import { PostsContext } from "../../Providers/postsProvider";
 import { UserContext, AllUsersContext } from "../../Providers/userProvider";
 import useOutsideAlerter from "../../Hooks/useOutsideAlerter";
 
+
 import Post from "../../Components/post";
 
 import "./style.css";
 
-const Home = () => {
+const Home = ({ Fallback }) => {
   const posts = useContext(PostsContext);
   const allUsers = useContext(AllUsersContext);
   const user = useContext(UserContext);
@@ -42,8 +43,7 @@ const Home = () => {
           </div>
         </div>
       )}
-
-      {!user.isLoading &&
+      {!user.isLoading && posts.posts.home.length > 0 ? (
         posts.posts.home.map((post, i) => (
           <Post
             user={user}
@@ -54,7 +54,10 @@ const Home = () => {
             onClick={() => handlePostClick(post.id)}
             showCommentaries={false}
           />
-        ))}
+        ))
+      ) : (
+        <Fallback />
+      )}
     </div>
   );
 };

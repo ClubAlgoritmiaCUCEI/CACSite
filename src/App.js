@@ -9,6 +9,7 @@ import {
 
 import SignIn from "./Views/signIn";
 import SignUp from "./Views/signUp";
+import LoadingPost from "./Components/loading-post";
 
 import UserProvider, { AllUsersProvider } from "./Providers/userProvider";
 import CalendarProvider from "./Providers/calendarProvider";
@@ -18,6 +19,16 @@ import ClassProvider from "./Providers/classProvider";
 
 import "./App.css";
 import DefaultView from "./Views/default-view";
+
+const DefaultLoadingPosts = (showUser = true) => {
+  return (
+    <div>
+      <LoadingPost type="medium" showUser={showUser} />
+      <LoadingPost type="small" showUser={showUser} />
+      <LoadingPost type="big" showUser={showUser} />
+    </div>
+  );
+};
 
 const App = () => {
   return (
@@ -40,12 +51,14 @@ const App = () => {
                         <DefaultView
                           selection="home"
                           lazyImport={() => import("./Views/home")}
+                          fallback={DefaultLoadingPosts}
                         />
                       </Route>
                       <Route exact={true} path={"/home"}>
                         <DefaultView
                           selection="home"
                           lazyImport={() => import("./Views/home")}
+                          fallback={DefaultLoadingPosts}
                         />
                       </Route>
                       <Route
@@ -57,6 +70,7 @@ const App = () => {
                             lazyImport={() =>
                               import("./Components/single-post/home-post")
                             }
+                            fallback={() => <LoadingPost type="medium" />}
                             match={match}
                           />
                         )}
@@ -65,6 +79,7 @@ const App = () => {
                         <DefaultView
                           selection="public"
                           lazyImport={() => import("./Views/public")}
+                          fallback={DefaultLoadingPosts}
                         />
                       </Route>
                       <Route
@@ -76,6 +91,7 @@ const App = () => {
                             lazyImport={() =>
                               import("./Components/single-post/public-post")
                             }
+                            fallback={() => <LoadingPost type="medium" />}
                             match={match}
                           />
                         )}
@@ -85,6 +101,7 @@ const App = () => {
                         <DefaultView
                           selection="editorial"
                           lazyImport={() => import("./Views/editorial")}
+                          fallback={() => DefaultLoadingPosts(false)}
                         />
                       </Route>
                       <Route
@@ -96,6 +113,7 @@ const App = () => {
                             lazyImport={() =>
                               import("./Components/single-post/editorial-post")
                             }
+                            fallback={() => <LoadingPost type="medium" />}
                             match={match}
                           />
                         )}
@@ -105,6 +123,7 @@ const App = () => {
                         <DefaultView
                           selection="weekly-problem"
                           lazyImport={() => import("./Views/weeklyProblems")}
+                          fallback={() => DefaultLoadingPosts(false)}
                         />
                       </Route>
                       <Route
@@ -116,6 +135,7 @@ const App = () => {
                             lazyImport={() =>
                               import("./Components/single-post/weekly-post")
                             }
+                            fallback={() => <LoadingPost type="medium" />}
                             match={match}
                           />
                         )}
@@ -124,12 +144,14 @@ const App = () => {
                         <DefaultView
                           selection="calendar"
                           lazyImport={() => import("./Views/calendar")}
+                          fallback={() => null}
                         />
                       </Route>
                       <Route exact={true} path={"/attendance"}>
                         <DefaultView
                           selection="attendance"
                           lazyImport={() => import("./Views/attendanceCode")}
+                          fallback={() => null}
                         />
                       </Route>
                       <Route
@@ -140,6 +162,7 @@ const App = () => {
                             selection="attendance"
                             lazyImport={() => import("./Views/attendance")}
                             match={match}
+                            fallback={() => null}
                           />
                         )}
                       ></Route>
@@ -147,6 +170,7 @@ const App = () => {
                         <DefaultView
                           selection="create"
                           lazyImport={() => import("./Views/create")}
+                          fallback={() => null}
                         />
                       </Route>
                       <Route
@@ -157,6 +181,7 @@ const App = () => {
                             selection="create"
                             lazyImport={() => import("./Views/create")}
                             match={match}
+                            fallback={() => null}
                           />
                         )}
                       ></Route>

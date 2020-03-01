@@ -9,7 +9,7 @@ import Post from "../../Components/post";
 
 import "./style.css";
 
-const Editorial = () => {
+const Editorial = ({ Fallback }) => {
   const posts = useContext(PostsContext);
   const user = useContext(UserContext);
   const allUsers = useContext(AllUsersContext);
@@ -26,7 +26,7 @@ const Editorial = () => {
   return (
     <div className="cac_editorial">
       {redirect.enable && <Redirect to={redirect.to} />}
-      {!user.isLoading &&
+      {!user.isLoading && posts.posts.editorial.length > 0 ? (
         posts.posts.editorial.map((postData, i) => {
           return (
             <Post
@@ -41,7 +41,10 @@ const Editorial = () => {
               from="editorial"
             />
           );
-        })}
+        })
+      ) : (
+        <Fallback />
+      )}
     </div>
   );
 };

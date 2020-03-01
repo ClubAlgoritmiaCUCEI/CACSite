@@ -1,0 +1,96 @@
+.cac_loading-post {
+  display: grid;
+  grid-template-rows: min-content;
+  grid-template-columns: min-content 1fr;
+  grid-template-areas: "photo author" "description description";
+  gap: 1rem;
+  margin-bottom: 2rem;
+  background-color: #fff;
+  border-radius: 3px;
+  border: 1px solid rgb(216, 216, 216);
+  padding: 1rem;
+  box-shadow: 0 0 2px rgb(216, 216, 216);
+  transition: all 0.2s;
+}
+
+.cac_loading-post_image {
+  width: 6rem;
+  height: 6rem;
+  grid-area: photo;
+  border-radius: 0.5rem;
+}
+.cac_loading-post_author {
+  grid-area: author;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cac_loading-post_title {
+  width: 60%;
+  height: 2rem;
+  background-color: red;
+  margin-bottom: 1rem;
+  border-radius: 0.2rem;
+}
+.cac_loading-post--large .cac_loading-post_title {
+  width: 50%;
+}
+.cac_loading-post--medium .cac_loading-post_title {
+  width: 60;
+}
+.cac_loading-post--small .cac_loading-post_title {
+  width: 40%;
+}
+.cac_loading-post_name {
+  width: 40%;
+  height: 1.8rem;
+  background-color: red;
+  border-radius: 0.2rem;
+}
+
+.cac_loading-post_content-container {
+  grid-area: description;
+  margin-left: 1rem;
+  border-left: 0.2rem solid #a0c0d2;
+  padding-left: 2rem;
+}
+
+.cac_loading-post_content {
+  width: 50%;
+  height: 2rem;
+  background-color: pink;
+}
+.cac_loading-post_content:not(:last-child) {
+  margin-bottom: 1rem;
+}
+.cac_loading-post_content--big {
+  width: 80%;
+}
+
+.cac_loading-post_content--medium {
+  width: 50%;
+}
+.cac_loading-post_content--small {
+  width: 30%;
+}
+
+.gradient {
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background: #f6f7f8;
+  background: linear-gradient(to right, #f5f5f5 8%, #eee 38%, #f5f5f5 54%);
+  background-size: 50rem 10rem;
+  position: relative;
+}
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: -250px 0;
+  }
+  100% {
+    background-position: 250px 0;
+  }
+}

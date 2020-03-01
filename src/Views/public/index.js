@@ -12,7 +12,7 @@ import { TopPopup } from "../../Components/popup";
 
 import "./style.css";
 
-const Public = () => {
+const Public = ({ Fallback }) => {
   const posts = useContext(PostsContext);
   const user = useContext(UserContext);
   const allUsers = useContext(AllUsersContext);
@@ -161,7 +161,7 @@ const Public = () => {
         </div>
       )}
       <div className="cac_public_posts">
-        {!user.isLoading &&
+        {!user.isLoading && posts.posts.public.length > 0 ? (
           posts.posts.public.map((postData, i) => {
             return (
               <Post
@@ -175,7 +175,10 @@ const Public = () => {
                 from="public"
               />
             );
-          })}
+          })
+        ) : (
+          <Fallback />
+        )}
       </div>
     </div>
   );

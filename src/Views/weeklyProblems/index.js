@@ -9,7 +9,7 @@ import Post from "../../Components/post";
 
 import "./style.css";
 
-const WeeklyProblems = () => {
+const WeeklyProblems = ({ Fallback }) => {
   const posts = useContext(PostsContext);
   const user = useContext(UserContext);
   const allUsers = useContext(AllUsersContext);
@@ -26,7 +26,7 @@ const WeeklyProblems = () => {
   return (
     <div className="cac_weekly">
       {redirect.enable && <Redirect to={redirect.to} />}
-      {!user.isLoading &&
+      {!user.isLoading && posts.posts.weeklyProblems.length > 0 ? (
         posts.posts.weeklyProblems.map((postData, i) => {
           return (
             <Post
@@ -41,7 +41,10 @@ const WeeklyProblems = () => {
               from="weekly-problems"
             />
           );
-        })}
+        })
+      ) : (
+        <Fallback />
+      )}
     </div>
   );
 };

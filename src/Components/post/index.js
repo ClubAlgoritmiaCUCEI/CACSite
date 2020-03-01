@@ -47,8 +47,6 @@ const Post = ({
     !preview && user.logged && user.saved.includes(data.id)
   );
 
-  console.log(removeDangerousHTML("<br></br><br/>"));
-
   const onLikeClick = e => {
     e.stopPropagation();
     const updateLike = async () => {
@@ -143,6 +141,7 @@ const Post = ({
           ) : (
             <TimeAgo
               className="cac_post_date"
+              live={false}
               date={data.timestamp ? data.timestamp.toDate() : new Date()}
             />
           )}

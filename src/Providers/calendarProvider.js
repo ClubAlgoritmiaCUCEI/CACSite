@@ -4,8 +4,9 @@ export const CalendarContext = createContext({});
 
 const CalendarProvider = ({ children }) => {
   const [events, setEvents] = useState([]);
+  const [status, setStatus] = useState(false);
 
-  useEffect(() => {
+  const fetchEvents = () => {
     const start = () => {
       window.gapi.client
         .init({
@@ -46,10 +47,15 @@ const CalendarProvider = ({ children }) => {
         setTimeout(() => request(), 500);
       }
     };
-    request();
-  }, []);
+    if (!status) {
+      request();
+      console.log("??")
+      setStatus(true);
+    }
+  };
+
   return (
-    <CalendarContext.Provider value={events}>
+    <CalendarContext.Provider value={{ events: events, fetch: fetchEvents }}>
       {children}
     </CalendarContext.Provider>
   );

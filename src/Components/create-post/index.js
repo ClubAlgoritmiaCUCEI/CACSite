@@ -32,7 +32,6 @@ const CreatePost = ({
         type: type,
         comments: [],
         likesList: [],
-        likesCounter: 0,
         author: { id: user.uid, displayName: user.displayName },
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         key: Date.now()
@@ -78,7 +77,9 @@ const CreatePost = ({
             title: title,
             author: user,
             content: content,
-            date: "just now"
+            date: "just now",
+            comments: [],
+            likesList: []
           }}
         />
       ) : (

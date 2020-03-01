@@ -17,7 +17,7 @@ import { ReactComponent as List } from "../../assets/list-icon.svg";
 import "./style.css";
 
 const Calendar = () => {
-  const events = useContext(CalendarContext);
+  const { events, fetch: fetchEvents } = useContext(CalendarContext);
   const [box, setBox] = useState({ visible: false, x: 10, y: 0, content: {} });
   const [checked, setChecked] = useState(false);
   const [eventsEl, setEventsEl] = useState([]);
@@ -40,12 +40,12 @@ const Calendar = () => {
         elements.push(
           <div key={-i} className="cac_calendar_list_month">
             <span>{parseMonth(currentMonth)}</span>
-            <div className="cac_calendar_list_month--line"/>
+            <div className="cac_calendar_list_month--line" />
           </div>
         );
       }
       elements.push(
-        <div className="cac_calendar_list_event" key={i+ 1}>
+        <div className="cac_calendar_list_event" key={i + 1}>
           <span className="cac_calendar_list_title">{e.summary}</span>
           <span className="cac_calendar_list_date">{e.start}</span>
           <span className="cac_calendar_list_location">{e.location}</span>
@@ -55,6 +55,9 @@ const Calendar = () => {
     });
     setEventsEl(elements);
   }, [events]);
+
+  useEffect(() => fetchEvents(), [fetchEvents]);
+
   return (
     <>
       <div

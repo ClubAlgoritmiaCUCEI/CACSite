@@ -1,4 +1,6 @@
 import React from "react";
+// eslint-disable-next-line no-unused-vars
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 import ColoredName from "../colored-name";
 import TimeAgo from "react-timeago";
@@ -17,12 +19,14 @@ const Commentary = ({ author, date, content }) => {
           className="cac_commentary_photo"
         />
         <div className="cac_commentary_heading_text">
-          <ColoredName
-            className="cac_commentary_name"
-            rank={author ? author.rank : null}
-          >
-            {author ? author.displayName : ""}
-          </ColoredName>
+          <Link to={`/profile/${author.id}`} className="cac_commentary_name--link">
+            <ColoredName
+              className="cac_commentary_name"
+              rank={author ? author.rank : null}
+            >
+              {author ? author.displayName : ""}
+            </ColoredName>
+          </Link>
           <TimeAgo className="cac_post_date" date={date.toDate()} />
         </div>
       </div>

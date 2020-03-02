@@ -28,7 +28,18 @@
   display: block;
   font-size: 1.5rem;
   line-height: 1.4rem;
+  width:max-content;
 }
+
+.cac_commentary_name--link{
+  text-decoration: none;
+  color:black;
+}
+
+.cac_commentary_name--link:hover{
+  text-decoration: underline;
+}
+
 .cac_commentary_content {
   margin-left: 1rem;
   border-left: 0.2rem solid #a0c0d2;

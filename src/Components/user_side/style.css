@@ -33,3 +33,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.cac_user-side_name--link {
+  color:black;
+  text-decoration: none;
+}
+
+.cac_user-side_name--link:hover {
+  text-decoration: underline;
+}

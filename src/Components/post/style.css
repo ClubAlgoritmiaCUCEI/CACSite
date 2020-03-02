@@ -56,6 +56,15 @@
 .cac_post_author {
   font-size: 1.4rem;
   line-height: 1.8rem;
+  width: max-content;
+}
+.cac_post_author--link {
+  text-decoration: none;
+  color: black;
+  width: max-content;
+}
+.cac_post_author--link:hover {
+  text-decoration: underline;
 }
 .cac_post_date {
   font-size: 1.1rem;

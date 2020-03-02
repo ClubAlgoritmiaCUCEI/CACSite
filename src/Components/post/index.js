@@ -48,6 +48,8 @@ const Post = ({
     !preview && user.logged && user.saved.includes(data.id)
   );
 
+  console.log(author);
+
   const onLikeClick = e => {
     e.stopPropagation();
     const updateLike = async () => {
@@ -135,9 +137,14 @@ const Post = ({
                 <span className="cac_post_title">{data.title}</span>
               )}
               {showAuthor && (
-                <ColoredName className="cac_post_author" rank={author.rank}>
-                  {author.displayName}
-                </ColoredName>
+                <Link
+                  to={`/profile/${author.id}`}
+                  className="cac_post_author--link"
+                >
+                  <ColoredName className="cac_post_author" rank={author.rank}>
+                    {author.displayName}
+                  </ColoredName>
+                </Link>
               )}
               {preview ? (
                 <span className="cac_post_date">{data.date}</span>

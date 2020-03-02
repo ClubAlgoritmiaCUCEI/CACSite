@@ -1,6 +1,9 @@
 import React from "react";
 import ColoredName from "../colored-name";
 
+// eslint-disable-next-line no-unused-vars
+import { BrowserRouter as Router, Link } from "react-router-dom";
+
 import DefaultImage from "../../assets/default-photo.jpg";
 
 import "./style.css";
@@ -14,10 +17,14 @@ const UserBox = ({ user, className, onClick }) => {
         alt={user.displayName}
       />
       <div className="cac_user-box_text">
-        <ColoredName rank={user.rank} className="cac_user-box_name">
-          {user.displayName}
+        <Link to={`/profile/${user.id}`} className="cac_user-box_name--link">
+          <ColoredName rank={user.rank} className="cac_user-box_name">
+            {user.displayName}
+          </ColoredName>
+        </Link>
+        <ColoredName rank={user.rank} className="cac_user-box_ranking">
+          {user.rating || ""}
         </ColoredName>
-        <span className="cac_user-box_ranking"> {user.rating || ""}</span>
       </div>
     </div>
   );

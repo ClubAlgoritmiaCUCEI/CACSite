@@ -1,46 +1,49 @@
-.cac_user-box{
-  padding: .5rem;
-  width:20rem;
+.cac_user-box {
+  padding: 0.5rem;
+  width: 20rem;
   display: flex;
   border: 1.5px solid #484848;
   border-radius: 3px;
   box-shadow: 0 0 0 white;
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
-.cac_user-box:hover{
-  cursor: pointer;
+.cac_user-box:hover {
   box-shadow: 0 0px 2px #484848;
 }
 
-.cac_user-box_photo{
-  width:4rem !important;
+.cac_user-box_photo {
+  width: 4rem !important;
   border-radius: 3px;
   grid-area: photo;
 }
-.cac_user-box_text{
+.cac_user-box_text {
   display: flex;
   flex-direction: column;
   margin-left: 1rem;
-  width:100%;
+  width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-
 }
 
-.cac_user-box_name{
+.cac_user-box_name {
   font-size: 1.6rem;
   font-weight: 500;
-  letter-spacing: .25px;
-  width:100%;
+  letter-spacing: 0.25px;
+  width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-.cac_user-box_ranking{
+.cac_user-box_name--link {
+  text-decoration: none;
+  color:black;
+}
+.cac_user-box_name--link:hover {
+  text-decoration: underline;
+}
+.cac_user-box_ranking {
   font-size: 1rem;
   font-weight: 600;
-  color: #484848;
 }

@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
-import { BrowserRouter as Router, Link } from "react-router-dom";
 
-import { firestore } from "../../firebase";
+import { firestore, storage } from "../../firebase";
+import { v4 as uuidv4 } from "uuid";
 
 import { UserContext, AllUsersContext } from "../../Providers/userProvider";
 
@@ -11,8 +11,6 @@ import Button from "../../Components/button";
 import { TopPopup } from "../../Components/popup";
 
 import { ReactComponent as Pencil } from "../../assets/pencil.svg";
-import { ReactComponent as Confirmed } from "../../assets/confirm.svg";
-import { ReactComponent as Unconfirmed } from "../../assets/cancel.svg";
 
 import "./style.css";
 import "../profile/style.css";
@@ -44,6 +42,52 @@ const SelfProfile = () => {
       setDescription(user.description || "");
     }
   }, [user]);
+
+  useEffect(() => {
+    let pathReference = storage.ref("userPhoto/erick_200x200");
+    pathReference.getDownloadURL().then(url => {
+      console.log(url);
+    });
+  }, []);
+
+  const handleUpload = async e => {
+    const file = e.target.files[0];
+    const path = `userPhoto/${uuidv4()}`;
+    const storageRef = storage.ref(path);
+    await storageRef.put(file);
+    let pathReference = storage.ref(`${path}_200x200`);
+
+    const requestPhotoURL = async () => {
+      const url = await pathReference.getDownloadURL();
+      const userRef = firestore.doc(`users/${user.uid}`);
+      await userRef.update({
+        photoURL: url
+      });
+    };
+
+    const tryToRequest = timesTried => {
+      try {
+        requestPhotoURL();
+        setAlert({
+          visible: true,
+          type: "success",
+          content: "photo uploaded succesfully"
+        });
+      } catch (e) {
+        if (timesTried > 10) {
+          setAlert({
+            visible: true,
+            type: "error",
+            content: "error uploading photo :("
+          });
+          return;
+        }
+        setTimeout(() => tryToRequest(timesTried + 1), 500);
+      }
+    };
+
+    setTimeout(() => tryToRequest(0), 500);
+  };
 
   const handleConfirm = async () => {
     let flag = description !== user.description;
@@ -136,7 +180,17 @@ const SelfProfile = () => {
               alt={user.displayName}
               className="cac_profile_photo"
             />
-            <span className="cac_profile_photo_edit">Upload new photo</span>
+            <label htmlFor="photo" className="cac_profile_photo_edit">
+              Upload new photo
+            </label>
+            <input
+              style={{ display: "none" }}
+              id="photo"
+              type="file"
+              name="file"
+              accept="image/png, image/jpeg"
+              onChange={handleUpload}
+            />
           </div>
           <div className="cac_profile_information">
             {!editing.displayName ? (

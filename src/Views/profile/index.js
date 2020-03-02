@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 
-import { UserContext, AllUsersContext } from "../../Providers/userProvider";
+import { AllUsersContext } from "../../Providers/userProvider";
 
 import DefaultImage from "../../assets/default-photo.jpg";
 
@@ -16,20 +16,14 @@ const Profile = ({ match, self = false, onClick = () => null }) => {
   const allUsers = useContext(AllUsersContext);
 
   const [user, setUser] = useState({});
-  const [ready, setReady] = useState(false);
 
-  const [exists, setExists] = useState(true);
 
-  console.log(allUsers.usersMap);
   useEffect(() => {
     if (Object.keys(allUsers.usersMap).length > 0) {
       if (allUsers.usersMap[id]) {
-        console.log("??");
         setUser(allUsers.usersMap[id]);
       } else {
-        setExists(false);
       }
-      setReady(true);
     }
   }, [allUsers, id]);
 

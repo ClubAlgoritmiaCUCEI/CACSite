@@ -36,9 +36,9 @@ const SelfProfile = () => {
 
   useEffect(() => {
     if (!user.isCFLoading) {
-      setDisplayName(user.displayName);
-      setCfUsername(user.codeForcesUsername);
-      setVjUsername(user.vjudgeUsername);
+      setDisplayName(user.displayName || "");
+      setCfUsername(user.codeForcesUsername || "");
+      setVjUsername(user.vjudgeUsername || "");
       setDescription(user.description || "");
     }
   }, [user]);
@@ -58,7 +58,7 @@ const SelfProfile = () => {
     let pathReference = storage.ref(`${path}_200x200`);
 
     const requestPhotoURL = async () => {
-      const url = await pathReference.getDownloadURL();
+      const url = pathReference.getDownloadURL();
       const userRef = firestore.doc(`users/${user.uid}`);
       await userRef.update({
         photoURL: url
@@ -85,7 +85,6 @@ const SelfProfile = () => {
         setTimeout(() => tryToRequest(timesTried + 1), 500);
       }
     };
-
     setTimeout(() => tryToRequest(0), 500);
   };
 
@@ -129,13 +128,18 @@ const SelfProfile = () => {
     }
     if (flag) {
       const userRef = firestore.doc(`users/${user.uid}`);
+      console.log(displayName);
+      console.log(cfUsername);
+      console.log(vjudgeUsername);
+      console.log(description);
+      console.log(!editing.cfUsername && user.cfConfirmed);
       try {
         await userRef.update({
-          displayName,
+          displayName: displayName,
           codeForcesUsername: cfUsername,
           vjudgeUsername: vjudgeUsername,
           description: description,
-          cfConfirmed: user.cfConfirmed && !editing.cfUsername
+          cfConfirmed: Boolean(!editing.cfUsername && user.cfConfirmed)
         });
         setAlert({
           visible: true,
@@ -148,7 +152,7 @@ const SelfProfile = () => {
         setAlert({
           visible: true,
           type: "error",
-          content: "Something bad happened :(."
+          content: "Something bad happened :("
         });
       }
     }

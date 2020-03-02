@@ -4,7 +4,6 @@ import { PostsContext } from "../../Providers/postsProvider";
 import { UserContext, AllUsersContext } from "../../Providers/userProvider";
 import useOutsideAlerter from "../../Hooks/useOutsideAlerter";
 
-
 import Post from "../../Components/post";
 
 import "./style.css";
@@ -43,7 +42,9 @@ const Home = ({ Fallback }) => {
           </div>
         </div>
       )}
-      {!user.isLoading && posts.posts.home.length > 0 ? (
+      {!user.isLoading &&
+      posts.posts.home.length > 0 &&
+      Object.keys(allUsers.usersMap).length > 0 ? (
         posts.posts.home.map((post, i) => (
           <Post
             user={user}

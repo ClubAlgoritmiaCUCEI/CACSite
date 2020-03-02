@@ -1,9 +1,8 @@
 import React from "react";
 
 import "./style.css";
-import '../../animations.css';
+import "../../animations.css";
 const LoadingPost = ({ type = "large", showUser = true }) => {
-  console.log(showUser);
   return (
     <div className={"cac_loading-post cac_loading-post--" + type}>
       {showUser && <div className="gradient cac_loading-post_image" />}

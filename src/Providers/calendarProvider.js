@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState } from "react";
 
 export const CalendarContext = createContext({});
 
@@ -49,7 +49,7 @@ const CalendarProvider = ({ children }) => {
     };
     if (!status) {
       request();
-      console.log("??")
+      console.log("??");
       setStatus(true);
     }
   };

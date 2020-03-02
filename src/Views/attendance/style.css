@@ -7,7 +7,7 @@
   padding: 0 2rem;
   display: grid;
   grid-template-columns: 1fr 20rem;
-  grid-template-rows: 4.5rem min-content min-content;
+  grid-template-rows: min-content min-content min-content;
   grid-template-areas:
     "title code"
     "date code"
@@ -15,6 +15,7 @@
     "content speakers"
     "reference speakers"
     "attendant attendant";
+    gap: 1rem;
 }
 
 .cac_attendance_title {
@@ -22,6 +23,8 @@
   font-weight: 600;
   grid-area: title;
   color: #242424;
+  line-height: 3rem;
+  align-self: end;
 }
 
 .cac_attendance_speakers-container {
@@ -98,7 +101,7 @@
   color: rgb(53, 53, 53);
 }
 .cac_attendance_buttons {
-  justify-content: center ;
+  justify-content: center;
   display: flex;
 }
 .cac_attendance .cac_attendance_button {

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 
+// eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Redirect } from "react-router-dom";
 
 import { PostsContext } from "../../Providers/postsProvider";

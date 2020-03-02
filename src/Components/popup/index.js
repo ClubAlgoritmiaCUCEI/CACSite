@@ -8,7 +8,7 @@ const Popup = ({ children }) => {
 
 export default Popup;
 
-const TopPopup = ({ children, className, onClick }) => {
+const TopPopup = ({ children, className = "error", onClick = () => null }) => {
   useEffect(() => {
     const timeOut = setTimeout(() => {
       onClick();

@@ -186,6 +186,30 @@ const App = () => {
                         )}
                       ></Route>
                       <Route
+                        exact={true}
+                        path={"/profile"}
+                        render={({ match }) => (
+                          <DefaultView
+                            selection="profile"
+                            lazyImport={() => import("./Views/selfProfile")}
+                            fallback={() => null}
+                          />
+                        )}
+                      ></Route>
+                      <Route
+                        exact={true}
+                        path={"/profile/:id"}
+                        render={({ match }) => (
+                          <DefaultView
+                            selection="profile"
+                            lazyImport={() => import("./Views/profile")}
+                            match={match}
+                            fallback={() => null}
+                          />
+                        )}
+                      ></Route>
+
+                      <Route
                         render={({ match }) => (
                           <DefaultView
                             selection="a"

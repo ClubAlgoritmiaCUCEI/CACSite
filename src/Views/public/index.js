@@ -161,7 +161,9 @@ const Public = ({ Fallback }) => {
         </div>
       )}
       <div className="cac_public_posts">
-        {!user.isLoading && posts.posts.public.length > 0 ? (
+        {!user.isLoading &&
+        posts.posts.public.length > 0 &&
+        Object.keys(allUsers.usersMap).length > 0 ? (
           posts.posts.public.map((postData, i) => {
             return (
               <Post

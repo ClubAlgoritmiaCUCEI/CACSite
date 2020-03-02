@@ -10,14 +10,18 @@ const API = "https://codeforces.com/api/";
 const DEFAULT_QUERY = "user.info?handles=";
 
 const UserProvider = ({ children }) => {
-  const [user, setUser] = useState({ isLoading: true, isCFLoading: true });
+  const [user, setUser] = useState({
+    isLoading: true,
+    logged: undefined,
+    isCFLoading: true
+  });
 
   useEffect(() => {
     let unsubscribeFromAuth;
     try {
       unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
         if (userAuth != null) {
-          setUser({ isLoading: true, logged: true });
+          setUser({ isLoading: true, logged: true, isCFLoading: true });
           try {
             const userDocument = await getUserDocument(userAuth);
             if (userDocument !== undefined) {

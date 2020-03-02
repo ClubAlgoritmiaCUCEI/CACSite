@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 // eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Redirect } from "react-router-dom";
 
-import Button, { FormButton } from "../../Components/button";
+import { FormButton } from "../../Components/button";
 import { TopPopup } from "../../Components/popup";
 
 import { AttendanceContext } from "../../Providers/attendanceProvider";
@@ -43,6 +43,7 @@ const AttendanceCode = () => {
       console.log(atnContext);
       setShowPopup(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [atnContext.classData.validCode, atnContext.classData.fetching]);
 
   const closePopup = () => {

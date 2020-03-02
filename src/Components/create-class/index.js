@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { firebase, firestore } from "../../firebase";
+import { firestore } from "../../firebase";
 
 import Button from "../button";
 import SelectUsers from "../select-users";

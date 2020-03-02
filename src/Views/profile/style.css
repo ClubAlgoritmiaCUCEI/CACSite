@@ -1,5 +1,75 @@
 .cac_profile {
-  background-color: seagreen;
   width: 100%;
-  height: 20rem;
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  grid-template-rows: min-content 1fr;
+  grid-template-areas: "information photo" "information button ";
+  gap: 1rem;
+  background-color: #fff;
+  border-radius: 3px;
+  border: 1px solid rgb(216, 216, 216);
+  padding: 1.6rem;
+  box-shadow: 0 0 2px rgb(216, 216, 216);
 }
+
+.cac_profile_information {
+  grid-area: information;
+}
+.cac_profile_photo-container {
+  grid-area: photo;
+  width: 20rem;
+  height: 20rem;
+  position: relative;
+  box-shadow: 0 0 4px rgb(104, 104, 104);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+.cac_profile_photo {
+  width: 100%;
+}
+.cac_profile_name {
+  font-size: 4rem;
+  display: block;
+}
+.cac_profile_rank {
+  font-size: 2rem;
+  display: block;
+  line-height: 1.6rem;
+  margin-bottom: 2rem;
+}
+.cac_profile_label {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.cac_profile_link {
+  text-decoration: none;
+  color: black;
+  color: #4a79c6;
+  margin-left: 0.5rem;
+}
+.cac_profile_link:hover {
+  text-decoration: underline;
+}
+.cac_profile_description {
+  display: block;
+  padding: 0.5rem 1rem;
+  border-radius: 0.3rem;
+  border: 1px solid rgb(216, 216, 216);
+  font-size: 2rem;
+  color: rgb(102, 102, 102);
+}
+.cac_profile_confirmation {
+  width: 1.3rem;
+  margin-left: 0.5rem;
+  transform: translateY(1px);
+}
+.cac_profile_confirmation--true {
+  fill: green;
+}
+
+.cac_profile_confirmation--false {
+  fill: red;
+}
+

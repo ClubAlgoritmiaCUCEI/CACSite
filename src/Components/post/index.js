@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { firebase, firestore } from "../../firebase";
+// eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
 import ReactMarkdown from "react-markdown";
@@ -38,8 +39,8 @@ const Post = ({
   showCommentaries = false,
   onClick = () => null
 }) => {
-  let { author } = data;
-  author = allUsers[author.id] || author;
+  let author;
+  author = allUsers[data.author.id] || author;
   const [publishingCommentary, setPublishingCommentary] = useState(false);
   const [textValue, setTextValue] = useState("");
   const like = !preview && user.logged && data.likesList.includes(user.uid);
@@ -108,116 +109,120 @@ const Post = ({
     if (!publishingCommentary && textValue) publish();
   };
   return (
-    <div
-      className={`cac_post ${cropContent ? "cac_post--crop" : ""}`}
-      onClick={onClick}
-    >
-      <div className="cac_post_heading">
-        {showAuthor && (
-          <img
-            src={author.photoURL || DefaultPhoto}
-            className="cac_post_heading_photo"
-            alt={author.displayName}
-          />
-        )}
-        <div className="cac_post_text-container">
-          {enableLink ? (
-            <Link
-              to={`/${from}/${data.id}`}
-              className="cac_post_title cac_post_title--link"
-            >
-              {data.title}
-            </Link>
-          ) : (
-            <span className="cac_post_title">{data.title}</span>
-          )}
-          {showAuthor && (
-            <ColoredName className="cac_post_author" rank={author.rank}>
-              {author.displayName}
-            </ColoredName>
-          )}
-          {preview ? (
-            <span className="cac_post_date">{data.date}</span>
-          ) : (
-            <TimeAgo
-              className="cac_post_date"
-              live={false}
-              date={data.timestamp ? data.timestamp.toDate() : new Date()}
-            />
-          )}
-        </div>
-        <div className="cac_post_icons"></div>
-      </div>
-
-      <ReactMarkdown
-        className={`cac_post_content markdown-body ${
-          cropContent ? "cac_post_content--crop" : ""
-        }`}
-        source={removeDangerousHTML(data.content)}
-        renderers={{ code: CodeBlock }}
-        escapeHtml={false}
-        astPlugins={[parseHtml]}
-      />
-      <div className="cac_post_interaction">
-        <div className="cac_post_interaction-box" onClick={onLikeClick}>
-          <span className="cac_post_interaction-counter">
-            {data.likesList.length}
-          </span>
-          <Heart
-            className={`cac_post_icon cac_post_heart ${
-              like ? "cac_post_heart--filled" : ""
-            }`}
-          />
-          <span className="cac_post_interaction-label">Like</span>
-        </div>
-        <div className="cac_post_interaction-box cac_post_interaction-box--comment">
-          <span className="cac_post_interaction-counter">
-            {data.comments.length}
-          </span>
-          <Comment className="cac_post_icon cac_post_comment" />
-          <span className="cac_post_interaction-label">Comment</span>
-        </div>
-        <div className="cac_post_interaction-box" onClick={onSaveClick}>
-          <Bookmark
-            className={`cac_post_icon cac_post_bookmark ${
-              saved ? "cac_post_bookmark--filled" : ""
-            }`}
-          />
-          <span className="cac_post_interaction-label">Save</span>
-        </div>
-      </div>
-      {showCommentaries && (
-        <div className="cac_post_commentaries-section">
-          {user.logged && (
-            <div className="cac_post_create-commentary">
-              <textarea
-                className="cac_post_create-commentary_textarea"
-                value={textValue}
-                onChange={e => setTextValue(e.target.value)}
+    <>
+      {author && (
+        <div
+          className={`cac_post ${cropContent ? "cac_post--crop" : ""}`}
+          onClick={onClick}
+        >
+          <div className="cac_post_heading">
+            {showAuthor && (
+              <img
+                src={author.photoURL || DefaultPhoto}
+                className="cac_post_heading_photo"
+                alt={author.displayName}
               />
-              <Button
-                className="cac_poist_create-commentary_button"
-                onClick={publishCommentary}
-              >
-                {"Comment"}
-              </Button>
+            )}
+            <div className="cac_post_text-container">
+              {enableLink ? (
+                <Link
+                  to={`/${from}/${data.id}`}
+                  className="cac_post_title cac_post_title--link"
+                >
+                  {data.title}
+                </Link>
+              ) : (
+                <span className="cac_post_title">{data.title}</span>
+              )}
+              {showAuthor && (
+                <ColoredName className="cac_post_author" rank={author.rank}>
+                  {author.displayName}
+                </ColoredName>
+              )}
+              {preview ? (
+                <span className="cac_post_date">{data.date}</span>
+              ) : (
+                <TimeAgo
+                  className="cac_post_date"
+                  live={false}
+                  date={data.timestamp ? data.timestamp.toDate() : new Date()}
+                />
+              )}
+            </div>
+            <div className="cac_post_icons"></div>
+          </div>
+
+          <ReactMarkdown
+            className={`cac_post_content markdown-body ${
+              cropContent ? "cac_post_content--crop" : ""
+            }`}
+            source={removeDangerousHTML(data.content)}
+            renderers={{ code: CodeBlock }}
+            escapeHtml={false}
+            astPlugins={[parseHtml]}
+          />
+          <div className="cac_post_interaction">
+            <div className="cac_post_interaction-box" onClick={onLikeClick}>
+              <span className="cac_post_interaction-counter">
+                {data.likesList.length}
+              </span>
+              <Heart
+                className={`cac_post_icon cac_post_heart ${
+                  like ? "cac_post_heart--filled" : ""
+                }`}
+              />
+              <span className="cac_post_interaction-label">Like</span>
+            </div>
+            <div className="cac_post_interaction-box cac_post_interaction-box--comment">
+              <span className="cac_post_interaction-counter">
+                {data.comments.length}
+              </span>
+              <Comment className="cac_post_icon cac_post_comment" />
+              <span className="cac_post_interaction-label">Comment</span>
+            </div>
+            <div className="cac_post_interaction-box" onClick={onSaveClick}>
+              <Bookmark
+                className={`cac_post_icon cac_post_bookmark ${
+                  saved ? "cac_post_bookmark--filled" : ""
+                }`}
+              />
+              <span className="cac_post_interaction-label">Save</span>
+            </div>
+          </div>
+          {showCommentaries && (
+            <div className="cac_post_commentaries-section">
+              {user.logged && (
+                <div className="cac_post_create-commentary">
+                  <textarea
+                    className="cac_post_create-commentary_textarea"
+                    value={textValue}
+                    onChange={e => setTextValue(e.target.value)}
+                  />
+                  <Button
+                    className="cac_poist_create-commentary_button"
+                    onClick={publishCommentary}
+                  >
+                    {"Comment"}
+                  </Button>
+                </div>
+              )}
+              <div className="cac_post_commentaries">
+                {data.comments
+                  .sort((a, b) => b.date.toDate() - a.date.toDate())
+                  .map(({ author, content, date }, i) => (
+                    <Commentary
+                      key={i}
+                      author={allUsers[author]}
+                      content={content}
+                      date={date}
+                    />
+                  ))}
+              </div>
             </div>
           )}
-          <div className="cac_post_commentaries">
-            {data.comments
-              .sort((a, b) => b.date.toDate() - a.date.toDate())
-              .map(({ author, content, date }, i) => (
-                <Commentary
-                  key={i}
-                  author={allUsers[author]}
-                  content={content}
-                  date={date}
-                />
-              ))}
-          </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

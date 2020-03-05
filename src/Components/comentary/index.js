@@ -10,6 +10,7 @@ import DefaultImage from "../../assets/default-photo.jpg";
 import "./style.css";
 
 const Commentary = ({ author, date, content }) => {
+  console.log(author);
   return (
     <div className="cac_commentary">
       <div className="cac_commentary_heading">
@@ -19,7 +20,10 @@ const Commentary = ({ author, date, content }) => {
           className="cac_commentary_photo"
         />
         <div className="cac_commentary_heading_text">
-          <Link to={`/profile/${author.id}`} className="cac_commentary_name--link">
+          <Link
+            to={`/profile/${author.id}`}
+            className="cac_commentary_name--link"
+          >
             <ColoredName
               className="cac_commentary_name"
               rank={author ? author.rank : null}

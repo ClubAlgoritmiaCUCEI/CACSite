@@ -1,6 +1,8 @@
 .cac {
   width: 100%;
   max-width: var(--max-content-width);
-  padding-left: 4rem;
   margin: 0 auto;
 }
+
+
+

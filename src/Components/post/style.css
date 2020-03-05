@@ -9,7 +9,19 @@
   padding: 1rem;
   box-shadow: 0 0 2px rgb(216, 216, 216);
   transition: all 0.2s;
+  width: 100%;
 }
+@media screen and (max-width: 1200px) {
+  .cac_post {
+    gap: 0.5rem;
+  }
+}
+@media screen and (max-width: 980px) {
+  .cac_post {
+    margin-bottom: 1rem;
+  }
+}
+
 .cac_post--crop:hover {
   cursor: pointer;
   border: 1px solid rgb(180, 180, 180);
@@ -17,7 +29,7 @@
 
 .cac_post_heading {
   display: grid;
-  grid-template-columns: min-content 1fr 3rem;
+  grid-template-columns: min-content 1fr;
   grid-template-areas: "photo data";
   gap: 1rem;
   justify-content: center;
@@ -30,6 +42,12 @@
   grid-area: photo;
   border-radius: 0.5rem;
 }
+@media screen and (max-width: 980px) {
+  .cac_post_heading_photo {
+    width: 4rem;
+    height: 4rem;
+  }
+}
 
 .cac_post_text-container {
   display: flex;
@@ -37,8 +55,9 @@
   flex-direction: column;
   justify-content: center;
 }
+
 .cac_post_title {
-  width: max-content;
+  width: 95%;
   font-size: 2.3rem;
   letter-spacing: 0.025rem;
   font-weight: 600;
@@ -46,6 +65,14 @@
   text-decoration: none;
   color: rgb(54, 54, 54);
   transition: all 0.2s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media screen and (max-width: 980px) {
+  .cac_post_title {
+    font-size: 1.8rem;
+  }
 }
 
 .cac_post_title--link:hover {
@@ -57,6 +84,11 @@
   font-size: 1.4rem;
   line-height: 1.8rem;
   width: max-content;
+}
+@media screen and (max-width: 980px) {
+  .cac_post_author {
+    font-size: 1.2rem;
+  }
 }
 .cac_post_author--link {
   text-decoration: none;
@@ -72,12 +104,24 @@
   font-weight: 600;
   color: rgb(46, 46, 46);
 }
+@media screen and (max-width: 980px) {
+  .cac_post_date {
+    font-size: 1rem;
+  }
+}
 
 .cac_post_content {
   margin-left: 1rem;
   border-left: 0.2rem solid #a0c0d2;
   padding-left: 2rem;
   padding-right: 1rem;
+}
+@media screen and (max-width: 980px) {
+  .cac_post_content {
+    margin-left: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 .cac_post_content--crop {
   --max-height: 33rem;
@@ -111,15 +155,13 @@
   margin-right: 2rem !important;
 }
 
-.cac_post_content {
-  font-size: 1.6rem;
-}
-
 .cac_post_interaction {
   position: relative;
   padding-left: 1rem;
   padding-right: 1rem;
   width: 60rem;
+  width: 100%;
+  max-width: 60rem;
   margin: 0 auto;
   display: flex;
   justify-content: space-around;
@@ -196,6 +238,7 @@
   width: 100%;
   margin-bottom: 1rem;
 }
+
 .cac_post_interaction-counter {
   font-size: 1.3rem;
   margin-right: 0.6rem;

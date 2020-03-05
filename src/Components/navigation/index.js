@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 import "./style.css";
 
 const Navigation = props => {
+
   const { className, selection } = props;
   return (
     <div className={`cac_navigation ${className || ""}`}>
@@ -48,7 +49,9 @@ const Navigation = props => {
       </Link>
       <Link
         to="/create"
-        className={`cac_section cac_section--admin ${selection === "create" ? "active" : ""}`}
+        className={`cac_section cac_section--admin ${
+          selection === "create" ? "active" : ""
+        }`}
       >
         Create
       </Link>

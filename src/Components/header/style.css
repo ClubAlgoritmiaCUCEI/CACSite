@@ -10,6 +10,11 @@
   height: auto;
   transform: translateX(-50%);
 }
+@media screen and (max-width: 1500px) {
+  .cac_header_logo {
+    transform: none;
+  }
+}
 
 .cac_user-interface {
   display: flex;

@@ -6,11 +6,16 @@
   align-items: start;
   margin-bottom: 1rem;
 }
+@media screen and (max-width: 1200px) {
+  .cac_public_create {
+    margin-bottom: 0;
+  }
+}
 .cac_public_create_button {
   width: 10rem;
   text-align: center;
   color: white;
-  padding: .5rem 0;
+  padding: 0.5rem 0;
 }
 .cac_public_create_button--post {
   background-color: #4a79c6;
@@ -20,36 +25,36 @@
   background-color: #ab1c21;
   grid-area: cancel;
 }
-.cac_public_create_text-area{
-  padding: .8rem 1rem;
+.cac_public_create_text-area {
+  padding: 0.8rem 1rem;
   font-size: 2rem;
   resize: vertical;
   height: 3.7rem;
-  border-radius: .3rem;
+  border-radius: 0.3rem;
   outline: none !important;
-  transition: border .2s;
+  transition: border 0.2s;
   min-height: 3.7rem;
 }
 
-.cac_public_create_text-area:focus{
+.cac_public_create_text-area:focus {
   border: 1px solid rgb(99, 99, 99);
 }
-.cac_public_create_text-area--title{
+.cac_public_create_text-area--title {
   grid-area: title;
   resize: none;
 }
 
-.cac_public_create_text-area--content{
+.cac_public_create_text-area--content {
   grid-area: content;
   height: 10rem;
 }
 
-.cac_public_create_button--disabled{
-  filter:grayscale(.5);
+.cac_public_create_button--disabled {
+  filter: grayscale(0.5);
   box-shadow: none !important;
 }
 
-.cac_public_create_button--disabled:hover{
+.cac_public_create_button--disabled:hover {
   cursor: not-allowed;
 }
 
@@ -69,5 +74,4 @@
   width: 100%;
   max-width: 100rem;
   margin: 0 auto;
-
 }

@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 
 import { firestore, firebase } from "../../firebase";
 
-import { UserContext } from "../../Providers/userProvider";
+import { UserContext, AllUsersContext } from "../../Providers/userProvider";
 
 import Post from "../post";
 import Button from "../button";
@@ -17,12 +17,12 @@ const CreatePost = ({
   to = "posts",
   showAuthor = true
 }) => {
+  const user = useContext(UserContext);
+  const allUsers = useContext(AllUsersContext);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [isSubmiting, setIsSubmiting] = useState(false);
   const [alert, setAlert] = useState({ visible: false, content: "", type: "" });
-  const user = useContext(UserContext);
-
   const handlePostButton = async () => {
     if (!isSubmiting && title && content) {
       setIsSubmiting(true);
@@ -70,12 +70,13 @@ const CreatePost = ({
       {preview ? (
         <Post
           preview={true}
-          allUsers={{}}
+          allUsers={allUsers.usersMap}
           enableLink={false}
+          author={user}
           showAuthor={showAuthor}
           data={{
             title: title,
-            author: user,
+            author: { id: user.uid },
             content: content,
             date: "just now",
             comments: [],

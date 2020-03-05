@@ -47,9 +47,7 @@ const Post = ({
   const [saved, setSaved] = useState(
     !preview && user.logged && user.saved.includes(data.id)
   );
-
-  console.log(author);
-
+  console.log(allUsers);
   const onLikeClick = e => {
     e.stopPropagation();
     const updateLike = async () => {
@@ -219,7 +217,7 @@ const Post = ({
                   .map(({ author, content, date }, i) => (
                     <Commentary
                       key={i}
-                      author={allUsers[author]}
+                      author={{ id: author, ...allUsers[author] }}
                       content={content}
                       date={date}
                     />

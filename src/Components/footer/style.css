@@ -1,4 +1,5 @@
 .cac_footer {
+  grid-area: footer;
   width: 100%;
   font-style: 1.4rem;
   padding: 3rem 0;

@@ -1,12 +1,14 @@
 .cac_side {
   position: sticky;
   grid-area: side;
-
-  /* padding-left: 1rem; */
   box-sizing: border-box;
-  padding-left: 0.1rem;
-  padding-top: 1rem;
   z-index: 1;
+  width: 25rem;
+}
+@media screen and (max-width: 1200px) {
+  .cac_side {
+    width: 20rem;
+  }
 }
 .cac_side_sections {
   position: sticky;
@@ -30,8 +32,7 @@
 .cac_side_section:not(:last-child) {
   margin-bottom: 1rem;
 }
-.cac_side_section--loading {
-}
+
 .cac_side_loading_title {
   width: 60%;
   margin: 0 auto;

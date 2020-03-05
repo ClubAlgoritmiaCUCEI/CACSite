@@ -9,6 +9,11 @@
   height: var(--photo-size);
   border-radius: 8px;
 }
+@media screen and (max-width: 1200px) {
+  .cac_user-side {
+    --photo-size: 5rem;
+  }
+}
 
 .cac_user-side_info {
   margin-left: 1rem;
@@ -34,7 +39,7 @@
   text-overflow: ellipsis;
 }
 .cac_user-side_name--link {
-  color:black;
+  color: black;
   text-decoration: none;
 }
 

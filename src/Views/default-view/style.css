@@ -1,6 +1,5 @@
 .cac_view {
   width: 100%;
-  padding-top: 1rem;
   display: grid;
   grid-template-columns: 1fr max-content;
   grid-template-rows: 7rem 5rem max-content;
@@ -34,5 +33,14 @@
       "header"
       "main"
       "footer";
+    grid-template-rows: 7rem max-content max-content;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .cac_view {
+    padding:0;
+  }
+}
+
+

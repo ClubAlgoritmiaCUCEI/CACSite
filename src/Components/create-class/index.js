@@ -56,12 +56,10 @@ const CreateClass = ({ preview }) => {
 
   const canPost = () => {
     if (!(title && code && description && speakers.length > 0)) {
-      console.log("hohoho");
       return false;
     }
     const dateFormated = new Date(date);
     if (isNaN(dateFormated.getTime())) {
-      console.log(dateFormated);
       return false;
     }
     return true;

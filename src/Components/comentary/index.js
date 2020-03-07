@@ -10,7 +10,6 @@ import DefaultImage from "../../assets/default-photo.jpg";
 import "./style.css";
 
 const Commentary = ({ author, date, content }) => {
-  console.log(author);
   return (
     <div className="cac_commentary">
       <div className="cac_commentary_heading">

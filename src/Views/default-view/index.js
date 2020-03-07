@@ -21,9 +21,13 @@ const DefaultView = ({
 
   const LazyComponent = lazy(lazyImport);
   return (
-    <div className="cac_view">
+    <div className="cac_view" id="page-wrap">
       {isTabletOrMobile ? (
-        <HeaderMobile />
+        <HeaderMobile
+          selection={selection}
+          pageWrapId={"page-wrap"}
+          outerContainerId={"page-wrap"}
+        />
       ) : (
         <>
           <Header />

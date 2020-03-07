@@ -47,7 +47,6 @@ const Post = ({
   const [saved, setSaved] = useState(
     !preview && user.logged && user.saved.includes(data.id)
   );
-  console.log(allUsers);
   const onLikeClick = e => {
     e.stopPropagation();
     const updateLike = async () => {

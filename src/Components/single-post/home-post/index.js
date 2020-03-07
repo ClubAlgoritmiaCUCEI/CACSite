@@ -38,7 +38,6 @@ const HomePost = ({ match }) => {
     }
     return destroyerFunction;
   }, [posts, id]);
-  console.log(postData);
   return (
     <>
       {postData && !user.isLoading && (

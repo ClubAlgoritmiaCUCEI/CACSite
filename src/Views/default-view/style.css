@@ -29,11 +29,11 @@
 @media screen and (max-width: 800px) {
   .cac_view {
     grid-template-columns: 1fr;
-    grid-template-rows: 5rem auto auto;
+    grid-template-rows: auto auto;
     grid-template-areas:
-      "header"
-      "main"
-      "footer";
+    "main"
+    "footer";
     padding: 0;
+    padding-top: 6rem;
   }
 }

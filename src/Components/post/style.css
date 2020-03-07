@@ -11,7 +11,6 @@
   transition: all 0.2s;
   width: 100%;
   overflow: hidden;
-  
 }
 @media screen and (max-width: 1200px) {
   .cac_post {
@@ -21,6 +20,7 @@
 @media screen and (max-width: 980px) {
   .cac_post {
     margin-bottom: 1rem;
+    font-size: 0.9rem;
   }
 }
 @media screen and (max-width: 600px) {
@@ -81,6 +81,7 @@
 @media screen and (max-width: 980px) {
   .cac_post_title {
     font-size: 1.8rem;
+    line-height: 1.6rem;
   }
 }
 
@@ -91,7 +92,7 @@
 
 .cac_post_author {
   font-size: 1.4rem;
-  line-height: 1.8rem;
+  line-height: 1.2rem;
   width: max-content;
 }
 @media screen and (max-width: 980px) {
@@ -109,7 +110,6 @@
 }
 .cac_post_date {
   font-size: 1.1rem;
-  line-height: 1rem;
   font-weight: 600;
   color: rgb(46, 46, 46);
 }
@@ -124,13 +124,29 @@
   border-left: 0.2rem solid #a0c0d2;
   padding-left: 2rem;
   padding-right: 1rem;
+  font-size: 1.6em !important;
+  overflow: hidden;
 }
+
 @media screen and (max-width: 980px) {
   .cac_post_content {
     margin-left: 0.5rem;
     padding-left: 1rem;
     padding-right: 1rem;
   }
+}
+@media screen and (max-width: 600px) {
+  .cac_post_content {
+    border: none;
+    margin-left: 0;
+    padding: 0;
+  }
+}
+
+.cac_post_content > * {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 .cac_post_content--crop {
   --max-height: 33rem;
@@ -157,7 +173,7 @@
   border-bottom: 2px solid #a0c0d2;
 
   background-color: rgb(250, 250, 250) !important;
-  font-size: 1.6rem !important;
+  font-size: 1.6em !important;
   padding-top: 0.5rem !important;
   padding-left: 1rem !important;
   margin-left: 2rem !important;
@@ -193,8 +209,8 @@
 }
 @media screen and (max-width: 600px) {
   .cac_post_interaction-box {
-    padding: .5rem 0rem ;
-    width:10rem;
+    padding: 0.5rem 0rem;
+    width: 10rem;
   }
 }
 .cac_post_interaction-box:hover {
@@ -216,12 +232,23 @@
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
 }
+@media screen and (max-width: 980px) {
+  .cac_post_interaction-label {
+    font-size: 1rem;
+  }
+}
 .cac_post_icon {
   width: 2rem !important;
   height: auto;
   transition: all 0.2s;
   margin-right: 0.5rem;
   fill: transparent;
+}
+
+@media screen and (max-width: 980px) {
+  .cac_post_icon {
+    width: 1.6rem !important;
+  }
 }
 
 .cac_post_heart {
@@ -266,6 +293,12 @@
   color: rgb(66, 66, 66);
   transform: translateY(-1px);
 }
+@media screen and (max-width: 980px) {
+  .cac_post_interaction-counter {
+    font-size: 1rem;
+  }
+}
+
 .cac_post_create-commentary_textarea {
   flex: 1;
   display: inline-block;

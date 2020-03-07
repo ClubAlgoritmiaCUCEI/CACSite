@@ -63,7 +63,6 @@ const SignUp = () => {
 
   const onSubmit = async e => {
     e.preventDefault();
-    console.log(dbUsers);
     if (dbUsers.isLoading) {
       console.error("slow connection, try again");
       return;
@@ -97,7 +96,6 @@ const SignUp = () => {
             if (ok) {
               try {
                 createUserDocumentWithEmailAndPassword(form);
-                console.log("everything ok!");
               } catch (e) {
                 console.error("errrror");
               }

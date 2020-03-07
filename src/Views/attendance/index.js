@@ -77,7 +77,6 @@ const Attendance = props => {
         ...users.map(user => ({ id: user.id, displayName: user.displayName }))
       )
     });
-    console.log("???");
   };
 
   const handleAdd = () => {

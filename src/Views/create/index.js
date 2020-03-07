@@ -37,7 +37,6 @@ const Create = props => {
 
   const handlePreviewClick = () => {
     setPreview(!preview);
-    console.log("click");
   };
 
   const match = props.match || { params: { cid: "" } };

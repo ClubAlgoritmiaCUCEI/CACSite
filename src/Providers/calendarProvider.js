@@ -49,7 +49,6 @@ const CalendarProvider = ({ children }) => {
     };
     if (!status) {
       request();
-      console.log("??");
       setStatus(true);
     }
   };

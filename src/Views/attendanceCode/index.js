@@ -21,7 +21,6 @@ const AttendanceCode = () => {
 
   classes.fetchPreviousClasses();
   classes.fetchNextClasses();
-  console.log(classes.previousClasses);
 
   const handleTextChange = e => {
     setCode(e.target.value);
@@ -40,7 +39,6 @@ const AttendanceCode = () => {
       code &&
       !atnContext.classData.fetching
     ) {
-      console.log(atnContext);
       setShowPopup(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

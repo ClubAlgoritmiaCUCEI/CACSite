@@ -23,7 +23,6 @@ const Editorial = ({ Fallback }) => {
   const handlePostClick = id => {
     setRedirect({ enable: true, to: `/editorial/${id}` });
   };
-  console.log(posts.posts.weeklyProblems);
   return (
     <div className="cac_editorial">
       {redirect.enable && <Redirect to={redirect.to} />}

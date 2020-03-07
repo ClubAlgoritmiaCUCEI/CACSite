@@ -126,11 +126,7 @@ const SelfProfile = () => {
     }
     if (flag) {
       const userRef = firestore.doc(`users/${user.uid}`);
-      console.log(displayName);
-      console.log(cfUsername);
-      console.log(vjudgeUsername);
-      console.log(description);
-      console.log(!editing.cfUsername && user.cfConfirmed);
+
       try {
         await userRef.update({
           displayName: displayName,

@@ -16,8 +16,6 @@ const WeeklyProblems = ({ Fallback }) => {
   const allUsers = useContext(AllUsersContext);
   const [redirect, setRedirect] = useState({ enable: false, to: "" });
 
-  console.log(Fallback);
-
   useEffect(() => {
     posts.fetch.weeklyProblems();
   }, [posts.fetch]);
@@ -25,7 +23,6 @@ const WeeklyProblems = ({ Fallback }) => {
   const handlePostClick = id => {
     setRedirect({ enable: true, to: `/weekly-problems/${id}` });
   };
-  console.log(posts.posts.weeklyProblems);
   return (
     <div className="cac_weekly">
       {redirect.enable && <Redirect to={redirect.to} />}

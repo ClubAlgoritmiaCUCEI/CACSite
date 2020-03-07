@@ -3,6 +3,7 @@ import React, { lazy, Suspense } from "react";
 import { useMediaQuery } from "react-responsive";
 
 import Header from "../../Components/header";
+import HeaderMobile from "../../Components/header-mobile";
 import Navigation from "../../Components/navigation";
 import Side from "../../Components/side";
 import Footer from "../../Components/footer";
@@ -21,9 +22,11 @@ const DefaultView = ({
   const LazyComponent = lazy(lazyImport);
   return (
     <div className="cac_view">
-      <Header />
-      {isTabletOrMobile ? null : (
+      {isTabletOrMobile ? (
+        <HeaderMobile />
+      ) : (
         <>
+          <Header />
           <Navigation selection={selection} />
           <Side />{" "}
         </>

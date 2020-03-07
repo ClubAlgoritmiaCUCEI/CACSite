@@ -25,7 +25,6 @@ const Public = ({ Fallback }) => {
   const [postSelected, setPostSelected] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const postRef = useRef(null);
-  console.log(user);
   useEffect(() => {
     posts.fetch.public();
   }, [posts.fetch]);

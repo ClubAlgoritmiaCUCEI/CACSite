@@ -1,0 +1,15 @@
+.cac_header_mobile {
+  height: 100%;
+  background-color: #4a79c6;
+  grid-area: header;
+  box-shadow: 0 1px 2px rgb(143, 143, 143);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.cac_header_logo {
+  fill: rgb(30, 46, 77);
+  height: 4rem;
+  width: auto;
+  display: block;
+}

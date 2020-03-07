@@ -29,7 +29,6 @@ const SignIn = () => {
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log(email, password);
     signInWithEmailAndPassword(email, password);
   };
 

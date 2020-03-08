@@ -68,7 +68,7 @@
   justify-content: center;
   font-size: 1.2rem;
   background-color: #585858;
-  border:none;
+  border: none;
   transition: all 0.2s;
   font-weight: 600;
 }
@@ -121,7 +121,7 @@
   position: absolute;
   top: 0;
   left: 100%;
-  transform: translate(calc(-1 * 100% - 1rem), .8rem);
+  transform: translate(calc(-1 * 100% - 1rem), 0.2rem);
   z-index: 10;
 }
 .react-switch-bg {
@@ -148,12 +148,16 @@
 .react-switch-handle {
   box-shadow: none !important;
 }
+/****** LIST VIEW ********/
+
 .cac_calendar_list_month {
   display: flex;
   align-items: center;
-  font-size: 4rem;
-  margin-bottom: 3rem;
+  font-size: 3rem;
+  margin-bottom: 2rem;
 }
+
+
 .cac_calendar_list_month--line {
   width: 100%;
   margin-left: 2rem;
@@ -163,54 +167,79 @@
 }
 
 .cac_calendar_list_event {
-  padding: 1rem 2rem;
-  border-left: 2px solid #585858;
-  margin-bottom: 2rem;
-  margin-left: 2rem;
+  margin-bottom: 1rem;
+  background-color: #fff;
+  border-radius: 3px;
+  border: 1px solid rgb(216, 216, 216);
+  padding: 1.6rem;
+  box-shadow: 0 0 2px rgb(216, 216, 216);
   position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: .5rem;
+  grid-template-columns: 1fr 9rem;
+  grid-template-rows: auto auto auto;
+  grid-template-areas: "title date" "location ." "description description";
 }
-.cac_calendar_list_event:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0%;
-  height: 100%;
-  background: rgb(238, 238, 238);
-  z-index: -1;
-  border-top-right-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
-  transition: all .2s;
+@media screen and (max-width: 980px) {
+  .cac_calendar_list_event  {
+    grid-template-columns: 1fr 8rem;
+  }
 }
-.cac_calendar_list_event:hover.cac_calendar_list_event:before {
-  width: 100%;
+@media screen and (max-width: 600px) {
+  .cac_calendar_list_event  {
+    padding: 1rem;
+  }
 }
 .cac_calendar_list_title {
+  grid-area: title;
   font-size: 2.3rem;
   font-weight: 600;
   display: block;
+}
+@media screen and (max-width: 980px) {
+  .cac_calendar_list_title {
+    font-size: 1.8rem;
+  }
 }
 .cac_calendar_list_location {
   font-size: 1.6rem;
   font-weight: 700;
   color: rgb(87, 87, 87);
   display: block;
-  margin-bottom: 0.5rem;
+  grid-area: location;
+}
+@media screen and (max-width: 980px) {
+  .cac_calendar_list_location {
+    font-size: 1.4rem;
+  }
 }
 .cac_calendar_list_description {
-  font-size: 2rem;
+  font-size: 1.8rem !important;
+  grid-area: description;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  margin-top: 1rem;
 }
-
+@media screen and (max-width: 980px) {
+  .cac_calendar_list_description {
+    font-size: 1.6rem !important;
+  }
+}
 .cac_calendar_list_date {
   font-size: 1.6rem;
   font-weight: 600;
-  color: rgb(39, 39, 39);
-  position: absolute;
-  top: 0;
-  left: 100%;
+  color: rgb(73, 73, 73);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   transition: all 0.2s;
-  transform: translate(calc(-100% - 2rem), 0.5rem);
+  grid-area: date;
+  text-align: right;
+}
+@media screen and (max-width: 980px) {
+  .cac_calendar_list_date {
+    font-size: 1.4rem;
+  }
 }

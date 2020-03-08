@@ -23,9 +23,10 @@ import DefaultView from "./Views/default-view";
 const DefaultLoadingPosts = (showUser = true) => {
   return (
     <div>
+      <LoadingPost type="big" showUser={showUser} />
       <LoadingPost type="medium" showUser={showUser} />
       <LoadingPost type="small" showUser={showUser} />
-      <LoadingPost type="big" showUser={showUser} />
+      <LoadingPost type="medium" showUser={showUser} />
     </div>
   );
 };

@@ -1,11 +1,15 @@
 import React, { useEffect, useState, useContext } from "react";
 import { CalendarContext } from "../../Providers/calendarProvider";
+
+import { useMediaQuery } from "react-responsive";
 import { parseMonth } from "../../utilities";
 
 import Switch from "react-switch";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import ReactMarkdown from "react-markdown";
+import htmlParser from "react-markdown/plugins/html-parser";
 
 import "@fullcalendar/core/main.css";
 import "@fullcalendar/daygrid/main.css";
@@ -16,11 +20,16 @@ import { ReactComponent as List } from "../../assets/list-icon.svg";
 
 import "./style.css";
 
+const parseHtml = htmlParser({
+  isValidNode: node => node.type !== "script" && node.type !== "break"
+});
+
 const Calendar = () => {
   const { events, fetch: fetchEvents } = useContext(CalendarContext);
   const [box, setBox] = useState({ visible: false, x: 10, y: 0, content: {} });
   const [checked, setChecked] = useState(false);
   const [eventsEl, setEventsEl] = useState([]);
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 800px)" });
 
   const handleEvent = e => {
     setBox({
@@ -34,7 +43,7 @@ const Calendar = () => {
   useEffect(() => {
     let currentMonth = null;
     const elements = [];
-    events.forEach((e, i) => {
+    events.filter(e => e.jsDate >= new Date()).forEach((e, i) => {
       if (currentMonth !== e.jsDate.getMonth()) {
         currentMonth = e.jsDate.getMonth();
         elements.push(
@@ -49,7 +58,12 @@ const Calendar = () => {
           <span className="cac_calendar_list_title">{e.summary}</span>
           <span className="cac_calendar_list_date">{e.start}</span>
           <span className="cac_calendar_list_location">{e.location}</span>
-          <span className="cac_calendar_list_description">{e.description}</span>
+          <ReactMarkdown
+            className="cac_calendar_list_description"
+            source={e.description}
+            escapeHtml={false}
+            astPlugins={[parseHtml]}
+          />
         </div>
       );
     });
@@ -84,21 +98,27 @@ const Calendar = () => {
         </span>
       </div>
       <div className="cac_calendar">
-        <label htmlFor="icon-switch" className="cac_calendar_switch_container">
-          <Switch
-            checked={checked}
-            onChange={() => setChecked(!checked)}
-            uncheckedIcon={<List className="cac_calendar_list-icon" />}
-            checkedIcon={<Grid className="cac_calendar_grid-icon" />}
-            offColor="#484848"
-            onColor="#fff"
-            onHandleColor="#484848"
-            activeBoxShadow="1px 1px 1px 10px #484848"
-            width={50}
-            height={20}
-            className="cac_calendar_switch"
-          />
-        </label>
+        {!isTabletOrMobile && (
+          <label
+            htmlFor="icon-switch"
+            className="cac_calendar_switch_container"
+          >
+            <Switch
+              checked={checked}
+              onChange={() => setChecked(!checked)}
+              uncheckedIcon={<List className="cac_calendar_list-icon" />}
+              checkedIcon={<Grid className="cac_calendar_grid-icon" />}
+              offColor="#484848"
+              onColor="#fff"
+              onHandleColor="#484848"
+              activeBoxShadow="1px 1px 1px 10px #484848"
+              width={50}
+              height={20}
+              className="cac_calendar_switch"
+            />
+          </label>
+        )}
+
         {checked ? (
           <FullCalendar
             defaultView="dayGridMonth"

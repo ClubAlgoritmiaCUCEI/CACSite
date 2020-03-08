@@ -31,8 +31,13 @@
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
     grid-template-areas:
-    "main"
-    "footer";
+      "main"
+      "footer";
+    padding-top: 6rem;
+  }
+}
+@media screen and (max-width: 600px) {
+  .cac_view {
     padding: 0;
     padding-top: 6rem;
   }

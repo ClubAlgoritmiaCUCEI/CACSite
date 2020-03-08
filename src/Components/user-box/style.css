@@ -7,6 +7,18 @@
   box-shadow: 0 0 0 white;
   transition: all 0.2s;
 }
+@media screen and (max-width: 980px) {
+  .cac_user-box {
+    padding: 0.4rem;
+    width: 16rem;
+  }
+}
+@media screen and (max-width: 400px) {
+  .cac_user-box {
+    padding: 0.2rem;
+    width: 14rem;
+  }
+}
 
 .cac_user-box:hover {
   box-shadow: 0 0px 2px #484848;
@@ -16,6 +28,16 @@
   width: 4rem !important;
   border-radius: 3px;
   grid-area: photo;
+}
+@media screen and (max-width: 980px) {
+  .cac_user-box_photo {
+    width: 3rem !important;
+  }
+}
+@media screen and (max-width: 400px) {
+  .cac_user-box_photo {
+    width: 2.7rem !important;
+  }
 }
 .cac_user-box_text {
   display: flex;
@@ -36,9 +58,19 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+@media screen and (max-width: 980px) {
+  .cac_user-box_name {
+    font-size: 1.4rem;
+  }
+}
+@media screen and (max-width: 400px) {
+  .cac_user-box_name {
+    font-size: 1.2rem;
+  }
+}
 .cac_user-box_name--link {
   text-decoration: none;
-  color:black;
+  color: black;
 }
 .cac_user-box_name--link:hover {
   text-decoration: underline;
@@ -46,4 +78,14 @@
 .cac_user-box_ranking {
   font-size: 1rem;
   font-weight: 600;
+}
+@media screen and (max-width: 980px) {
+  .cac_user-box_ranking {
+    font-size: 0.9rem;
+  }
+}
+@media screen and (max-width: 400px) {
+  .cac_user-box_ranking {
+    font-size: 0.8rem;
+  }
 }

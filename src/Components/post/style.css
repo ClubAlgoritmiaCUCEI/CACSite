@@ -23,6 +23,11 @@
     font-size: 0.9rem;
   }
 }
+@media screen and (max-width: 800px) {
+  .cac_post {
+    border-radius: 0;
+  }
+}
 @media screen and (max-width: 600px) {
   .cac_post {
     border-radius: 0;
@@ -278,12 +283,27 @@
   overflow: hidden;
   padding: 0 2rem;
 }
+@media screen and (max-width: 980px) {
+  .cac_post_commentaries-section {
+    padding: 0 1rem;
+  }
+}
+@media screen and (max-width: 600px) {
+  .cac_post_commentaries-section {
+    padding: 0;
+  }
+}
 
 .cac_post_create-commentary {
   padding-top: 0;
   display: flex;
   width: 100%;
   margin-bottom: 1rem;
+}
+@media screen and (max-width: 980px) {
+  .cac_post_create-commentary {
+    margin-bottom: 0.5rem;
+  }
 }
 
 .cac_post_interaction-counter {
@@ -312,14 +332,48 @@
   padding: 0.5rem;
   padding-left: 0.7rem;
 }
+@media screen and (max-width: 980px) {
+  .cac_post_create-commentary_textarea {
+    min-height: 3.5rem;
+    height: 3.5rem;
+    font-size: 1.7rem;
+  }
+}
+@media screen and (max-width: 600px) {
+  .cac_post_create-commentary_textarea {
+    min-height: 3rem;
+    height: 3rem;
+    font-size: 1.6rem;
+  }
+}
 
 .cac_poist_create-commentary_button {
+  padding: 0;
+  text-align: center;
   width: 12rem;
   margin-left: 1rem;
   font-size: 1.6rem;
   padding-top: 0.8rem;
   height: 4rem;
-
   background-color: #4a79c6;
   color: white;
+}
+
+@media screen and (max-width: 980px) {
+  .cac_poist_create-commentary_button {
+    width: 10rem;
+    font-size: 1.4rem;
+    padding-top: 0.7rem;
+    height: 3.5rem;
+    margin-left: 0.5rem;
+  }
+}
+@media screen and (max-width: 600px) {
+  .cac_poist_create-commentary_button {
+    width: 8rem;
+    font-size: 1.2rem;
+    padding-top: 0.6rem;
+    height: 3rem;
+    margin-left: 0.5rem;
+  }
 }

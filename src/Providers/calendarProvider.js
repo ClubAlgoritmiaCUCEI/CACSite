@@ -14,7 +14,7 @@ const CalendarProvider = ({ children }) => {
         })
         .then(() =>
           window.gapi.client.request({
-            path: `https://www.googleapis.com/calendar/v3/calendars/${"club.algoritmia.cucei@gmail.com"}/events?orderby=starttime`
+            path: `https://www.googleapis.com/calendar/v3/calendars/${"club.algoritmia.cucei@gmail.com"}/events?orderby=starttime;showDeleted=false;timeMax=${new Date()};`
           })
         )
         .then(
@@ -22,6 +22,7 @@ const CalendarProvider = ({ children }) => {
             setEvents(
               response.result.items
                 .filter(e => e.status === "confirmed" && e.start)
+
                 .map((e, i) => ({
                   ...e,
                   jsDate: new Date(
@@ -34,6 +35,7 @@ const CalendarProvider = ({ children }) => {
                     : e.start.date,
                   end: e.end.dateTime ? e.end.dateTime.slice(0, 10) : e.end.date
                 }))
+                
                 .sort((a, b) => a.jsDate - b.jsDate)
             );
           },

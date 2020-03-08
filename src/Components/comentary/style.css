@@ -1,12 +1,17 @@
 .cac_commentary {
   border: 1px solid rgb(216, 216, 216);
-  width:100%;
+  width: 100%;
   max-width: 100%;
   overflow: hidden;
   border-radius: 0.3rem;
   padding: 0.8rem;
   margin-bottom: 1rem;
   padding-bottom: 1rem;
+}
+@media screen and (max-width: 600px) {
+  .cac_commentary {
+    margin-bottom: 0.5rem;
+  }
 }
 
 .cac_commentary_heading {
@@ -15,7 +20,7 @@
 .cac_commentary_photo {
   width: 3rem;
   height: 3rem;
-  border-radius: .3rem;
+  border-radius: 0.3rem;
 }
 .cac_commentary_heading_text {
   margin-left: 0.5rem;
@@ -28,15 +33,15 @@
   display: block;
   font-size: 1.5rem;
   line-height: 1.4rem;
-  width:max-content;
+  width: max-content;
 }
 
-.cac_commentary_name--link{
+.cac_commentary_name--link {
   text-decoration: none;
-  color:black;
+  color: black;
 }
 
-.cac_commentary_name--link:hover{
+.cac_commentary_name--link:hover {
   text-decoration: underline;
 }
 

@@ -153,7 +153,6 @@ const Post = ({
                 />
               )}
             </div>
-            <div className="cac_post_icons"></div>
           </div>
 
           <ReactMarkdown

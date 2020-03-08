@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
@@ -8,16 +8,23 @@ import { ReactComponent as Logo } from "../../assets/cac-logo-color.svg";
 
 import "./style.css";
 
-const HeaderMobile = ({ selection, pageWrapId, outerContainerId }) => {
+const HeaderMobile = ({ selection }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const handleSectionClick = () => {
+    console.log("jeje");
+    setIsOpen(false);
+  };
+
   return (
     <div className="cac_header_mobile">
       <Menu
+        isOpen={isOpen}
+        onStateChange={state => setIsOpen(state.isOpen)}
         disableAutoFocus
         className="cac_header_mobile_menu"
-        pageWrapId={pageWrapId}
-        outerContainerId={outerContainerId}
       >
         <div
+          onClick={handleSectionClick}
           className={`cac_header_mobile_item-container ${
             selection === "home" ? "active" : ""
           }`}
@@ -27,6 +34,7 @@ const HeaderMobile = ({ selection, pageWrapId, outerContainerId }) => {
           </Link>
         </div>
         <div
+          onClick={() => setIsOpen(false)}
           className={`cac_header_mobile_item-container ${
             selection === "public" ? "active" : ""
           }`}
@@ -36,6 +44,7 @@ const HeaderMobile = ({ selection, pageWrapId, outerContainerId }) => {
           </Link>
         </div>
         <div
+          onClick={() => setIsOpen(false)}
           className={`cac_header_mobile_item-container ${
             selection === "editorial" ? "active" : ""
           }`}
@@ -45,6 +54,7 @@ const HeaderMobile = ({ selection, pageWrapId, outerContainerId }) => {
           </Link>
         </div>
         <div
+          onClick={() => setIsOpen(false)}
           className={`cac_header_mobile_item-container ${
             selection === "weekly-problem" ? "active" : ""
           }`}
@@ -54,6 +64,7 @@ const HeaderMobile = ({ selection, pageWrapId, outerContainerId }) => {
           </Link>
         </div>
         <div
+          onClick={() => setIsOpen(false)}
           className={`cac_header_mobile_item-container ${
             selection === "calendar" ? "active" : ""
           }`}
@@ -63,6 +74,7 @@ const HeaderMobile = ({ selection, pageWrapId, outerContainerId }) => {
           </Link>
         </div>
         <div
+          onClick={() => setIsOpen(false)}
           className={`cac_header_mobile_item-container ${
             selection === "attendance" ? "active" : ""
           }`}
@@ -78,60 +90,3 @@ const HeaderMobile = ({ selection, pageWrapId, outerContainerId }) => {
 };
 
 export default HeaderMobile;
-
-/*
-<Link
-          to="/public"
-          id="public"
-          className={`cac_header_mobile_item ${
-            selection === "public" ? "active" : ""
-          }`}
-        >
-          Public
-        </Link>{" "}
-        <Link
-          to="/editorial"
-          id="editorial"
-          className={`cac_header_mobile_item ${
-            selection === "editorial" ? "active" : ""
-          }`}
-        >
-          Editorial
-        </Link>{" "}
-        <Link
-          to="/weekly-problems"
-          id="weekly-problems"
-          className={`cac_header_mobile_item ${
-            selection === "weekly-problem" ? "active" : ""
-          }`}
-        >
-          Weekly Problem
-        </Link>
-        <Link
-          to="/calendar"
-          id="calendar"
-          className={`cac_header_mobile_item ${
-            selection === "calendar" ? "active" : ""
-          }`}
-        >
-          Calendar
-        </Link>
-        <Link
-          to="/attendance"
-          id="attendance"
-          className={`cac_header_mobile_item ${
-            selection === "attendance" ? "active" : ""
-          }`}
-        >
-          Attendance
-        </Link>
-        <Link
-          to="/create"
-          id="create"
-          className={`cac_header_mobile_item cac_header_mobile_item--admin ${
-            selection === "create" ? "active" : ""
-          }`}
-        >
-          Create
-        </Link>
-        */

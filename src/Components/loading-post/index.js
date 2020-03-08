@@ -10,7 +10,7 @@ const LoadingPost = ({ type = "large", showUser = true }) => {
         <div className="gradient cac_loading-post_title" />
         <div className="gradient cac_loading-post_name" />
       </div>
-      {type === "large" && (
+      {type === "big" && (
         <div className="cac_loading-post_content-container">
           <div className="gradient cac_loading-post_content cac_loading-post_content--big" />
           <div className="gradient cac_loading-post_content cac_loading-post_content--medium" />

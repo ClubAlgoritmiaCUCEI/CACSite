@@ -99,7 +99,7 @@ const AttendanceCode = () => {
               {c.description}
             </p>
             <span className="cac_attendance_classes_counter">
-              {c.attendances.length} attendants.
+              {c.attendances.length} attendants
             </span>
           </div>
         ))}
@@ -117,7 +117,7 @@ const AttendanceCode = () => {
               {c.description}
             </p>
             <span className="cac_attendance_classes_counter">
-              {c.attendances.length} attendants.
+              {c.attendances.length} attendants
             </span>
           </div>
         ))}

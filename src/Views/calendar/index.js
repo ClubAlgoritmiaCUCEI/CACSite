@@ -43,30 +43,32 @@ const Calendar = () => {
   useEffect(() => {
     let currentMonth = null;
     const elements = [];
-    events.filter(e => e.jsDate >= new Date()).forEach((e, i) => {
-      if (currentMonth !== e.jsDate.getMonth()) {
-        currentMonth = e.jsDate.getMonth();
+    events
+      .filter(e => e.jsDate >= new Date())
+      .forEach((e, i) => {
+        if (currentMonth !== e.jsDate.getMonth()) {
+          currentMonth = e.jsDate.getMonth();
+          elements.push(
+            <div key={-i} className="cac_calendar_list_month">
+              <span>{parseMonth(currentMonth)}</span>
+              <div className="cac_calendar_list_month--line" />
+            </div>
+          );
+        }
         elements.push(
-          <div key={-i} className="cac_calendar_list_month">
-            <span>{parseMonth(currentMonth)}</span>
-            <div className="cac_calendar_list_month--line" />
+          <div className="cac_calendar_list_event" key={i + 1}>
+            <span className="cac_calendar_list_title">{e.summary}</span>
+            <span className="cac_calendar_list_date">{e.start}</span>
+            <span className="cac_calendar_list_location">{e.location}</span>
+            <ReactMarkdown
+              className="cac_calendar_list_description"
+              source={e.description}
+              escapeHtml={false}
+              astPlugins={[parseHtml]}
+            />
           </div>
         );
-      }
-      elements.push(
-        <div className="cac_calendar_list_event" key={i + 1}>
-          <span className="cac_calendar_list_title">{e.summary}</span>
-          <span className="cac_calendar_list_date">{e.start}</span>
-          <span className="cac_calendar_list_location">{e.location}</span>
-          <ReactMarkdown
-            className="cac_calendar_list_description"
-            source={e.description}
-            escapeHtml={false}
-            astPlugins={[parseHtml]}
-          />
-        </div>
-      );
-    });
+      });
     setEventsEl(elements);
   }, [events]);
 
@@ -98,7 +100,10 @@ const Calendar = () => {
         </span>
       </div>
       <div className="cac_calendar">
-        {!isTabletOrMobile && (
+        {
+          /// The grid calendar view is disabled temporaly, so many bugs :(
+        }
+        {false && !isTabletOrMobile && (
           <label
             htmlFor="icon-switch"
             className="cac_calendar_switch_container"

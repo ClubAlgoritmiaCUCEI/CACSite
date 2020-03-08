@@ -1,5 +1,13 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 
+import { useMediaQuery } from "react-responsive";
+
+import {
+  // eslint-disable-next-line no-unused-vars
+  BrowserRouter as Router,
+  useHistory
+} from "react-router-dom";
+
 import { firestore, firebase } from "../../firebase";
 
 import { PostsContext } from "../../Providers/postsProvider";
@@ -25,6 +33,9 @@ const Public = ({ Fallback }) => {
   const [postSelected, setPostSelected] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const postRef = useRef(null);
+  const redirectOnClick = useMediaQuery({ query: "(max-width: 980px)" });
+  const history = useHistory();
+
   useEffect(() => {
     posts.fetch.public();
   }, [posts.fetch]);
@@ -84,8 +95,12 @@ const Public = ({ Fallback }) => {
   };
 
   const handlePostClick = id => {
-    setPostSelected(id);
-    setIsOpen(true);
+    if (redirectOnClick) {
+      history.push(`public/${id}`);
+    } else {
+      setPostSelected(id);
+      setIsOpen(true);
+    }
   };
   useOutsideAlerter(postRef, () => setIsOpen(false));
 

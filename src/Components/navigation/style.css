@@ -47,10 +47,12 @@
 }
 @media screen and (max-width: 980px) {
   .cac_section {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color:rgb(77, 77, 77);
   }
   .cac_section:not(:last-child) {
-    margin-right: 1rem;
+    margin-right: 1.5rem;
   }
 }
 

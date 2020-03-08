@@ -1,7 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 
-// eslint-disable-next-line no-unused-vars
-import { BrowserRouter as Router, Redirect } from "react-router-dom";
+import {
+  // eslint-disable-next-line no-unused-vars
+  BrowserRouter as Router,
+  useHistory
+} from "react-router-dom";
 
 import { PostsContext } from "../../Providers/postsProvider";
 import { UserContext, AllUsersContext } from "../../Providers/userProvider";
@@ -14,18 +17,17 @@ const Editorial = ({ Fallback }) => {
   const posts = useContext(PostsContext);
   const user = useContext(UserContext);
   const allUsers = useContext(AllUsersContext);
-  const [redirect, setRedirect] = useState({ enable: false, to: "" });
+  const history = useHistory();
 
   useEffect(() => {
     posts.fetch.editorial();
   }, [posts.fetch]);
 
   const handlePostClick = id => {
-    setRedirect({ enable: true, to: `/editorial/${id}` });
+    history.push(`/editorial/${id}`);
   };
   return (
     <div className="cac_editorial">
-      {redirect.enable && <Redirect to={redirect.to} />}
       {!user.isLoading && posts.posts.editorial.length > 0 ? (
         posts.posts.editorial.map((postData, i) => {
           return (

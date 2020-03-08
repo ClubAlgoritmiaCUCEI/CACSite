@@ -1,5 +1,13 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
 
+import { useMediaQuery } from "react-responsive";
+
+import {
+  // eslint-disable-next-line no-unused-vars
+  BrowserRouter as Router,
+  useHistory
+} from "react-router-dom";
+
 import { PostsContext } from "../../Providers/postsProvider";
 import { UserContext, AllUsersContext } from "../../Providers/userProvider";
 import useOutsideAlerter from "../../Hooks/useOutsideAlerter";
@@ -15,6 +23,8 @@ const Home = ({ Fallback }) => {
   const [postSelected, setPostSelected] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const postRef = useRef(null);
+  const redirectOnClick = useMediaQuery({ query: "(max-width: 980px)" });
+  const history = useHistory();
 
   useOutsideAlerter(postRef, () => setIsOpen(false));
 
@@ -23,8 +33,12 @@ const Home = ({ Fallback }) => {
   }, [posts.fetch]);
 
   const handlePostClick = id => {
-    setPostSelected(id);
-    setIsOpen(true);
+    if (redirectOnClick) {
+      history.push(`posts/${id}`);
+    } else {
+      setIsOpen(true);
+      setPostSelected(id);
+    }
   };
   return (
     <div className="cac_home">

@@ -20,6 +20,10 @@
   }
 }
 
+.cac_user-box--redirect:hover{
+  cursor: pointer;
+}
+
 .cac_user-box:hover {
   box-shadow: 0 0px 2px #484848;
 }
@@ -38,6 +42,9 @@
   .cac_user-box_photo {
     width: 2.7rem !important;
   }
+}
+.cac_user-box_photo:hover{
+  cursor: pointer;
 }
 .cac_user-box_text {
   display: flex;

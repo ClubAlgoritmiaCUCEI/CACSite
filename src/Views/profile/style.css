@@ -24,6 +24,13 @@
   border-radius: 0.5rem;
   overflow: hidden;
 }
+@media screen and (max-width: 980px) {
+  .cac_profile_photo-container {
+    width: 14rem;
+    height: 14rem;
+  }
+}
+
 .cac_profile_photo {
   width: 100%;
 }
@@ -31,16 +38,31 @@
   font-size: 4rem;
   display: block;
 }
+@media screen and (max-width: 980px) {
+  .cac_profile_name {
+    font-size: 3rem;
+  }
+}
 .cac_profile_rank {
   font-size: 2rem;
   display: block;
   line-height: 1.6rem;
   margin-bottom: 2rem;
 }
+@media screen and (max-width: 980px) {
+  .cac_profile_rank {
+    font-size: 1.7rem;
+  }
+}
 .cac_profile_label {
   font-size: 2rem;
   display: block;
   margin-bottom: 1rem;
+}
+@media screen and (max-width: 980px) {
+  .cac_profile_label {
+    font-size: 1.7rem;
+  }
 }
 
 .cac_profile_link {
@@ -60,10 +82,29 @@
   font-size: 2rem;
   color: rgb(102, 102, 102);
 }
+@media screen and (max-width: 980px) {
+  .cac_profile_description {
+    font-size: 1.7rem;
+  }
+}
 .cac_profile_confirmation {
   width: 1.3rem;
   margin-left: 0.5rem;
   transform: translateY(1px);
+}
+@media screen and (max-width: 980px) {
+  .cac_profile_confirmation {
+    width: 1rem;
+  }
+}
+.cac_profile_edit {
+  font-size: 2rem;
+}
+@media screen and (max-width: 980px) {
+  .cac_profile_edit {
+    font-size: 1.6rem;
+    padding: 0.5rem !important;
+  }
 }
 .cac_profile_confirmation--true {
   fill: green;
@@ -72,4 +113,3 @@
 .cac_profile_confirmation--false {
   fill: red;
 }
-

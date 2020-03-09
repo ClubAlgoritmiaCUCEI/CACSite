@@ -25,7 +25,7 @@
   background-color: #dfdfdf;
   border-bottom: 3px solid #3a3a3a;
   border-radius: 0.3rem;
-  z-index: 100;
+  z-index: 1000;
   cursor: pointer;
   box-shadow: 0 0 5px rgb(46, 46, 46, 0.6);
   transition: all 0.2s;

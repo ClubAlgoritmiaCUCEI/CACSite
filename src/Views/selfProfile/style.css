@@ -13,17 +13,22 @@
 }
 
 .cac_profile_photo_edit {
+  font-size: 1.6rem;
   display: block;
   width: 100%;
   padding: 1rem 0;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.4);
   color: white;
-  font-size: 1.6rem;
   position: absolute;
   top: 100%;
   left: 0;
   transform: translateY(-100%);
+}
+@media screen and (max-width: 980px) {
+  .cac_profile_photo_edit {
+    font-size: 1.2rem;
+  }
 }
 .cac_profile_photo_edit:hover {
   cursor: pointer;
@@ -53,6 +58,11 @@
   min-height: 5rem;
   max-height: 20rem;
 }
+@media screen and (max-width: 980px) {
+  .cac_profile_description-editing {
+    font-size: 1.7rem;
+  }
+}
 .cac_profile_description-editing:focus {
   border: 1px solid rgb(150, 150, 150);
 }
@@ -63,6 +73,11 @@
   padding-bottom: 0;
   height: 3rem;
   resize: none;
+}
+@media screen and (max-width: 980px) {
+  .cac_profile_text-area {
+    font-size: 1.7rem;
+  }
 }
 .cac_profile_cancel {
   background-color: #ab1c21;

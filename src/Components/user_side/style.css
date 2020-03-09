@@ -9,6 +9,9 @@
   height: var(--photo-size);
   border-radius: 8px;
 }
+.cac_user-side_photo:hover{
+  cursor: pointer;
+}
 @media screen and (max-width: 1200px) {
   .cac_user-side {
     --photo-size: 5rem;

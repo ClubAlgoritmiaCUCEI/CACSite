@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { firebase, firestore } from "../../firebase";
 // eslint-disable-next-line no-unused-vars
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
 
 import ReactMarkdown from "react-markdown";
 import htmlParser from "react-markdown/plugins/html-parser";
@@ -47,6 +47,8 @@ const Post = ({
   const [saved, setSaved] = useState(
     !preview && user.logged && user.saved.includes(data.id)
   );
+
+  const history = useHistory();
   const onLikeClick = e => {
     e.stopPropagation();
     const updateLike = async () => {
@@ -120,6 +122,10 @@ const Post = ({
                 src={author.photoURL || DefaultPhoto}
                 className="cac_post_heading_photo"
                 alt={author.displayName}
+                onClick={e => {
+                  e.stopPropagation();
+                  history.push(`/profile/${author.id}`);
+                }}
               />
             )}
             <div className="cac_post_text-container">

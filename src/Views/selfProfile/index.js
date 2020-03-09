@@ -18,7 +18,7 @@ import "../profile/style.css";
 const SelfProfile = () => {
   const user = useContext(UserContext);
   const allUsers = useContext(AllUsersContext);
-  const [isEditing, setIsEditing] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
   const [displayName, setDisplayName] = useState("");
   const [cfUsername, setCfUsername] = useState("");
   const [vjudgeUsername, setVjUsername] = useState("");
@@ -171,121 +171,121 @@ const SelfProfile = () => {
           onClick={() => setIsEditing(true)}
         />
       ) : (
-            <div className="cac_profile">
-              <div className="cac_profile_photo-container">
-                <img
-                  src={user.photoURL}
-                  alt={user.displayName}
-                  className="cac_profile_photo"
-                />
-                <label htmlFor="photo" className="cac_profile_photo_edit">
-                  Upload new photo
+        <div className="cac_profile">
+          <div className="cac_profile_photo-container">
+            <img
+              src={user.photoURL}
+              alt={user.displayName}
+              className="cac_profile_photo"
+            />
+            <label htmlFor="photo" className="cac_profile_photo_edit">
+              Upload new photo
             </label>
-                <input
-                  style={{ display: "none" }}
-                  id="photo"
-                  type="file"
-                  name="file"
-                  accept="image/png, image/jpeg"
-                  onChange={handleUpload}
+            <input
+              style={{ display: "none" }}
+              id="photo"
+              type="file"
+              name="file"
+              accept="image/png, image/jpeg"
+              onChange={handleUpload}
+            />
+          </div>
+          <div className="cac_profile_information">
+            {!editing.displayName ? (
+              <ColoredName rank={user.rank} className="cac_profile_name">
+                {user.displayName}
+                <Pencil
+                  className="cac_profile_edit-svg"
+                  onClick={() => setEditing(e => ({ ...e, displayName: true }))}
                 />
-              </div>
-              <div className="cac_profile_information">
-                {!editing.displayName ? (
-                  <ColoredName rank={user.rank} className="cac_profile_name">
-                    {user.displayName}
-                    <Pencil
-                      className="cac_profile_edit-svg"
-                      onClick={() => setEditing(e => ({ ...e, displayName: true }))}
-                    />
-                  </ColoredName>
-                ) : (
-                    <>
-                      <span className="cac_profile_label">Display Name:</span>
-                      <textarea
-                        className="cac_profile_text-area"
-                        value={displayName}
-                        onChange={e => setDisplayName(e.target.value)}
-                      />
-                    </>
-                  )}
-                <ColoredName rank={user.rank} className="cac_profile_rank">
-                  {user.rank}, {user.rating}
-                </ColoredName>
-                {!editing.cfUsername ? (
-                  <span className="cac_profile_label">
-                    CodeForces:
-                <a
-                      className="cac_profile_link"
-                      href={`https://codeforces.com/profile/${user.codeForcesUsername}`}
-                    >
-                      {user.codeForcesUsername}
-                    </a>
-                    <Pencil
-                      className="cac_profile_edit-svg"
-                      onClick={() => setEditing(e => ({ ...e, cfUsername: true }))}
-                    />
-                  </span>
-                ) : (
-                    <>
-                      <span className="cac_profile_label">CodeForces:</span>
-                      <textarea
-                        className="cac_profile_text-area"
-                        value={cfUsername}
-                        onChange={e => setCfUsername(e.target.value)}
-                      />
-                    </>
-                  )}
-                {!editing.vjudgeUsername ? (
-                  <span className="cac_profile_label">
-                    Vjudge:
-                <a
-                      className="cac_profile_link"
-                      href={`https://vjudge.net/user/${user.codeForcesUsername}`}
-                    >
-                      {user.vjudgeUsername}
-                    </a>
-                    <Pencil
-                      className="cac_profile_edit-svg"
-                      onClick={() =>
-                        setEditing(e => ({ ...e, vjudgeUsername: true }))
-                      }
-                    />
-                  </span>
-                ) : (
-                    <>
-                      <span className="cac_profile_label">Vjudge:</span>
-                      <textarea
-                        className="cac_profile_text-area"
-                        value={vjudgeUsername}
-                        onChange={e => setVjUsername(e.target.value)}
-                      />
-                    </>
-                  )}
-                <span className="cac_profile_label">Email: {user.email}</span>
-                <span className="cac_profile_label">Introduction:</span>
+              </ColoredName>
+            ) : (
+              <>
+                <span className="cac_profile_label">Display Name:</span>
                 <textarea
-                  className="cac_profile_description-editing"
-                  value={description}
-                  onChange={e => setDescription(e.target.value)}
-                ></textarea>
-              </div>
-              <div className="cac_profile_buttons">
-                <Button
-                  className=" cac_profile_edit cac_profile_cancel"
-                  onClick={() => setIsEditing(false)}
+                  className="cac_profile_text-area"
+                  value={displayName}
+                  onChange={e => setDisplayName(e.target.value)}
+                />
+              </>
+            )}
+            <ColoredName rank={user.rank} className="cac_profile_rank">
+              {user.rank}, {user.rating}
+            </ColoredName>
+            {!editing.cfUsername ? (
+              <span className="cac_profile_label">
+                CodeForces:
+                <a
+                  className="cac_profile_link"
+                  href={`https://codeforces.com/profile/${user.codeForcesUsername}`}
                 >
-                  Cancel
-            </Button>
-                <Button
-                  className="cac_profile_edit"
-                  onClick={() => handleConfirm()}
+                  {user.codeForcesUsername}
+                </a>
+                <Pencil
+                  className="cac_profile_edit-svg"
+                  onClick={() => setEditing(e => ({ ...e, cfUsername: true }))}
+                />
+              </span>
+            ) : (
+              <>
+                <span className="cac_profile_label">CodeForces:</span>
+                <textarea
+                  className="cac_profile_text-area"
+                  value={cfUsername}
+                  onChange={e => setCfUsername(e.target.value)}
+                />
+              </>
+            )}
+            {!editing.vjudgeUsername ? (
+              <span className="cac_profile_label">
+                Vjudge:
+                <a
+                  className="cac_profile_link"
+                  href={`https://vjudge.net/user/${user.codeForcesUsername}`}
                 >
-                  Save
+                  {user.vjudgeUsername}
+                </a>
+                <Pencil
+                  className="cac_profile_edit-svg"
+                  onClick={() =>
+                    setEditing(e => ({ ...e, vjudgeUsername: true }))
+                  }
+                />
+              </span>
+            ) : (
+              <>
+                <span className="cac_profile_label">Vjudge:</span>
+                <textarea
+                  className="cac_profile_text-area"
+                  value={vjudgeUsername}
+                  onChange={e => setVjUsername(e.target.value)}
+                />
+              </>
+            )}
+            <span className="cac_profile_label">Email: {user.email}</span>
+            <span className="cac_profile_label">Introduction:</span>
+            <textarea
+              className="cac_profile_description-editing"
+              value={description}
+              onChange={e => setDescription(e.target.value)}
+            ></textarea>
+          </div>
+          <div className="cac_profile_buttons">
+            <Button
+              className=" cac_profile_edit cac_profile_cancel"
+              onClick={() => setIsEditing(false)}
+            >
+              Cancel
             </Button>
-              </div>
-            </div>
-          )}
+            <Button
+              className="cac_profile_edit"
+              onClick={() => handleConfirm()}
+            >
+              Save
+            </Button>
+          </div>
+        </div>
+      )}
     </>
   );
 };

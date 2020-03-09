@@ -30,7 +30,12 @@ const SelectUsers = ({ close, handleConfirm }) => {
       <span className="cac_select-users_title">Selected</span>
       <div className="cac_select-users_users">
         {users.map(user => (
-          <UserBox key={user.id} user={user} onClick={() => removeUser(user)} />
+          <UserBox
+            redirect={false}
+            key={user.id}
+            user={user}
+            onClick={() => removeUser(user)}
+          />
         ))}
       </div>
       <div className="cac_select-users_button-container">

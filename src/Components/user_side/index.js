@@ -1,17 +1,19 @@
 import React from "react";
 
 // eslint-disable-next-line no-unused-vars
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
 
 import ColoredName from "../colored-name";
 
 import "./style.css";
 
 const UserSide = ({ user }) => {
+  const history = useHistory();
   return (
     <div className="cac_user-side">
       <img
         src={user.photoURL}
+        onClick={() => history.push("/profile")}
         alt="profile-pic"
         className="cac_user-side_photo"
       />

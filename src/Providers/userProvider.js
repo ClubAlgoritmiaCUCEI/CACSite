@@ -95,7 +95,7 @@ export const AllUsersProvider = ({ children }) => {
         .then(querySnapshot => {
           for (let i = 0; i < querySnapshot.size; i++) {
             const doc = querySnapshot.docs[i];
-            usersMap[doc.id] = doc.data();
+            usersMap[doc.id] = { ...doc.data(), id: doc.id };
             fetchedUsers.push({
               id: doc.id,
               saved: [],

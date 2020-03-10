@@ -124,6 +124,7 @@ const Post = ({
                 alt={author.displayName}
                 onClick={e => {
                   e.stopPropagation();
+                  console.log(author);
                   history.push(`/profile/${author.id}`);
                 }}
               />

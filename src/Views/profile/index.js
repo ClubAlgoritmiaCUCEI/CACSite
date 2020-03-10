@@ -17,7 +17,6 @@ const Profile = ({ match, self = false, onClick = () => null }) => {
 
   const [user, setUser] = useState({});
 
-
   useEffect(() => {
     if (Object.keys(allUsers.usersMap).length > 0) {
       if (allUsers.usersMap[id]) {
@@ -40,9 +39,11 @@ const Profile = ({ match, self = false, onClick = () => null }) => {
         <ColoredName rank={user.rank} className="cac_profile_name">
           {user.displayName}
         </ColoredName>
-        <ColoredName rank={user.rank} className="cac_profile_rank">
-          {user.rank}, {user.rating}
-        </ColoredName>
+        {user.rank && (
+          <ColoredName rank={user.rank} className="cac_profile_rank">
+            {user.rank}, {user.rating}
+          </ColoredName>
+        )}
         <span className="cac_profile_label">
           CodeForces:
           <a

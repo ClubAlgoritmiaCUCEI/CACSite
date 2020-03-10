@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 
 // eslint-disable-next-line no-unused-vars
-import { BrowserRouter as Router, useHistory } from "react-router-dom";
+import { BrowserRouter as Router, useHistory, Link } from "react-router-dom";
 
 import { UserContext } from "../../Providers/userProvider";
 import {
@@ -97,6 +97,9 @@ const SignIn = () => {
           <FacebookLogo className="cac_sign-in_social-logo" />
           <span> Sign in with Facebook</span>
         </Button>
+        <span className="cac_sign-in_signup">
+          Need an account? <Link className="cac_sign-in_signup--link"to="/signup">Sign up</Link>
+        </span>
       </form>
     </div>
   );

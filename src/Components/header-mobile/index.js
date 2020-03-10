@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 // eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
 import { slide as Menu } from "react-burger-menu";
 
+import Button from "../button";
+
 import { ReactComponent as Logo } from "../../assets/cac-logo-color.svg";
+import { ReactComponent as DefaultPhoto } from "../../assets/default-photo.jpg";
+
+import { UserContext } from "../../Providers/userProvider";
 
 import "./style.css";
 
@@ -14,6 +19,8 @@ const HeaderMobile = ({ selection }) => {
     console.log("jeje");
     setIsOpen(false);
   };
+  const user = useContext(UserContext);
+  console.log(user);
 
   return (
     <div className="cac_header_mobile">
@@ -84,7 +91,26 @@ const HeaderMobile = ({ selection }) => {
           </Link>
         </div>
       </Menu>
-      <Logo className="cac_header_logo" />
+      <Logo className="cac_header_mobile_logo" />
+      <div className="cac_header_mobile_user">
+        {!user.isLoading &&
+          (user.logged ? (
+            <img
+              className="cac_header_mobile_user-photo"
+              src={user.photoURL || DefaultPhoto}
+              alt={user.displayName}
+            />
+          ) : (
+            <Link to="/login">
+              <Button
+                onClick={() => null}
+                className="cac_header_mobile_sign-in"
+              >
+                Sign in
+              </Button>
+            </Link>
+          ))}
+      </div>
     </div>
   );
 };

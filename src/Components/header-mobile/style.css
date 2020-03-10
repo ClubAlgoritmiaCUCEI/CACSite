@@ -5,8 +5,8 @@
   box-shadow: 0 1px 2px rgb(143, 143, 143);
   display: flex;
   justify-content: space-between;
-  padding: 0 3rem;
   align-items: center;
+  padding: 0 2rem;
   position: fixed;
   left: 0;
   top: 0;
@@ -14,11 +14,15 @@
   height: 5rem;
   z-index: 200;
 }
-.cac_header_logo {
+.cac_header_mobile_logo {
   fill: rgb(30, 46, 77);
   height: 3.5rem;
   width: auto;
   display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /* Position and sizing of burger button */
@@ -88,25 +92,25 @@ Note: Beware of modifying this element as it can break the animations - you shou
   bottom: 0;
   left: 0;
 }
-.cac_header_mobile_item-container{
+.cac_header_mobile_item-container {
   position: relative;
 }
-.cac_header_mobile_item-container:after{
+.cac_header_mobile_item-container:after {
   content: "";
-  width:5px;
+  width: 5px;
   height: 5px;
   border-radius: 2px;
   position: absolute;
-  top:55%;
-  left:0;
+  top: 55%;
+  left: 0;
   transform: translateY(-50%);
   background-color: #fff;
-  transition: all .4s;
+  transition: all 0.4s;
 }
 .cac_header_mobile_item-container:not(:last-child) {
   margin-bottom: 1rem;
 }
-.cac_header_mobile_item-container.active.cac_header_mobile_item-container:after{
+.cac_header_mobile_item-container.active.cac_header_mobile_item-container:after {
   height: 80%;
   background-color: #4a79c6;
 }
@@ -118,5 +122,18 @@ Note: Beware of modifying this element as it can break the animations - you shou
   text-decoration: none;
   outline: none !important;
   color: white;
-  padding: .2rem 2rem;
+  padding: 0.2rem 2rem;
+}
+.cac_header_mobile_user-photo {
+  height: 3.4rem;
+  border-radius: 10rem;
+}
+.cac_header_mobile_sign-in {
+  font-size: 1.5rem;
+  padding: 0.5rem 1.2rem;
+  background-color: transparent;
+  color: rgb(30, 46, 77);
+  border: 1px solid rgb(30, 46, 77);
+  border-radius: 3px;
+  box-shadow: none !important;
 }

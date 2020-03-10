@@ -49,7 +49,7 @@ const SignUp = () => {
   });
 
   useEffect(() => {
-    if (user.logged) history.goBack();
+    if (user.logged) history.push("/home");
   }, [user, history]);
 
   useEffect(() => {
@@ -145,7 +145,7 @@ const SignUp = () => {
                 id="lastName"
                 name="lastName"
                 required
-                minLength={5}
+                minLength={2}
                 value={form.lastName}
                 onChange={e => setForm({ ...form, lastName: e.target.value })}
               />

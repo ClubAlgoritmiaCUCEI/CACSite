@@ -14,6 +14,7 @@
   height: 5rem;
   z-index: 200;
 }
+
 .cac_header_mobile_logo {
   fill: rgb(30, 46, 77);
   height: 3.5rem;
@@ -24,6 +25,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+
 
 /* Position and sizing of burger button */
 .bm-burger-button {
@@ -91,7 +94,14 @@ Note: Beware of modifying this element as it can break the animations - you shou
 .bm-menu-wrap {
   bottom: 0;
   left: 0;
+} 
+.cac_header_mobile_menu--right.bm-menu-wrap {
+  bottom: 0 !important;
+  left: calc(100vw - 100%) !important;
+  /* right: none !important; */
 }
+
+
 .cac_header_mobile_item-container {
   position: relative;
 }

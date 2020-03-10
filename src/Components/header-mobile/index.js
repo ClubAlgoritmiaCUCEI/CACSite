@@ -15,6 +15,7 @@ import "./style.css";
 
 const HeaderMobile = ({ selection }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isUserOpen, setIsUserOpen] = useState(false);
   const handleSectionClick = () => {
     console.log("jeje");
     setIsOpen(false);
@@ -25,6 +26,7 @@ const HeaderMobile = ({ selection }) => {
   return (
     <div className="cac_header_mobile">
       <Menu
+        left
         isOpen={isOpen}
         onStateChange={state => setIsOpen(state.isOpen)}
         disableAutoFocus
@@ -34,7 +36,7 @@ const HeaderMobile = ({ selection }) => {
           onClick={handleSectionClick}
           className={`cac_header_mobile_item-container ${
             selection === "home" ? "active" : ""
-          }`}
+            }`}
         >
           <Link to="/home" className="cac_header_mobile_item">
             Home
@@ -44,7 +46,7 @@ const HeaderMobile = ({ selection }) => {
           onClick={() => setIsOpen(false)}
           className={`cac_header_mobile_item-container ${
             selection === "public" ? "active" : ""
-          }`}
+            }`}
         >
           <Link to="/public" className="cac_header_mobile_item">
             Public
@@ -54,7 +56,7 @@ const HeaderMobile = ({ selection }) => {
           onClick={() => setIsOpen(false)}
           className={`cac_header_mobile_item-container ${
             selection === "editorial" ? "active" : ""
-          }`}
+            }`}
         >
           <Link to="/editorial" className="cac_header_mobile_item">
             Editorial
@@ -64,7 +66,7 @@ const HeaderMobile = ({ selection }) => {
           onClick={() => setIsOpen(false)}
           className={`cac_header_mobile_item-container ${
             selection === "weekly-problem" ? "active" : ""
-          }`}
+            }`}
         >
           <Link to="/weekly-problems" className="cac_header_mobile_item">
             Weekly Problem
@@ -74,7 +76,7 @@ const HeaderMobile = ({ selection }) => {
           onClick={() => setIsOpen(false)}
           className={`cac_header_mobile_item-container ${
             selection === "calendar" ? "active" : ""
-          }`}
+            }`}
         >
           <Link to="/calendar" className="cac_header_mobile_item">
             Calendar
@@ -84,7 +86,7 @@ const HeaderMobile = ({ selection }) => {
           onClick={() => setIsOpen(false)}
           className={`cac_header_mobile_item-container ${
             selection === "attendance" ? "active" : ""
-          }`}
+            }`}
         >
           <Link to="/attendance" className="cac_header_mobile_item">
             Attendance
@@ -101,16 +103,36 @@ const HeaderMobile = ({ selection }) => {
               alt={user.displayName}
             />
           ) : (
-            <Link to="/login">
-              <Button
-                onClick={() => null}
-                className="cac_header_mobile_sign-in"
-              >
-                Sign in
+              <Link to="/login">
+                <Button
+                  onClick={() => null}
+                  className="cac_header_mobile_sign-in"
+                >
+                  Sign in
               </Button>
-            </Link>
-          ))}
+              </Link>
+            ))}
       </div>
+      <Menu
+        right
+        isOpen={isUserOpen}
+        onStateChange={state => setIsUserOpen(state.isOpen)}
+        disableAutoFocus
+        className="cac_header_mobile_menu cac_header_mobile_menu--right"
+      >
+        <div
+          onClick={handleSectionClick}
+          className={`cac_header_mobile_item-container ${
+            selection === "home" ? "active" : ""
+            }`}
+        >
+          <Link to="/home" className="cac_header_mobile_item">
+            Home
+          </Link>
+        </div>
+
+      </Menu>
+
     </div>
   );
 };

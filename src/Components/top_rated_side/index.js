@@ -7,7 +7,7 @@ import ColoredName from "../colored-name";
 
 import "./style.css";
 
-const TopRatedSide = ({ allUsers }) => {
+const TopRatedSide = ({ allUsers, className = "", onClick = () => null }) => {
   const [ratedList, setRatedList] = useState([]);
   const history = useHistory();
 
@@ -19,13 +19,16 @@ const TopRatedSide = ({ allUsers }) => {
     }
   }, [allUsers]);
   return (
-    <div className="cac_top-rated_side">
+    <div className={`cac_top-rated_side ${className}`}>
       <span className="cac_top-rated_side_title">Top Rated</span>
       {ratedList.map((user, i) => (
         <div
           key={i}
           className="cac_top-rated_side_user"
-          onClick={() => history.push(`/profile/${user.id}`)}
+          onClick={() => {
+            onClick();
+            history.push(`/profile/${user.id}`);
+          }}
         >
           <span className="cac_top-rated_side_ranking">{i + 1}</span>
           <ColoredName rank={user.rank} className="cac_top-rated_side_name">

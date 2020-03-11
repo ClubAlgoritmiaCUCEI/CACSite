@@ -96,7 +96,7 @@ const Public = ({ Fallback }) => {
 
   const handlePostClick = id => {
     if (redirectOnClick) {
-      history.push(`public/${id}`);
+      history.push(`/public/${id}`);
     } else {
       setPostSelected(id);
       setIsOpen(true);

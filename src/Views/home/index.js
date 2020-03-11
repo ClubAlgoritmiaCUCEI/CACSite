@@ -34,7 +34,7 @@ const Home = ({ Fallback }) => {
 
   const handlePostClick = id => {
     if (redirectOnClick) {
-      history.push(`posts/${id}`);
+      history.push(`/posts/${id}`);
     } else {
       setIsOpen(true);
       setPostSelected(id);

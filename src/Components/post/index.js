@@ -124,7 +124,6 @@ const Post = ({
                 alt={author.displayName}
                 onClick={e => {
                   e.stopPropagation();
-                  console.log(author);
                   history.push(`/profile/${author.id}`);
                 }}
               />
@@ -141,14 +140,17 @@ const Post = ({
                 <span className="cac_post_title">{data.title}</span>
               )}
               {showAuthor && (
-                <Link
-                  to={`/profile/${author.id}`}
+                <span
+                  onClick={e => {
+                    e.stopPropagation();
+                    history.push(`/profile/${author.id}`);
+                  }}
                   className="cac_post_author--link"
                 >
                   <ColoredName className="cac_post_author" rank={author.rank}>
                     {author.displayName}
                   </ColoredName>
-                </Link>
+                </span>
               )}
               {preview ? (
                 <span className="cac_post_date">{data.date}</span>

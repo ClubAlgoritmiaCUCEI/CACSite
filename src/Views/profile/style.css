@@ -11,7 +11,14 @@
   padding: 1.6rem;
   box-shadow: 0 0 2px rgb(216, 216, 216);
 }
-
+@media screen and (max-width: 480px) {
+  .cac_profile {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
 .cac_profile_information {
   grid-area: information;
 }
@@ -29,14 +36,22 @@
     width: 14rem;
     height: 14rem;
   }
+}@media screen and (max-width: 480px) {
+  .cac_profile_photo-container {
+    width:100%;
+    max-width: 30rem;
+    height: auto;
+  }
 }
 
 .cac_profile_photo {
   width: 100%;
+  order: 2;
 }
 .cac_profile_name {
   font-size: 4rem;
   display: block;
+
 }
 @media screen and (max-width: 980px) {
   .cac_profile_name {

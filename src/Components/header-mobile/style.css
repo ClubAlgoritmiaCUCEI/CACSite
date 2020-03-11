@@ -26,13 +26,15 @@
   transform: translate(-50%, -50%);
 }
 
-
-
 /* Position and sizing of burger button */
+
 .bm-burger-button {
   width: 22px;
   height: 18px;
   position: relative;
+}
+.cac_header_mobile_menu--right + div {
+  display: none;
 }
 
 /* Color/shape of burger icon bars */
@@ -57,7 +59,6 @@ Note: Beware of modifying this element as it can break the animations - you shou
 */
 .bm-menu-wrap {
   position: fixed;
-  display: block;
   height: 100%;
   z-index: 100;
 }
@@ -77,7 +78,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 /* Wrapper for item list */
 .bm-item-list {
   color: #b8b7ad;
-  padding: 0.8em;
+  padding: 0;
 }
 
 /* Individual item */
@@ -93,14 +94,10 @@ Note: Beware of modifying this element as it can break the animations - you shou
 }
 .bm-menu-wrap {
   bottom: 0;
-  left: 0;
-} 
-.cac_header_mobile_menu--right.bm-menu-wrap {
-  bottom: 0 !important;
-  left: calc(100vw - 100%) !important;
-  /* right: none !important; */
 }
-
+.cac_header_mobile_menu--left {
+  left: 0;
+}
 
 .cac_header_mobile_item-container {
   position: relative;
@@ -146,4 +143,36 @@ Note: Beware of modifying this element as it can break the animations - you shou
   border: 1px solid rgb(30, 46, 77);
   border-radius: 3px;
   box-shadow: none !important;
+}
+
+.cac_header_mobile_section {
+  padding: 1rem 0;
+}
+
+.cac_header_mobile_section:not(:last-child) {
+  border-bottom: 0.5px solid rgba(204, 204, 204, 0.7);
+}
+
+.cac_header_mobile_top {
+  background-color: #43475a;
+  border-radius: 3px;
+}
+.cac_header_mobile_option {
+  color: rgb(212, 212, 212);
+  margin-bottom: 1rem;
+  font-size: 2.6rem;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+}
+.cac_header_mobile_bottom {
+  color: rgb(170, 170, 170);
+  display: inline;
+  position: absolute;
+  bottom: 1rem;
+  left:50%;
+  transform: translateX(-50%);
+  
+  
+  text-align: center;
 }

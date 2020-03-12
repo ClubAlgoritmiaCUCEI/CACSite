@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 // eslint-disable-next-line no-unused-vars
-import { BrowserRouter as Router, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  useHistory
+} from "react-router-dom";
 import { firebase, firestore } from "../../firebase";
 
 import { AttendanceContext } from "../../Providers/attendanceProvider";
@@ -26,6 +30,7 @@ const Attendance = props => {
     type: ""
   });
   const { preview } = props;
+  const history = useHistory();
 
   const classData = preview ? props.classData : atnContext.classData;
   const { code } = props.match.params || classData;
@@ -94,6 +99,12 @@ const Attendance = props => {
     }
   };
 
+  const changeClass = () => {
+    console.log(atnContext);
+    history.push('/attendance');
+    atnContext.setClassData({ isDataAvailable: false, code: "" });
+  };
+
   useEffect(() => {
     if (classData.isDataAvailable && !classData.active) {
       setAlert({ open: true, type: "error", description: "Class ended" });
@@ -156,19 +167,30 @@ const Attendance = props => {
           </div>
         </div>
       )}
+
       <div className="cac_attendance_buttons">
         <Button
-          className="cac_attendance_button cac_attendance_end"
-          onClick={endClass}
-        >
-          End class
-        </Button>
-        <Button
           className="cac_attendance_button cac_attendance_add"
-          onClick={handleAdd}
+          onClick={changeClass}
         >
-          Add people
+          Change
         </Button>
+        {user.isAdmin && (
+          <>
+            <Button
+              className="cac_attendance_button cac_attendance_end"
+              onClick={endClass}
+            >
+              End class
+            </Button>
+            <Button
+              className="cac_attendance_button cac_attendance_add"
+              onClick={handleAdd}
+            >
+              Add people
+            </Button>
+          </>
+        )}
       </div>
     </div>
   );

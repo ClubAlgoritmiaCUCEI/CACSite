@@ -7,10 +7,12 @@ import { TopPopup } from "../../Components/popup";
 
 import { AttendanceContext } from "../../Providers/attendanceProvider";
 import { ClassContext } from "../../Providers/classProvider";
+import { UserContext } from "../../Providers/userProvider";
 
 import "./style.css";
 
 const AttendanceCode = () => {
+  const user = useContext(UserContext);
   const atnContext = useContext(AttendanceContext);
   const [code, setCode] = useState(atnContext.classData.code);
   const [showPopup, setShowPopup] = useState(false);
@@ -86,24 +88,26 @@ const AttendanceCode = () => {
           Continue
         </FormButton>
       </form>
-      <div className="cac_attendance_classes cac_attendance_classes--previous">
-        <span className="cac_attendance_classes_title">Next classes</span>
-        {classes.nextClasses.map((c, i) => (
-          <div key={i} className="cac_attendance_class-box">
-            <span className="cac_attendance_class_title">{c.title}</span>
-            <span className="cac_attendance_class_date">
-              {c.date.toDate().toDateString()}
-            </span>
-            <span className="cac_attendance_classes_code">{c.code}</span>
-            <p className="cac_attendance_classes_description">
-              {c.description}
-            </p>
-            <span className="cac_attendance_classes_counter">
-              {c.attendances.length} attendants
-            </span>
-          </div>
-        ))}
-      </div>
+      {user.isAdmin && (
+        <div className="cac_attendance_classes cac_attendance_classes--previous">
+          <span className="cac_attendance_classes_title">Next classes</span>
+          {classes.nextClasses.map((c, i) => (
+            <div key={i} className="cac_attendance_class-box">
+              <span className="cac_attendance_class_title">{c.title}</span>
+              <span className="cac_attendance_class_date">
+                {c.date.toDate().toDateString()}
+              </span>
+              <span className="cac_attendance_classes_code">{c.code}</span>
+              <p className="cac_attendance_classes_description">
+                {c.description}
+              </p>
+              <span className="cac_attendance_classes_counter">
+                {c.attendances.length} attendants
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
       <div className="cac_attendance_classes cac_attendance_classes--previous">
         <span className="cac_attendance_classes_title">Previous classes</span>
         {classes.previousClasses.map((c, i) => (

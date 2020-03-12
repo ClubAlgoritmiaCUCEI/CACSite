@@ -10,43 +10,45 @@ const AttendanceProvider = ({ children }) => {
     validCode: true,
     code: ""
   });
-  const [lastCode, setCode] = useState("");
+  const [lastCode, setLastCode] = useState("");
 
   useEffect(() => {
     let destroyerFunction = () => null;
     const { code } = classData;
-    if (classData.code !== lastCode) {
-      setCode(code);
-      setClassData(c => ({ ...c, fetching: true }));
-      const fetchClass = async () => {
-        const classRef = firestore.doc(`class/${code}`);
-        const snapshot = await classRef.get();
-        if (snapshot.exists) {
-          setClassData(c => ({
-            ...c,
-            isDataAvailable: true,
-            validCode: true,
-            code: code,
-            fetching: false,
-            ...snapshot.data()
-          }));
-          destroyerFunction = classRef.onSnapshot(async snapshot => {
+    if (code !== lastCode) {
+      setLastCode(code);
+      if (code) {
+        setClassData(c => ({ ...c, fetching: true }));
+        const fetchClass = async () => {
+          const classRef = firestore.doc(`class/${code}`);
+          const snapshot = await classRef.get();
+          if (snapshot.exists) {
             setClassData(c => ({
               ...c,
+              isDataAvailable: true,
+              validCode: true,
+              code: code,
+              fetching: false,
               ...snapshot.data()
             }));
-          });
-        } else {
-          setClassData(c => ({
-            ...c,
-            isDataAvailable: false,
-            code: code,
-            fetching: false,
-            validCode: false
-          }));
-        }
-      };
-      fetchClass();
+            destroyerFunction = classRef.onSnapshot(async snapshot => {
+              setClassData(c => ({
+                ...c,
+                ...snapshot.data()
+              }));
+            });
+          } else {
+            setClassData(c => ({
+              ...c,
+              isDataAvailable: false,
+              code: code,
+              fetching: false,
+              validCode: false
+            }));
+          }
+        };
+        fetchClass();
+      }
     }
     return destroyerFunction;
   }, [classData, lastCode]);

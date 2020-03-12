@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 // eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Link } from "react-router-dom";
+
+import { UserContext } from "../../Providers/userProvider";
 
 import "./style.css";
 
 const Navigation = props => {
-
+  const user = useContext(UserContext);
   const { className, selection } = props;
   return (
     <div className={`cac_navigation ${className || ""}`}>
@@ -47,14 +49,16 @@ const Navigation = props => {
       >
         Attendance
       </Link>
-      <Link
-        to="/create"
-        className={`cac_section cac_section--admin ${
-          selection === "create" ? "active" : ""
-        }`}
-      >
-        Create
-      </Link>
+      {user.isAdmin && (
+        <Link
+          to="/create"
+          className={`cac_section cac_section--admin ${
+            selection === "create" ? "active" : ""
+          }`}
+        >
+          Create
+        </Link>
+      )}
     </div>
   );
 };

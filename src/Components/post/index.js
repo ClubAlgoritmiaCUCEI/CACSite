@@ -208,7 +208,7 @@ const Post = ({
                 >
                   <div className="cac_post_options_section">
                     <span className="cac_post_options_option">Report Post</span>
-                    {author.id === user.uid && (
+                    {(author.id === user.uid || user.isAdmin) && (
                       <span
                         className="cac_post_options_option"
                         onClick={handleDelete}

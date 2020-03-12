@@ -11,6 +11,9 @@
   padding: 1rem 0;
   margin-bottom: 1rem;
 }
+.cac_profile_information {
+  width: 100%;
+}
 
 .cac_profile_photo_edit {
   font-size: 1.6rem;

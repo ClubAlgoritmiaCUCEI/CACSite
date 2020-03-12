@@ -19,6 +19,8 @@
   grid-template-columns: repeat(3, min-content);
   gap: 1rem;
   margin-bottom: 2rem;
+  max-height: 25rem;
+  overflow-y: scroll;
 }
 .cac_select-users_button-container{
   width:100%;

@@ -14,7 +14,9 @@ const TopRatedSide = ({ allUsers, className = "", onClick = () => null }) => {
   useEffect(() => {
     if (!allUsers.isCFLoading) {
       setRatedList(
-        allUsers.usersWithCFAccount.sort((a, b) => b.rating - a.rating)
+        allUsers.usersWithCFAccount
+          .sort((a, b) => b.rating - a.rating)
+          .slice(0, 10)
       );
     }
   }, [allUsers]);

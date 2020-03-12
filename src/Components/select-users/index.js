@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import SearchUsers from "../searchUsers";
 import UserBox from "../user-box";
@@ -23,6 +23,15 @@ const SelectUsers = ({ close, handleConfirm }) => {
       close();
     }
   };
+  useEffect(() => {
+    const handleEvent = e => {
+      if (e.key === "Escape") close();
+    };
+    window.addEventListener("keydown", handleEvent);
+    return () => {
+      window.removeEventListener("keydown", handleEvent);
+    };
+  }, [close]);
 
   return (
     <div className="cac_select-users">
@@ -51,7 +60,7 @@ const SelectUsers = ({ close, handleConfirm }) => {
             users.length > 0
               ? ""
               : "cac_select-users_button-container--disabled"
-            }`}
+          }`}
         >
           Confirm
         </Button>

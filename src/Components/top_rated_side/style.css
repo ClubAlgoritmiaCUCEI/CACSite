@@ -1,8 +1,16 @@
 .cac_top-rated_side {
   width: 100%;
   text-align: center;
+  overflow: hidden;
 }
-
+@media screen and (max-width: 800px) {
+  .cac_top-rated_side {
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    padding: 1rem 0;
+  }
+}
 .cac_top-rated_side_title {
   font-size: 2.5rem;
   font-weight: 600;
@@ -42,11 +50,12 @@
   display: block;
 }
 .cac_top-rated_side_name {
+  display: block;
+  width: 100%;
   justify-self: start;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 100%;
 }
 @media screen and (max-width: 1200px) {
   .cac_top-rated_side_name {

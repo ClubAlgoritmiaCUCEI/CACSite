@@ -8,7 +8,7 @@
   box-shadow: 0 0 1px rgb(94, 94, 94);
   border: 1.5px solid #8f8f8f;
   border-radius: 0.3rem;
-  width:100%;
+  width: 100%;
   margin-bottom: 1rem;
 }
 
@@ -16,9 +16,11 @@
   border: 1.5px solid #707070;
   box-shadow: 0 0 3px rgb(94, 94, 94);
 }
-.cac_search_users-container{
-  width:100%;
+.cac_search_users-container {
+  width: 100%;
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(3,min-content);
+  grid-template-columns: repeat(3, min-content);
+  max-height: 25rem;
+  overflow-y: scroll;
 }

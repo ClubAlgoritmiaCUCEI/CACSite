@@ -117,6 +117,14 @@ const Public = ({ Fallback }) => {
               showCommentaries={true}
               user={user}
               from="public"
+              parentHandleDelete={() => {
+                setIsOpen(false);
+                setAlert({
+                  visible: true,
+                  content: "Post removed",
+                  type: "success"
+                });
+              }}
             />
           </div>
         </div>
@@ -189,6 +197,13 @@ const Public = ({ Fallback }) => {
                 onClick={() => handlePostClick(postData.id)}
                 showCommentaries={false}
                 from="public"
+                parentHandleDelete={() => {
+                  setAlert({
+                    visible: true,
+                    content: "Post removed",
+                    type: "success"
+                  });
+                }}
               />
             );
           })

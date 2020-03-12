@@ -7,6 +7,7 @@ const useOutsideAlerter = (ref, handlerer, opener = {}) => {
       !ref.current.contains(event.target) &&
       (opener.current ? !opener.current.contains(event.target) : true)
     ) {
+      event.stopPropagation();
       handlerer();
     }
   };

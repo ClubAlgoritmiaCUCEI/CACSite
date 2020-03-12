@@ -51,6 +51,7 @@ const PostsProvider = ({ children }) => {
           fetchedData.push({ id: doc.id, ...doc.data() });
         });
         setHomePosts(fetchedData);
+        console.log("ready");
       });
     };
     if (status.home) {

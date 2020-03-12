@@ -104,7 +104,12 @@ export const AllUsersProvider = ({ children }) => {
             });
           }
         });
-      setUsers(c => ({ ...c, isLoading: false, users: fetchedUsers }));
+      setUsers(c => ({
+        ...c,
+        isLoading: false,
+        users: fetchedUsers,
+        usersMap: usersMap
+      }));
 
       /// set state and then fetch users that have an acount on codeforces
       let usersWithCFAccount = fetchedUsers.filter(

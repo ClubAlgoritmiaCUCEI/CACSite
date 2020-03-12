@@ -52,6 +52,9 @@ const Home = ({ Fallback }) => {
               cropContent={false}
               showCommentaries={true}
               user={user}
+              parentHandleDelete={() => {
+                setIsOpen(false);
+              }}
             />
           </div>
         </div>

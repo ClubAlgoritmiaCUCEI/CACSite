@@ -11,6 +11,8 @@
     "navigation side"
     "main side"
     "footer footer";
+
+  align-items: start;
 }
 
 @media screen and (max-width: 1200px) {

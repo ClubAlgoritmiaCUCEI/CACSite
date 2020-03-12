@@ -32,7 +32,7 @@ const DefaultView = ({
         <>
           <Header />
           <Navigation selection={selection} />
-          <Side />{" "}
+          <Side />
         </>
       )}
       <Suspense fallback={fallback()}>

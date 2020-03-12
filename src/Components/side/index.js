@@ -20,7 +20,7 @@ const Side = ({ className }) => {
             <UserSide user={user} />
           </div>
         ) : null}
-        {!allUsers.isLoading ? (
+        {!allUsers.isCFLoading ? (
           <div className="cac_side_section">
             <TopRatedSide allUsers={allUsers} />
           </div>

@@ -30,17 +30,21 @@
 
 .cac_user-box_photo {
   width: 4rem !important;
+  height: 4rem !important;
   border-radius: 3px;
   grid-area: photo;
 }
 @media screen and (max-width: 980px) {
   .cac_user-box_photo {
     width: 3rem !important;
+    height: 3rem !important;
+
   }
 }
 @media screen and (max-width: 400px) {
   .cac_user-box_photo {
     width: 2.7rem !important;
+    height: 2.7rem !important;
   }
 }
 .cac_user-box_photo:hover{

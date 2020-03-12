@@ -39,7 +39,7 @@ const SearchUsers = ({ handleUserClick }) => {
       />
       <div className="cac_search_users-container">
         {match.map((user, i) => (
-          <UserBox key={i} user={user} onClick={() => handleUserClick(user)} />
+          <UserBox redirect={false} key={i} user={user} onClick={() => handleUserClick(user)} />
         ))}
       </div>
     </div>

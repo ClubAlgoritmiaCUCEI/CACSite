@@ -14,7 +14,7 @@ const UserBox = ({ user, className, onClick, redirect = true }) => {
     <div
       className={`cac_user-box ${className || ""} ${
         !redirect ? "cac_user-box--redirect" : ""
-      }`}
+        }`}
       onClick={onClick}
     >
       <img
@@ -31,10 +31,10 @@ const UserBox = ({ user, className, onClick, redirect = true }) => {
             </ColoredName>
           </Link>
         ) : (
-          <ColoredName rank={user.rank} className="cac_user-box_name">
-            {user.displayName}
-          </ColoredName>
-        )}
+            <ColoredName rank={user.rank} className="cac_user-box_name">
+              {user.displayName}
+            </ColoredName>
+          )}
 
         <ColoredName rank={user.rank} className="cac_user-box_ranking">
           {user.rating || ""}

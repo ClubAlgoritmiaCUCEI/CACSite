@@ -51,7 +51,7 @@ const SelectUsers = ({ close, handleConfirm }) => {
             users.length > 0
               ? ""
               : "cac_select-users_button-container--disabled"
-          }`}
+            }`}
         >
           Confirm
         </Button>

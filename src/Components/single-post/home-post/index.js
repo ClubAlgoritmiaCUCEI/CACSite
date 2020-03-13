@@ -12,7 +12,7 @@ const HomePost = ({ match }) => {
   const posts = useContext(PostsContext);
   const user = useContext(UserContext);
   const allUsers = useContext(AllUsersContext);
-  const [postData, setPostData] = useState(false);
+  const [postData, setPostData] = useState({});
   const { id } = match.params;
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const HomePost = ({ match }) => {
       const postsRef = firestore.doc(`posts/${id}`);
       try {
         destroyerFunction = postsRef.onSnapshot(async snapshot => {
-          setPostData(snapshot.data());
+          setPostData({ id: snapshot.id, ...snapshot.data() });
         });
       } catch (e) {
         console.error(e);

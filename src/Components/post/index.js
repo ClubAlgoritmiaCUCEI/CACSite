@@ -6,11 +6,9 @@ import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
 
 import { v4 as uuidv4 } from "uuid";
 
-import ReactMarkdown from "react-markdown";
-import htmlParser from "react-markdown/plugins/html-parser";
-import TimeAgo from "react-timeago";
 
-import CodeBlock from "../code-block";
+import MarkdownContent from "../markdown-content";
+import TimeAgo from "react-timeago";
 import ColoredName from "../colored-name";
 import Commentary from "../comentary";
 import Button from "../button";
@@ -21,14 +19,8 @@ import { ReactComponent as Heart } from "../../assets/heart.svg";
 import { ReactComponent as Comment } from "../../assets/chatbox.svg";
 import { ReactComponent as Bookmark } from "../../assets/bookmark.svg";
 
-import { removeDangerousHTML } from "../../utilities";
-
 import "./style.css";
 import "github-markdown-css";
-
-const parseHtml = htmlParser({
-  isValidNode: node => node.type !== "script" && node.type !== "break"
-});
 
 const Post = ({
   user,
@@ -190,16 +182,13 @@ const Post = ({
               handleDelete={handleDelete}
             />
           </div>
-
-          <ReactMarkdown
+          <MarkdownContent
+            content={data.content}
             className={`cac_post_content markdown-body ${
               cropContent ? "cac_post_content--crop" : ""
             }`}
-            source={removeDangerousHTML(data.content)}
-            renderers={{ code: CodeBlock }}
-            escapeHtml={false}
-            astPlugins={[parseHtml]}
           />
+
           <div className="cac_post_interaction">
             <div className="cac_post_interaction-box" onClick={onLikeClick}>
               <span className="cac_post_interaction-counter">

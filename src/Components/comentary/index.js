@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 import ColoredName from "../colored-name";
 import TimeAgo from "react-timeago";
 import Options from "../options";
+import MarkdownContent from "../markdown-content";
 
 import DefaultImage from "../../assets/default-photo.jpg";
 
@@ -46,7 +47,7 @@ const Commentary = ({
           author={author}
         />
       </div>
-      <p className="cac_commentary_content">{content}</p>
+      <MarkdownContent content={content} className="cac_commentary_content" />
     </div>
   );
 };

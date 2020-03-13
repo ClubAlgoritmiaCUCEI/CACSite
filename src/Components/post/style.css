@@ -10,6 +10,7 @@
   box-shadow: 0 0 2px rgb(216, 216, 216);
   transition: all 0.2s;
   width: 100%;
+  overflow-x: hidden;
 }
 @media screen and (max-width: 1200px) {
   .cac_post {
@@ -176,18 +177,6 @@
     rgba(100, 100, 100, 0.3)
   );
   transform: translateY(-100%);
-}
-
-.cac_post pre {
-  border-top: 2px solid #a0c0d2;
-  border-bottom: 2px solid #a0c0d2;
-
-  background-color: rgb(250, 250, 250) !important;
-  font-size: 1.6em !important;
-  padding-top: 0.5rem !important;
-  padding-left: 1rem !important;
-  margin-left: 2rem !important;
-  margin-right: 2rem !important;
 }
 
 .cac_post_interaction {

@@ -10,11 +10,11 @@ import "./style.css";
 const TopRatedSide = ({ allUsers, className = "", onClick = () => null }) => {
   const [ratedList, setRatedList] = useState([]);
   const history = useHistory();
-
   useEffect(() => {
     if (!allUsers.isCFLoading) {
       setRatedList(
         allUsers.usersWithCFAccount
+          .filter(u => u.rating > 0)
           .sort((a, b) => b.rating - a.rating)
           .slice(0, 10)
       );

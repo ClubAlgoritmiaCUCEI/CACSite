@@ -2,7 +2,6 @@
   border: 1px solid rgb(216, 216, 216);
   width: 100%;
   max-width: 100%;
-  overflow: hidden;
   border-radius: 0.3rem;
   padding: 0.8rem;
   margin-bottom: 1rem;
@@ -15,7 +14,11 @@
 }
 
 .cac_commentary_heading {
-  display: flex;
+  display: grid;
+  grid-template-columns: min-content 1fr 3rem;
+  grid-template-areas: "photo text icon";
+  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 .cac_commentary_photo {
   width: 3rem;
@@ -23,9 +26,7 @@
   border-radius: 0.3rem;
 }
 .cac_commentary_heading_text {
-  margin-left: 0.5rem;
   height: 3rem;
-  margin-bottom: 1rem;
   flex: 1;
 }
 
@@ -45,6 +46,10 @@
   text-decoration: underline;
 }
 
+.cac_commentary_options {
+  grid-area: icon;
+}
+
 .cac_commentary_content {
   margin-left: 1rem;
   border-left: 0.2rem solid #a0c0d2;
@@ -52,4 +57,8 @@
   padding-right: 1rem;
   font-size: 1.5rem;
   word-break: break-all;
+}
+.cac_post_options_icon:hover {
+  cursor: pointer;
+  background-color: rgb(240, 240, 240);
 }

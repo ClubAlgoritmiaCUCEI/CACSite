@@ -24,7 +24,7 @@ const EditorialPost = ({ match }) => {
       const postsRef = firestore.doc(`editorial/${id}`);
       try {
         destroyerFunction = postsRef.onSnapshot(async snapshot => {
-          setPostData(snapshot.data());
+          setPostData({ id: snapshot.id, ...snapshot.data() });
         });
       } catch (e) {
         console.error(e);

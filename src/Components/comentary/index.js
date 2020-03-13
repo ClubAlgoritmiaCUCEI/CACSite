@@ -4,12 +4,19 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 
 import ColoredName from "../colored-name";
 import TimeAgo from "react-timeago";
+import Options from "../options";
 
 import DefaultImage from "../../assets/default-photo.jpg";
 
 import "./style.css";
 
-const Commentary = ({ author, date, content }) => {
+const Commentary = ({
+  handleDelete = () => console.log("?>?"),
+  user,
+  author,
+  date,
+  content
+}) => {
   return (
     <div className="cac_commentary">
       <div className="cac_commentary_heading">
@@ -32,6 +39,12 @@ const Commentary = ({ author, date, content }) => {
           </Link>
           <TimeAgo className="cac_post_date" date={date.toDate()} />
         </div>
+        <Options
+          handleDelete={handleDelete}
+          className="cac_commentary_options"
+          user={user}
+          author={author}
+        />
       </div>
       <p className="cac_commentary_content">{content}</p>
     </div>

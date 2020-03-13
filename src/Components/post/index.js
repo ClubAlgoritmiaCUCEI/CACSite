@@ -1,9 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 
 import { firebase, firestore } from "../../firebase";
 // eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
-import useOutsideAlerter from "../../Hooks/useOutsideAlerter";
+
+import { v4 as uuidv4 } from "uuid";
 
 import ReactMarkdown from "react-markdown";
 import htmlParser from "react-markdown/plugins/html-parser";
@@ -13,12 +14,12 @@ import CodeBlock from "../code-block";
 import ColoredName from "../colored-name";
 import Commentary from "../comentary";
 import Button from "../button";
+import Options from "../options";
 
 import DefaultPhoto from "../../assets/default-photo.jpg";
 import { ReactComponent as Heart } from "../../assets/heart.svg";
 import { ReactComponent as Comment } from "../../assets/chatbox.svg";
 import { ReactComponent as Bookmark } from "../../assets/bookmark.svg";
-import { ReactComponent as Ellipsis } from "../../assets/ellipsis.svg";
 
 import { removeDangerousHTML } from "../../utilities";
 
@@ -49,14 +50,6 @@ const Post = ({
   const like = !preview && user.logged && data.likesList.includes(user.uid);
   const [saved, setSaved] = useState(
     !preview && user.logged && user.saved.includes(data.id)
-  );
-  const wrapperRef = useRef(null);
-  const wrapperOpenerRef = useRef(null);
-  const [isOptionsOpen, setIsOptionsOpen] = useState(false);
-  useOutsideAlerter(
-    wrapperRef,
-    () => setIsOptionsOpen(false),
-    wrapperOpenerRef
   );
 
   const history = useHistory();
@@ -104,10 +97,12 @@ const Post = ({
   };
 
   const publishCommentary = () => {
+    console.log(from, data);
     const publish = async () => {
       setPublishingCommentary(true);
       const postRef = firestore.doc(`${from}/${data.id}`);
       const commentContent = {
+        id: uuidv4(),
         author: user.uid,
         content: textValue,
         date: new Date()
@@ -121,24 +116,18 @@ const Post = ({
     if (!publishingCommentary && textValue) publish();
   };
 
-  const handleOptionsClick = e => {
-    e.stopPropagation();
-    const handleKeyPress = e => {
-      if (e.key === "Escape") setIsOptionsOpen(false);
-    };
-    if (isOptionsOpen) {
-      window.removeEventListener("keydown", handleKeyPress);
-    } else {
-      window.addEventListener("keydown", handleKeyPress);
-    }
-    setIsOptionsOpen(!isOptionsOpen);
-  };
-
   const handleDelete = () => {
     const postRef = firestore.doc(`${from}/${data.id}`);
-    setIsOptionsOpen(false);
     postRef.delete();
     parentHandleDelete();
+  };
+
+  const handleCommentaryDelete = async commentary => {
+    const postRef = firestore.doc(`${from}/${data.id}`);
+
+    await postRef.update({
+      comments: firebase.firestore.FieldValue.arrayRemove(commentary)
+    });
   };
 
   return (
@@ -194,32 +183,12 @@ const Post = ({
                 />
               )}
             </div>
-            <div className="cac_post_options">
-              <Ellipsis
-                className="cac_post_options_icon"
-                onClick={handleOptionsClick}
-                ref={wrapperOpenerRef}
-              />
-              {isOptionsOpen && (
-                <div
-                  className="cac_post_options-container"
-                  ref={wrapperRef}
-                  onClick={e => e.stopPropagation()}
-                >
-                  <div className="cac_post_options_section">
-                    <span className="cac_post_options_option">Report Post</span>
-                    {(author.id === user.uid || user.isAdmin) && (
-                      <span
-                        className="cac_post_options_option"
-                        onClick={handleDelete}
-                      >
-                        Delete
-                      </span>
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
+            <Options
+              className="cac_post_options"
+              user={user}
+              author={author}
+              handleDelete={handleDelete}
+            />
           </div>
 
           <ReactMarkdown
@@ -279,12 +248,15 @@ const Post = ({
               <div className="cac_post_commentaries">
                 {data.comments
                   .sort((a, b) => b.date.toDate() - a.date.toDate())
-                  .map(({ author, content, date }, i) => (
+                  .map((data, i) => (
                     <Commentary
+                      handleDelete={() => handleCommentaryDelete(data)}
+                      postRef={`${from}/${data.id}`}
                       key={i}
-                      author={{ id: author, ...allUsers[author] }}
-                      content={content}
-                      date={date}
+                      user={user}
+                      author={{ id: data.author, ...allUsers[data.author] }}
+                      content={data.content}
+                      date={data.date}
                     />
                   ))}
               </div>

@@ -11,7 +11,7 @@ const WeeklyPost = ({ match }) => {
   const posts = useContext(PostsContext);
   const user = useContext(UserContext);
   const allUsers = useContext(AllUsersContext);
-  const [postData, setPostData] = useState(false);
+  const [postData, setPostData] = useState(undefined);
   const { id } = match.params;
 
   useEffect(() => {

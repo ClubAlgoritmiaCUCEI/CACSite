@@ -10,7 +10,7 @@ const CalendarProvider = ({ children }) => {
     const start = () => {
       window.gapi.client
         .init({
-          apiKey: "AIzaSyDhGTgrk3_SKm5SVoRecM4050VNPxOVVq0"
+          apiKey: process.env.REACT_APP_CALENDAR_KEY
         })
         .then(() =>
           window.gapi.client.request({
@@ -35,7 +35,7 @@ const CalendarProvider = ({ children }) => {
                     : e.start.date,
                   end: e.end.dateTime ? e.end.dateTime.slice(0, 10) : e.end.date
                 }))
-                
+
                 .sort((a, b) => a.jsDate - b.jsDate)
             );
           },

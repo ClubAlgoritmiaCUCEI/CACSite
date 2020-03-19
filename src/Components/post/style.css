@@ -10,6 +10,7 @@
   box-shadow: 0 0 2px rgb(216, 216, 216);
   transition: all 0.2s;
   width: 100%;
+  height: auto;
   overflow-x: hidden;
 }
 @media screen and (max-width: 1200px) {
@@ -272,9 +273,15 @@
 .cac_post_bookmark--filled {
   fill: currentColor;
 }
+
+
+
+/*////// COMMENTARIES SECTION ////////*/
 .cac_post_commentaries-section {
   width: 100%;
   padding: 0 2rem;
+  height: auto;
+  overflow-y:scroll ;
 }
 @media screen and (max-width: 980px) {
   .cac_post_commentaries-section {

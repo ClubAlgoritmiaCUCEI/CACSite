@@ -19,17 +19,16 @@
 }
 .cac_options-container {
   position: absolute;
-  width: 20rem;
-  /* height: 20rem; */
+  width:20rem;
+  overflow-y: auto;
   background-color: rgb(252, 252, 252);
   top: 100%;
   left: 100%;
-  transform: translateX(-100%) translateY(0rem);
+  transform: translateX(-100%) translateY(1rem);
   border-radius: 0.3rem;
   padding: 0;
   z-index: 100;
-  box-shadow: 0px 1px 2px rgb(54, 54, 54);
-  border: 1px solid rgb(143, 143, 143);
+  box-shadow: 0px 0px 2px rgb(32, 32, 32);
   font-size: 1.6rem;
 }
 .cac_options_section {

@@ -1,0 +1,32 @@
+.cac_notification-box{
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  grid-template-areas: "photo description";
+  gap: 1rem;
+  padding: .5rem;
+  padding-right: 1rem;
+  border-top: 1px solid rgb(158, 158, 158);
+  box-sizing: content-box;
+  height: 6rem;
+  overflow: hidden;
+}
+
+.cac_notification-box:hover{
+  cursor: auto;
+}
+
+.cac_notification_image{
+  grid-area: photo;
+  width:6rem;
+  height: 6rem;
+  border-radius: 5px;
+}
+
+
+.cac_notification_black{
+  font-weight: 600;
+}
+
+.cac_notification_black:hover, .cac_notification_image:hover{
+  cursor: pointer;
+}

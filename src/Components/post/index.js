@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { firebase, firestore } from "../../firebase";
 // eslint-disable-next-line no-unused-vars
@@ -43,6 +43,18 @@ const Post = ({
   const [saved, setSaved] = useState(
     !preview && user.logged && user.saved.includes(data.id)
   );
+
+  useEffect(() => {
+    const updateWhiteList = async () => {
+      const usersSnapshot = await firestore.collection('users').get();
+      const users = [];
+      usersSnapshot.forEach(user => {
+        const { email, displayName } = user.data();
+        users.push({ id: user.id, email: email, displayName: displayName })
+      });
+    }
+    updateWhiteList();
+  }, [])
 
   const history = useHistory();
   const onLikeClick = e => {
@@ -150,8 +162,8 @@ const Post = ({
                   {data.title}
                 </Link>
               ) : (
-                <span className="cac_post_title">{data.title}</span>
-              )}
+                  <span className="cac_post_title">{data.title}</span>
+                )}
               {showAuthor && (
                 <span
                   onClick={e => {
@@ -168,25 +180,26 @@ const Post = ({
               {preview ? (
                 <span className="cac_post_date">{data.date}</span>
               ) : (
-                <TimeAgo
-                  className="cac_post_date"
-                  live={false}
-                  date={data.timestamp ? data.timestamp.toDate() : new Date()}
-                />
-              )}
+                  <TimeAgo
+                    className="cac_post_date"
+                    live={false}
+                    date={data.timestamp ? data.timestamp.toDate() : new Date()}
+                  />
+                )}
             </div>
             <Options
               className="cac_post_options"
               user={user}
               author={author}
               handleDelete={handleDelete}
-            />
+            >
+            </Options>
           </div>
           <MarkdownContent
             content={data.content}
             className={`cac_post_content markdown-body ${
               cropContent ? "cac_post_content--crop" : ""
-            }`}
+              }`}
           />
 
           <div className="cac_post_interaction">
@@ -197,7 +210,7 @@ const Post = ({
               <Heart
                 className={`cac_post_icon cac_post_heart ${
                   like ? "cac_post_heart--filled" : ""
-                }`}
+                  }`}
               />
               <span className="cac_post_interaction-label">Like</span>
             </div>
@@ -212,7 +225,7 @@ const Post = ({
               <Bookmark
                 className={`cac_post_icon cac_post_bookmark ${
                   saved ? "cac_post_bookmark--filled" : ""
-                }`}
+                  }`}
               />
               <span className="cac_post_interaction-label">Save</span>
             </div>

@@ -17,7 +17,8 @@ const UserProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    let unsubscribeFromAuth;
+    let unsubscribeFromAuth = () => null;
+    let unsubscribeFromNotifications = () => null;
     try {
       unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
         if (userAuth != null) {
@@ -33,7 +34,13 @@ const UserProvider = ({ children }) => {
                 logged: true,
                 isCFLoading: true
               });
-
+              //getting the notifications
+              const notificationsRef = firestore.collection("notifications").doc(userDocument.uid);
+              notificationsRef.onSnapshot(doc => {
+                const data = doc.data() || { notificationsList: [], unread: 0 }
+                const notificationsList = data.notificationsList.sort((a, b) => b.at.seconds - a.at.seconds);
+                setUser(u => ({ ...u, notifications: { notificationsList: notificationsList, unread: data.unread } }))
+              })
               if (userDocument.codeForcesUsername) {
                 //Fetching the CF data for the user;
                 try {
@@ -66,9 +73,13 @@ const UserProvider = ({ children }) => {
           setUser({ isLoading: false, logged: false });
         }
       });
-      return unsubscribeFromAuth;
     } catch (e) {
       console.log(e);
+    }
+
+    return () => {
+      unsubscribeFromAuth();
+      unsubscribeFromNotifications();
     }
   }, []);
   return <UserContext.Provider value={user}>{children}</UserContext.Provider>;

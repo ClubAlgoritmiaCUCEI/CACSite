@@ -25,6 +25,7 @@ const UserProvider = ({ children }) => {
           setUser({ isLoading: true, logged: true, isCFLoading: true });
           try {
             const userDocument = await getUserDocument(userAuth);
+            console.log("Read 1 document");
             if (userDocument !== undefined) {
               setUser({
                 saved: [],
@@ -39,6 +40,7 @@ const UserProvider = ({ children }) => {
               notificationsRef.onSnapshot(doc => {
                 const data = doc.data() || { notificationsList: [], unread: 0 }
                 const notificationsList = data.notificationsList.sort((a, b) => b.at.seconds - a.at.seconds);
+                console.log(`Read ${notificationsList.length} documents`);
                 setUser(u => ({ ...u, notifications: { notificationsList: notificationsList, unread: data.unread } }))
               })
               if (userDocument.codeForcesUsername) {
@@ -94,6 +96,7 @@ export const AllUsersProvider = ({ children }) => {
     usersWithCFAccount: [],
     usersMap: {}
   });
+  const lastTimestamp = localStorage.getItem('usersTimestamp') || new Date(0).getTime();
 
   useEffect(() => {
     const usersMap = {};
@@ -104,6 +107,7 @@ export const AllUsersProvider = ({ children }) => {
         .collection("users")
         .get()
         .then(querySnapshot => {
+          console.log(`Read ${querySnapshot.size} documents`);
           for (let i = 0; i < querySnapshot.size; i++) {
             const doc = querySnapshot.docs[i];
             usersMap[doc.id] = { ...doc.data(), id: doc.id };

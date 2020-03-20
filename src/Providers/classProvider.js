@@ -21,6 +21,7 @@ const ClassProvider = ({ children }) => {
         .orderBy("date", "desc")
         .limit(20);
       const snapshot = await postsRef.get();
+      console.log(`Read ${snapshot.size} documents`);
       const data = [];
       snapshot.forEach(doc => {
         data.push(doc.data());
@@ -38,6 +39,7 @@ const ClassProvider = ({ children }) => {
         .orderBy("date", "asc")
         .limit(10);
       const snapshot = await postsRef.get();
+      console.log(`Read ${snapshot.size} documents`);
       const data = [];
       snapshot.forEach(doc => {
         data.push(doc.data());
@@ -46,7 +48,7 @@ const ClassProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {});
+  useEffect(() => { });
   return (
     <ClassContext.Provider
       value={{

@@ -46,6 +46,7 @@ const PostsProvider = ({ children }) => {
         .orderBy("timestamp", "desc")
         .limit(10);
       destroyerFunction = postsRef.onSnapshot(async snapshot => {
+        console.log(`Read ${snapshot.size} documents`);
         const fetchedData = [];
         snapshot.forEach(doc => {
           fetchedData.push({ id: doc.id, ...doc.data() });
@@ -68,6 +69,7 @@ const PostsProvider = ({ children }) => {
         .orderBy("timestamp", "desc")
         .limit(10);
       destroyerFunction = postsRef.onSnapshot(async snapshot => {
+        console.log(`Read ${snapshot.size} documents`);
         const fetchedData = [];
         snapshot.forEach(doc => {
           fetchedData.push({ id: doc.id, ...doc.data() });
@@ -89,6 +91,7 @@ const PostsProvider = ({ children }) => {
         .orderBy("timestamp", "desc")
         .limit(10);
       destroyerFunction = postsRef.onSnapshot(async snapshot => {
+        console.log(`Read ${snapshot.size} documents`);
         const fetchedData = [];
         snapshot.forEach(doc => {
           fetchedData.push({ id: doc.id, ...doc.data() });
@@ -110,6 +113,7 @@ const PostsProvider = ({ children }) => {
         .orderBy("timestamp", "desc")
         .limit(10);
       destroyerFunction = postsRef.onSnapshot(async snapshot => {
+        console.log(`Read ${snapshot.size} documents`);
         const fetchedData = [];
         snapshot.forEach(doc => {
           fetchedData.push({ id: doc.id, ...doc.data() });
@@ -123,7 +127,7 @@ const PostsProvider = ({ children }) => {
     return destroyerFunction;
   }, [status.editorial]);
 
-  useEffect(() => {});
+  useEffect(() => { });
   return (
     <PostsContext.Provider
       value={{

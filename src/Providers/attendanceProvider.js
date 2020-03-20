@@ -22,6 +22,7 @@ const AttendanceProvider = ({ children }) => {
         const fetchClass = async () => {
           const classRef = firestore.doc(`class/${code}`);
           const snapshot = await classRef.get();
+          console.log("Read 1 document");
           if (snapshot.exists) {
             setClassData(c => ({
               ...c,

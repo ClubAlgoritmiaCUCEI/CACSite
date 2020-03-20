@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 // eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
@@ -22,12 +22,23 @@ const Header = () => {
   const allUsers = useContext(AllUsersContext);
   const history = useHistory();
   const { notifications } = user || {};
-  console.log(notifications);
 
   const hadleNotificationsClick = async () => {
     const notificationsRef = firestore.doc(`notifications/${user.uid}`);
     notificationsRef.update({ unread: 0 });
   }
+
+  useEffect(() => {
+    const get = async () => {
+      const snap = await firestore.collection('usersTest').get();
+      console.log(snap);
+      snap.docs.forEach(async user => {
+        console.log(user);
+      });
+    }
+    get();
+
+  }, [])
 
   return (
     <div className="cac_header">

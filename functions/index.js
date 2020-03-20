@@ -3,6 +3,7 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const nodemailer = require('nodemailer');
 const cors = require('cors')({ origin: true });
+const interactions = require('./interactionFunctions');
 admin.initializeApp();
 
 const firestore = admin.firestore();
@@ -107,3 +108,17 @@ exports.notifyOnHomeDelete = functions.firestore.document('posts/{post}').onDele
     }
   })
 })
+
+exports.notifyOnHomeInteraction = functions.firestore.document('posts/{post}')
+  .onUpdate(async (change, context) => {
+    await interactions.onLike(firestore, admin, 'posts', change, context);
+    await interactions.onCommentary(firestore, admin, 'posts', change, context);
+    return;
+  });
+
+exports.notifyOnPublicInteraction = functions.firestore.document('public/{post}')
+  .onUpdate(async (change, context) => {
+    await interactions.onLike(firestore, admin, 'public', change, context);
+    await interactions.onCommentary(firestore, admin, 'public', change, context);
+    return;
+  });

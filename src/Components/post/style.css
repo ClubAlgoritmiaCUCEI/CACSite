@@ -12,6 +12,7 @@
   width: 100%;
   height: auto;
   overflow-x: hidden;
+  overflow-y: visible;
 }
 @media screen and (max-width: 1200px) {
   .cac_post {
@@ -75,20 +76,18 @@
 .cac_post_title {
   width: 90%;
   font-size: 2.3rem;
+  line-height: 90%  ;
   letter-spacing: 0.025rem;
   font-weight: 600;
-  line-height: 2.2rem;
   text-decoration: none;
   color: rgb(54, 54, 54);
   transition: all 0.2s;
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
 }
 @media screen and (max-width: 980px) {
   .cac_post_title {
     font-size: 1.8rem;
-    line-height: 1.6rem;
   }
 }
 
@@ -99,7 +98,6 @@
 
 .cac_post_author {
   font-size: 1.4rem;
-  line-height: 1.2rem;
   width: max-content;
 }
 @media screen and (max-width: 980px) {
@@ -281,7 +279,7 @@
   width: 100%;
   padding: 0 2rem;
   height: auto;
-  overflow-y:scroll ;
+  padding-bottom: 3rem;
 }
 @media screen and (max-width: 980px) {
   .cac_post_commentaries-section {

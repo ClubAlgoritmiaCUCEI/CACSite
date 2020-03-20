@@ -1,5 +1,6 @@
 .cac_side {
   position: sticky;
+  top: 1rem;
   grid-area: side;
   box-sizing: border-box;
   z-index: 1;

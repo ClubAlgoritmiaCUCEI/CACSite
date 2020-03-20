@@ -39,6 +39,11 @@ const SignIn = () => {
   useEffect(() => {
     if (user.logged) history.goBack();
   }, [user, history]);
+
+  useEffect(() => {
+    window.gtag("config", "UA-161018242-1", { 'page_path': `/sign-in` });
+  }, [])
+
   return (
     <div className="cac_sign-in">
       <Logo alt="Club de Algoritmia CUCEI logo" className="cac_sign-in_logo" />
@@ -98,7 +103,7 @@ const SignIn = () => {
           <span> Sign in with Facebook</span>
         </Button>
         <span className="cac_sign-in_signup">
-          Need an account? <Link className="cac_sign-in_signup--link"to="/signup">Sign up</Link>
+          Need an account? <Link className="cac_sign-in_signup--link" to="/signup">Sign up</Link>
         </span>
       </form>
     </div>

@@ -61,6 +61,10 @@ const SignUp = () => {
     }
   }, [form.password, form.passwordConfirmation]);
 
+  useEffect(() => {
+    window.gtag("config", "UA-161018242-1", { 'page_path': `/sign-up` });
+  }, [])
+
   const onSubmit = async e => {
     e.preventDefault();
     if (dbUsers.isLoading) {

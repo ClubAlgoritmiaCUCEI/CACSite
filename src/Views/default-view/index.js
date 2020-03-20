@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 
 import { useMediaQuery } from "react-responsive";
 
@@ -20,6 +20,11 @@ const DefaultView = ({
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 800px)" });
 
   const LazyComponent = lazy(lazyImport);
+
+  useEffect(() => {
+    window.gtag("config", "UA-161018242-1", { 'page_path': `/${selection}` });
+  }, [selection])
+
   return (
     <div className="cac_view" id="page-wrap">
       {isTabletOrMobile ? (
@@ -29,12 +34,12 @@ const DefaultView = ({
           outerContainerId={"page-wrap"}
         />
       ) : (
-        <>
-          <Header />
-          <Navigation selection={selection} />
-          <Side />
-        </>
-      )}
+          <>
+            <Header />
+            <Navigation selection={selection} />
+            <Side />
+          </>
+        )}
       <Suspense fallback={fallback()}>
         <LazyComponent {...params} Fallback={fallback} />
       </Suspense>

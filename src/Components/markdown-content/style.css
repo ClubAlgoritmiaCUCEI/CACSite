@@ -3,7 +3,7 @@
 }
 
 .cac_markdown img{
-  max-width: 100%;
+  max-width: 100% !important;
 } 
 
 .cac_markdown pre {

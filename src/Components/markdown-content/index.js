@@ -15,7 +15,7 @@ const parseHtml = htmlParser({
 const MarkdownContent = ({ content = "", className = "" }) => {
   return (
     <ReactMarkdown
-      className={` d ${className}`}
+      className={`cac_markdown ${className}`}
       source={removeDangerousHTML(content)}
       renderers={{ code: CodeBlock }}
       escapeHtml={false}

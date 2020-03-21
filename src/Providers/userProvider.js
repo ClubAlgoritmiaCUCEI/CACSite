@@ -97,7 +97,7 @@ export const AllUsersProvider = ({ children }) => {
     usersWithCFAccount: [],
     usersMap: {}
   });
-  const [isFetching, setIsFetchin] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
 
   const IDB = useContext(IDBContext);
 
@@ -105,7 +105,7 @@ export const AllUsersProvider = ({ children }) => {
 
     if (!IDB.users.ready || isFetching) return
     const fetchData = async () => {
-      setIsFetchin(true);
+      setIsFetching(true);
       const usersMap = {};
       const fetchedUsers = [];
       let lastUserFetchedseconds = window.localStorage.getItem("lastUserFetch");
@@ -187,7 +187,7 @@ export const AllUsersProvider = ({ children }) => {
 
     };
     fetchData();
-  }, [IDB]);
+  }, [IDB, isFetching]);
   return (
     <AllUsersContext.Provider value={users}>
       {children}

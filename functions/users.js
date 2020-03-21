@@ -12,7 +12,7 @@ exports.createWhiteList = async (firestore, req, res) => {
 exports.updateUsersTimestamp = async (admin, firestore, req, res) => {
   const usersSnapshot = await firestore.collection('users').get();
   usersSnapshot.forEach(async user => {
-    await firestore.doc(`users/${user.id}`).update({ timestamp: admin.firestore.FieldValue.serverTimestamp() });
+    await firestore.doc(`users/${user.id}`).update({ lastUpdate: Date.now(), timestamp: admin.firestore.FieldValue.serverTimestamp() });
   })
 
   return res.send("Succes!");
@@ -20,9 +20,11 @@ exports.updateUsersTimestamp = async (admin, firestore, req, res) => {
 
 exports.onUserChange = async (admin, firestore, snap) => {
   const after = snap.after.data();
-  const newDate = new Date();
-
-  if (newDate.getTime() / 1000 - after.timestamp.seconds > 10) {
-    await firestore.doc(`users/${snap.after.id}`).update({ timestamp: admin.firestore.FieldValue.serverTimestamp() });
-  };
+  const now = admin.firestore.Timestamp.fromDate(new Date());
+  console.log(now);
+  console.log(after.timestamp);
+  if (now.seconds - after.timestamp.seconds > 10) {
+    console.log("updating...");
+    await firestore.doc(`users/${snap.after.id}`).update({ lastUpdate: Date.now(), timestamp: now });
+  }
 }

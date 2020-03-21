@@ -1,5 +1,7 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState, useContext } from "react";
 import { auth, getUserDocument, firestore } from "../firebase.js";
+
+import { IDBContext } from './IDBProvider';
 
 import defaultImage from "../assets/default-photo.jpg";
 
@@ -39,7 +41,7 @@ const UserProvider = ({ children }) => {
               const notificationsRef = firestore.collection("notifications").doc(userDocument.uid);
               notificationsRef.onSnapshot(doc => {
                 const data = doc.data() || { notificationsList: [], unread: 0 }
-                const notificationsList = data.notificationsList.sort((a, b) => b.at.seconds - a.at.seconds);
+                const notificationsList = data.notificationsList.sort((a, b) => b.at.lastUserFetchedseconds - a.at.lastUserFetchedseconds);
                 console.log(`Read ${notificationsList.length} documents`);
                 setUser(u => ({ ...u, notifications: { notificationsList: notificationsList, unread: data.unread } }))
               })
@@ -91,23 +93,29 @@ export default UserProvider;
 export const AllUsersProvider = ({ children }) => {
   const [users, setUsers] = useState({
     isLoading: true,
-    users: [],
     isCFLoading: true,
     usersWithCFAccount: [],
     usersMap: {}
   });
-  const lastTimestamp = localStorage.getItem('usersTimestamp') || new Date(0).getTime();
+
+  const IDB = useContext(IDBContext);
 
   useEffect(() => {
+    if (!IDB.users.ready) return
     const usersMap = {};
+    let lastUserFetchedseconds = window.localStorage.getItem("lastUserFetch");
+    let lastFetch = new Date();
+    lastFetch.setTime(lastUserFetchedseconds)
+    IDB.dataForEach('users', user => usersMap[user.id] = user);
+
     const fetchData = async () => {
       const fetchedUsers = [];
-      //// fetch users from firebase
       await firestore
         .collection("users")
+        .where("timestamp", ">", lastFetch)
         .get()
         .then(querySnapshot => {
-          console.log(`Read ${querySnapshot.size} documents`);
+          console.log(`Read ${querySnapshot.size} documents at All Users Provider`);
           for (let i = 0; i < querySnapshot.size; i++) {
             const doc = querySnapshot.docs[i];
             usersMap[doc.id] = { ...doc.data(), id: doc.id };
@@ -118,7 +126,10 @@ export const AllUsersProvider = ({ children }) => {
               index: i
             });
           }
+          if (querySnapshot.size > 0)
+            window.localStorage.setItem("lastUserFetch", lastUserFetchedseconds + 1000);
         });
+
       setUsers(c => ({
         ...c,
         isLoading: false,
@@ -126,38 +137,34 @@ export const AllUsersProvider = ({ children }) => {
         usersMap: usersMap
       }));
 
-      /// set state and then fetch users that have an acount on codeforces
-      let usersWithCFAccount = fetchedUsers.filter(
-        user => user.codeForcesUsername
-      );
-      let usersQuery = fetchedUsers.reduce(
-        (acc, user) => `${acc};${user.codeForcesUsername || ""}`,
-        ""
-      );
 
+      /// set state and then fetch users that have an acount on codeforces
+      const usersWithCFAccount = []
+      let usersQuery = ""
+      for (let user in usersMap) {
+        const cfUsername = usersMap[user].codeForcesUsername;
+        if (cfUsername) {
+          usersWithCFAccount.push(user)
+          usersQuery += `;${cfUsername}`
+        }
+      }
       fetch(API + DEFAULT_QUERY + usersQuery)
         .then(res => res.json())
         .then(data => {
-          let usersOnlyWithCFMaped = usersWithCFAccount.map((user, i) => ({
-            ...data.result[i],
-            ...user
-          }));
-          const usersCopy = fetchedUsers;
-          usersOnlyWithCFMaped.forEach(user => {
-            usersMap[user.id] = { ...usersMap[user.id], ...user };
-            usersCopy[user.index] = { ...usersCopy[user.index], ...user };
+          usersWithCFAccount.forEach((userId, i) => {
+            usersMap[userId] = { ...usersMap[userId], ...data.result[i] }
+            usersWithCFAccount.push(usersMap[userId]);
           });
           setUsers(c => ({
             ...c,
-            users: usersCopy,
             isCFLoading: false,
-            usersWithCFAccount: usersOnlyWithCFMaped,
+            usersWithCFAccount: usersWithCFAccount,
             usersMap: usersMap
           }));
         });
     };
     fetchData();
-  }, []);
+  }, [IDB.users.ready]);
   return (
     <AllUsersContext.Provider value={users}>
       {children}

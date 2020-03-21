@@ -97,19 +97,23 @@ export const AllUsersProvider = ({ children }) => {
     usersWithCFAccount: [],
     usersMap: {}
   });
+  const [isFetching, setIsFetchin] = useState(false);
 
   const IDB = useContext(IDBContext);
 
   useEffect(() => {
-    if (!IDB.users.ready) return
-    const usersMap = {};
-    let lastUserFetchedseconds = window.localStorage.getItem("lastUserFetch");
-    let lastFetch = new Date();
-    lastFetch.setTime(lastUserFetchedseconds)
-    IDB.dataForEach('users', user => usersMap[user.id] = user);
 
+    if (!IDB.users.ready || isFetching) return
     const fetchData = async () => {
+      setIsFetchin(true);
+      const usersMap = {};
       const fetchedUsers = [];
+      let lastUserFetchedseconds = window.localStorage.getItem("lastUserFetch");
+
+      let lastFetch = new Date();
+      lastFetch.setTime(lastUserFetchedseconds);
+
+      IDB.dataForEach('users', user => { usersMap[user.id] = user });
       await firestore
         .collection("users")
         .where("timestamp", ">", lastFetch)
@@ -118,6 +122,8 @@ export const AllUsersProvider = ({ children }) => {
           console.log(`Read ${querySnapshot.size} documents at All Users Provider`);
           for (let i = 0; i < querySnapshot.size; i++) {
             const doc = querySnapshot.docs[i];
+            lastUserFetchedseconds = Math.max(lastUserFetchedseconds, doc.data().timestamp.seconds * 1000);
+            IDB.addData('users', { ...doc.data(), id: doc.id });
             usersMap[doc.id] = { ...doc.data(), id: doc.id };
             fetchedUsers.push({
               id: doc.id,
@@ -127,7 +133,7 @@ export const AllUsersProvider = ({ children }) => {
             });
           }
           if (querySnapshot.size > 0)
-            window.localStorage.setItem("lastUserFetch", lastUserFetchedseconds + 1000);
+            window.localStorage.setItem("lastUserFetch", Number(lastUserFetchedseconds) + 1000);
         });
 
       setUsers(c => ({
@@ -137,34 +143,51 @@ export const AllUsersProvider = ({ children }) => {
         usersMap: usersMap
       }));
 
-
       /// set state and then fetch users that have an acount on codeforces
-      const usersWithCFAccount = []
-      let usersQuery = ""
+      let lastCodeForceFetchSeconds = window.localStorage.getItem('lastCodeForceFetch');
+      const usersWithCFAccount = [];
+
+      /// One hour
+      const start = Date.now();
+      if (Date.now() - lastCodeForceFetchSeconds > 3600000) {
+        console.log("Fetching to code forces...");
+        const usersToRequest = [];
+        let usersQuery = "";
+        for (let user in usersMap) {
+          const cfUsername = usersMap[user].codeForcesUsername;
+          if (cfUsername) {
+            usersToRequest.push(user)
+            usersQuery += `;${cfUsername}`
+          }
+        }
+        await fetch(API + DEFAULT_QUERY + usersQuery)
+          .then(res => res.json())
+          .then(data => {
+            usersToRequest.forEach((userId, i) => {
+              usersMap[userId] = { ...usersMap[userId], ...data.result[i] }
+              IDB.addData('users', usersMap[userId]);
+            });
+
+          });
+        window.localStorage.setItem("lastCodeForceFetch", Date.now());
+      }
       for (let user in usersMap) {
         const cfUsername = usersMap[user].codeForcesUsername;
         if (cfUsername) {
-          usersWithCFAccount.push(user)
-          usersQuery += `;${cfUsername}`
+          usersWithCFAccount.push(usersMap[user]);
         }
       }
-      fetch(API + DEFAULT_QUERY + usersQuery)
-        .then(res => res.json())
-        .then(data => {
-          usersWithCFAccount.forEach((userId, i) => {
-            usersMap[userId] = { ...usersMap[userId], ...data.result[i] }
-            usersWithCFAccount.push(usersMap[userId]);
-          });
-          setUsers(c => ({
-            ...c,
-            isCFLoading: false,
-            usersWithCFAccount: usersWithCFAccount,
-            usersMap: usersMap
-          }));
-        });
+      console.log("Done!", Date.now() - start);
+      setUsers(c => ({
+        ...c,
+        isCFLoading: false,
+        usersWithCFAccount: usersWithCFAccount,
+        usersMap: usersMap
+      }));
+
     };
     fetchData();
-  }, [IDB.users.ready]);
+  }, [IDB]);
   return (
     <AllUsersContext.Provider value={users}>
       {children}

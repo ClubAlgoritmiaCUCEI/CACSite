@@ -20,6 +20,7 @@ const IDBProvider = ({ children }) => {
   }
 
   const dataForEach = (database, handler) => {
+    console.log("Call")
     let objectStore = dataBases[database].transaction(database).objectStore(database);
     objectStore.openCursor().onsuccess = e => {
       let cursor = e.target.result;

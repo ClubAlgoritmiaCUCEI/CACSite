@@ -1,7 +1,7 @@
 .cac_button {
   min-width: 5rem;
   padding: .5rem 2.5rem;
-  background: white;
+  background: var(--bgc-color);;
   border-radius: 0.5rem;
   display: inline-block;
   font-size: 2rem;
@@ -20,7 +20,7 @@
 .cac_button.cac_button--fill{
   background-color: rgb(74, 121, 198);
   border: 2px solid rgb(74, 121, 198);
-  color:white;
+  color:var(--bgc-color);;
 }
 
 .cac_button.cac_button--outline{

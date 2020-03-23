@@ -95,6 +95,7 @@ export const AllUsersProvider = ({ children }) => {
     isLoading: true,
     isCFLoading: true,
     usersWithCFAccount: [],
+    allUsers: [],
     usersMap: {}
   });
   const [isFetching, setIsFetching] = useState(false);
@@ -109,6 +110,7 @@ export const AllUsersProvider = ({ children }) => {
       const usersMap = {};
       const fetchedUsers = [];
       let lastUserFetchedseconds = window.localStorage.getItem("lastUserFetch");
+      if (lastUserFetchedseconds > Date.now()) lastUserFetchedseconds = 0;
 
       let lastFetch = new Date();
       lastFetch.setTime(lastUserFetchedseconds);
@@ -135,12 +137,16 @@ export const AllUsersProvider = ({ children }) => {
           if (querySnapshot.size > 0)
             window.localStorage.setItem("lastUserFetch", Number(lastUserFetchedseconds) + 1000);
         });
+      const allUsers = [];
+      for (let user in usersMap) {
+        allUsers.push(usersMap[user]);
+      }
 
       setUsers(c => ({
         ...c,
         isLoading: false,
-        users: fetchedUsers,
-        usersMap: usersMap
+        usersMap: usersMap,
+        users: allUsers,
       }));
 
       /// set state and then fetch users that have an acount on codeforces

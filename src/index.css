@@ -2,6 +2,7 @@
   font-size: 62.5%;
   /* background-color: orange; */
   --max-content-width: 140rem;
+  --bgc-color:rgb(250, 248, 248);
 }
 *,
 *:after,
@@ -17,5 +18,5 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(250, 248, 248);
+  background-color: var(--bgc-color);
 }

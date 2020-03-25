@@ -33,7 +33,7 @@ const Create = props => {
     setPreview(false);
   };
 
-  useEffect(() => {}, [props]);
+  useEffect(() => { }, [props]);
 
   const handlePreviewClick = () => {
     setPreview(!preview);
@@ -58,12 +58,11 @@ const Create = props => {
       </div>
       {match.params.cid === "class" && <CreateClass preview={preview} />}
       {match.params.cid === "homePost" && (
-        <CreatePost preview={preview} to="posts" type="home" />
+        <CreatePost preview={preview} type="home" />
       )}
       {match.params.cid === "weeklyProblem" && (
         <CreatePost
           preview={preview}
-          to="weekly-problems"
           type="weekly-problem"
           showAuthor={false}
         />
@@ -71,7 +70,6 @@ const Create = props => {
       {match.params.cid === "editorial" && (
         <CreatePost
           preview={preview}
-          to="editorial"
           type="editorial"
           showAuthor={false}
         />

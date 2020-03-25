@@ -14,7 +14,6 @@ import "../../Views/create/style.css";
 const CreatePost = ({
   preview,
   type = "home",
-  to = "posts",
   showAuthor = true
 }) => {
   const user = useContext(UserContext);
@@ -37,7 +36,7 @@ const CreatePost = ({
         key: Date.now()
       };
       try {
-        await firestore.collection(to).add(postData);
+        await firestore.collection('test-posts').add(postData);
         setAlert({
           visible: true,
           content: "Post published succesfully",
@@ -84,35 +83,35 @@ const CreatePost = ({
           }}
         />
       ) : (
-        <div className="cac_create_post">
-          <div className="cac_create_section">
-            <label htmlFor="title" className="cac_create_title">
-              Title
+          <div className="cac_create_post">
+            <div className="cac_create_section">
+              <label htmlFor="title" className="cac_create_title">
+                Title
             </label>
-            <input
-              name="title"
-              id="title"
-              type="text"
-              className="cac_create_input cac_create_input--title"
-              value={title}
-              onChange={e => setTitle(e.target.value)}
-            />
-          </div>
-          <div className="cac_create_section">
-            <label htmlFor="description" className="cac_create_title">
-              Content
+              <input
+                name="title"
+                id="title"
+                type="text"
+                className="cac_create_input cac_create_input--title"
+                value={title}
+                onChange={e => setTitle(e.target.value)}
+              />
+            </div>
+            <div className="cac_create_section">
+              <label htmlFor="description" className="cac_create_title">
+                Content
             </label>
-            <textarea
-              name="description"
-              id="description"
-              className="cac_create_textarea"
-              value={content}
-              required
-              onChange={e => setContent(e.target.value)}
-            />
+              <textarea
+                name="description"
+                id="description"
+                className="cac_create_textarea"
+                value={content}
+                required
+                onChange={e => setContent(e.target.value)}
+              />
+            </div>
           </div>
-        </div>
-      )}
+        )}
       <Button className="cac_create_post_post" onClick={handlePostButton}>
         Post
       </Button>

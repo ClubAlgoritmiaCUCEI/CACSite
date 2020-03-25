@@ -10,6 +10,8 @@ import MarkdownContent from "../markdown-content";
 import DefaultImage from "../../assets/default-photo.jpg";
 
 import "./style.css";
+import "../../animations.css";
+
 
 const Commentary = ({
   handleDelete = () => console.log("?>?"),
@@ -53,3 +55,13 @@ const Commentary = ({
 };
 
 export default Commentary;
+
+
+export const LoadingCommentary = () => {
+  return (
+    <div className="cac_commentary cac_loading-commentary">
+      <div className="gradient cac_loading-commentary_photo" />
+      <div className="gradient cac_loading-commentary_name" />
+      <div className="gradient cac_loading_commentary_content" />
+    </div>);
+}

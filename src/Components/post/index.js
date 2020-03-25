@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 import MarkdownContent from "../markdown-content";
 import TimeAgo from "react-timeago";
 import ColoredName from "../colored-name";
-import Commentary from "../comentary";
+import Commentary, { LoadingCommentary } from "../comentary";
 import Button from "../button";
 import Options from "../options";
 
@@ -31,41 +31,32 @@ const Post = ({
   allUsers,
   preview = false,
   cropContent = false,
-  showCommentaries = false,
+  commentary = { handleAddCommentary: () => null, showCommentaries: false },
   onClick = () => null,
   parentHandleDelete = () => null
 }) => {
   let author;
   author = allUsers[data.author.id] || author;
-  const [publishingCommentary, setPublishingCommentary] = useState(false);
   const [textValue, setTextValue] = useState("");
-  const like = !preview && user.logged && data.likesList.includes(user.uid);
+  const [like, setLike] = useState(!preview && user.logged && data.likesList.includes(user.uid));
   const [saved, setSaved] = useState(
     !preview && user.logged && user.saved.includes(data.id)
   );
-
-  useEffect(() => {
-    const updateWhiteList = async () => {
-      const usersSnapshot = await firestore.collection('users').get();
-      const users = [];
-      usersSnapshot.forEach(user => {
-        const { email, displayName } = user.data();
-        users.push({ id: user.id, email: email, displayName: displayName })
-      });
-    }
-    updateWhiteList();
-  }, [])
-
   const history = useHistory();
+  const [likesCount, setLikesCount] = useState(preview ? 0 : data.likesList.length)
+
   const onLikeClick = e => {
     e.stopPropagation();
     const updateLike = async () => {
-      const postRef = firestore.doc(`${from}/${data.id}`);
+      setLike(!like);
+      const postRef = firestore.doc(`test-posts/${data.id}`);
       if (!like) {
+        setLikesCount(likesCount + 1)
         await postRef.update({
           likesList: firebase.firestore.FieldValue.arrayUnion(user.uid)
         });
       } else {
+        setLikesCount(likesCount - 1)
         await postRef.update({
           likesList: firebase.firestore.FieldValue.arrayRemove(user.uid)
         });
@@ -101,36 +92,22 @@ const Post = ({
   };
 
   const publishCommentary = () => {
-    console.log(from, data);
-    const publish = async () => {
-      setPublishingCommentary(true);
-      const postRef = firestore.doc(`${from}/${data.id}`);
-      const commentContent = {
-        id: uuidv4(),
-        author: user.uid,
-        content: textValue,
-        date: new Date()
-      };
-      await postRef.update({
-        comments: firebase.firestore.FieldValue.arrayUnion(commentContent)
-      });
-      setPublishingCommentary(false);
-      setTextValue("");
-    };
-    if (!publishingCommentary && textValue) publish();
+    commentary.handleAddCommentary(textValue);
+    setTextValue("");
   };
 
   const handleDelete = () => {
-    const postRef = firestore.doc(`${from}/${data.id}`);
+    const postRef = firestore.doc(`test-posts/${data.id}`);
+    console.log("eee")
     postRef.delete();
     parentHandleDelete();
   };
 
   const handleCommentaryDelete = async commentary => {
-    const postRef = firestore.doc(`${from}/${data.id}`);
-
+    const postRef = firestore.doc(`commentaries/${data.id}`);
+    console.log(commentary);
     await postRef.update({
-      comments: firebase.firestore.FieldValue.arrayRemove(commentary)
+      commentaries: firebase.firestore.FieldValue.arrayRemove(commentary)
     });
   };
 
@@ -205,7 +182,7 @@ const Post = ({
           <div className="cac_post_interaction">
             <div className="cac_post_interaction-box" onClick={onLikeClick}>
               <span className="cac_post_interaction-counter">
-                {data.likesList.length}
+                {likesCount}
               </span>
               <Heart
                 className={`cac_post_icon cac_post_heart ${
@@ -230,7 +207,7 @@ const Post = ({
               <span className="cac_post_interaction-label">Save</span>
             </div>
           </div>
-          {showCommentaries && (
+          {commentary.showCommentaries && (
             <div className="cac_post_commentaries-section">
               {user.logged && (
                 <div className="cac_post_create-commentary">
@@ -248,7 +225,7 @@ const Post = ({
                 </div>
               )}
               <div className="cac_post_commentaries">
-                {data.comments
+                {!commentary.isLoading ? commentary.data
                   .sort((a, b) => b.date.toDate() - a.date.toDate())
                   .map((data, i) => (
                     <Commentary
@@ -260,7 +237,12 @@ const Post = ({
                       content={data.content}
                       date={data.date}
                     />
-                  ))}
+                  )) : (
+                    <>
+                      <LoadingCommentary />
+                      <LoadingCommentary />
+                      <LoadingCommentary />
+                    </>)}
               </div>
             </div>
           )}

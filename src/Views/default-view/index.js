@@ -10,16 +10,15 @@ import Footer from "../../Components/footer";
 
 import "./style.css";
 
-const DefaultView = ({
-  selection,
-  children,
-  lazyImport,
-  fallback,
-  ...params
-}) => {
+const DefaultView = props => {
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 800px)" });
-
+  const {
+    selection,
+    lazyImport,
+    fallback,
+  } = props;
   const LazyComponent = lazy(lazyImport);
+  console.log(props);
 
   useEffect(() => {
     window.gtag("config", "UA-161018242-1", { 'page_path': `/${selection}` });
@@ -41,7 +40,7 @@ const DefaultView = ({
           </>
         )}
       <Suspense fallback={fallback()}>
-        <LazyComponent {...params} Fallback={fallback} />
+        <LazyComponent {...props} Fallback={fallback} />
       </Suspense>
       <Footer />
     </div>

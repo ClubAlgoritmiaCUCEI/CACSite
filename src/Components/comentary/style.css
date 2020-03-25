@@ -62,4 +62,21 @@
   cursor: pointer;
   background-color: rgb(240, 240, 240);
 }
+.cac_loading-commentary{
+  display :grid;
+  grid-template-columns: 3rem 1fr;
+  grid-template-rows: 3rem 5rem;
+  grid-template-areas: "photo name" "content content";
+  gap: 0.5rem;
+}
+.cac_loading-commentary_photo{
+  grid-area: photo;
+}
 
+.cac_loading-commentary_name{
+  grid-area:  name;
+}
+
+.cac_loading_commentary_content{
+  grid-area: content;
+}

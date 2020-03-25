@@ -33,8 +33,6 @@ const DefaultLoadingPosts = (showUser = true) => {
 };
 
 const App = () => {
-
-
   return (
     <UserProvider>
       <IDBProvider>
@@ -55,36 +53,46 @@ const App = () => {
                         <Route exact={true} path={"/"}>
                           <DefaultView
                             selection="home"
-                            lazyImport={() => import("./Views/home")}
+                            lazyImport={() => import("./Views/posts-view")}
                             fallback={DefaultLoadingPosts}
+                            showAuthor={true}
+                            type="home"
+                            from="home"
                           />
                         </Route>
                         <Route exact={true} path={"/home"}>
                           <DefaultView
                             selection="home"
-                            lazyImport={() => import("./Views/home")}
+                            lazyImport={() => import("./Views/posts-view")}
                             fallback={DefaultLoadingPosts}
+                            showAuthor={true}
+                            type="home"
+                            from="home"
                           />
                         </Route>
                         <Route
                           exact={true}
-                          path={"/posts/:id"}
+                          path={"/home/:id"}
                           render={({ match }) => (
                             <DefaultView
                               selection="home"
-                              lazyImport={() =>
-                                import("./Components/single-post/home-post")
-                              }
+                              lazyImport={() => import("./Components/single-post")}
                               fallback={() => <LoadingPost type="medium" />}
                               match={match}
+                              showAuthor={true}
+                              type="home"
+                              from="home"
                             />
                           )}
                         />
                         <Route exact={true} path={"/public"}>
                           <DefaultView
                             selection="public"
-                            lazyImport={() => import("./Views/public")}
+                            lazyImport={() => import("./Views/posts-view")}
                             fallback={DefaultLoadingPosts}
+                            showAuthor={true}
+                            type="public"
+                            from="public"
                           />
                         </Route>
                         <Route
@@ -94,19 +102,24 @@ const App = () => {
                             <DefaultView
                               selection="public"
                               lazyImport={() =>
-                                import("./Components/single-post/public-post")
+                                import("./Components/single-post")
                               }
                               fallback={() => <LoadingPost type="medium" />}
                               match={match}
                             />
                           )}
+                          showAuthor={true}
+                          type="public"
+                          from="public"
                         />
 
                         <Route exact={true} path={"/editorial"}>
                           <DefaultView
                             selection="editorial"
-                            lazyImport={() => import("./Views/editorial")}
+                            lazyImport={() => import("./Views/posts-view")}
                             fallback={() => DefaultLoadingPosts(false)}
+                            type="editorial"
+                            from="editorial"
                           />
                         </Route>
                         <Route
@@ -116,9 +129,11 @@ const App = () => {
                             <DefaultView
                               selection="editorial"
                               lazyImport={() =>
-                                import("./Components/single-post/editorial-post")
+                                import("./Components/single-post")
                               }
                               fallback={() => <LoadingPost type="medium" />}
+                              type="editorial"
+                              from="editorial"
                               match={match}
                             />
                           )}
@@ -127,8 +142,11 @@ const App = () => {
                         <Route exact={true} path={"/weekly-problems"}>
                           <DefaultView
                             selection="weekly-problem"
-                            lazyImport={() => import("./Views/weeklyProblems")}
+                            lazyImport={() => import("./Views/posts-view")}
                             fallback={() => DefaultLoadingPosts(false)}
+                            type="weekly-problem"
+                            from="weekly-problems"
+                            className="cac_weekly"
                           />
                         </Route>
                         <Route
@@ -138,12 +156,14 @@ const App = () => {
                             <DefaultView
                               selection="weekly-problem"
                               lazyImport={() =>
-                                import("./Components/single-post/weekly-post")
+                                import("./Components/single-post")
                               }
                               fallback={() => <LoadingPost type="medium" />}
                               match={match}
                             />
                           )}
+                          type="weekly-problem"
+                          from="weekly-problems"
                         />
                         <Route exact={true} path={"/calendar"}>
                           <DefaultView
@@ -217,9 +237,12 @@ const App = () => {
                         <Route
                           render={({ match }) => (
                             <DefaultView
-                              selection="a"
-                              lazyImport={() => import("./Views/home")}
+                              selection="home"
+                              lazyImport={() => import("./Views/posts-view")}
                               fallback={DefaultLoadingPosts}
+                              showAuthor={true}
+                              type="home"
+                              from="home"
                             />
                           )}
                         />

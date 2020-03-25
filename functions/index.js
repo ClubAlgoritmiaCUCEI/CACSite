@@ -5,6 +5,7 @@ const admin = require('firebase-admin');
 const users = require('./users');
 const mails = require('./mails');
 const notifications = require('./notifications');
+const posts = require('./posts');
 
 admin.initializeApp();
 
@@ -47,7 +48,6 @@ exports.updateUserTimestamp = functions.firestore.document('users/{user}')
     return;
   })
 
-///// Notifications
 
 exports.notifyOnHomeCreate = functions.firestore.document('posts/{post}')
   .onCreate(async (snap, context) => {
@@ -72,5 +72,20 @@ exports.notifyOnPublicInteraction = functions.firestore.document('public/{post}'
   .onUpdate(async (change, context) => {
     await notifications.onLike(firestore, admin, 'public', change, context);
     await notifications.onCommentary(firestore, admin, 'public', change, context);
+    return;
+  });
+
+
+/// Posts
+
+exports.movePosts = functions.https
+  .onRequest(async (req, res) => {
+    await posts.moveAllPosts(firestore, req, res);
+    return;
+  });
+
+exports.moveCommentaries = functions.https
+  .onRequest(async (req, res) => {
+    await posts.moveAllCommentaries(firestore, req, res);
     return;
   });

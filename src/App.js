@@ -106,11 +106,11 @@ const App = () => {
                               }
                               fallback={() => <LoadingPost type="medium" />}
                               match={match}
+                              showAuthor={true}
+                              type="public"
+                              from="public"
                             />
                           )}
-                          showAuthor={true}
-                          type="public"
-                          from="public"
                         />
 
                         <Route exact={true} path={"/editorial"}>

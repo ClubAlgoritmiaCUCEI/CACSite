@@ -13,7 +13,7 @@ import Post from "../../Components/post";
 
 import "./style.css";
 
-const PostsView = ({ className = "", Fallback, from, type, showAuthor = false }) => {
+const PostsView = ({ className = "", Fallback, from, type, showAuthor = false, children }) => {
   const posts = useContext(PostsContext);
   const user = useContext(UserContext);
   const allUsers = useContext(AllUsersContext);
@@ -30,6 +30,7 @@ const PostsView = ({ className = "", Fallback, from, type, showAuthor = false })
   };
   return (
     <div className={`cac_posts ${className}`}>
+      {children}
       {!user.isLoading && posts.status[type] ? (
         posts.posts[type].map((postData, i) => {
           return (

@@ -93,6 +93,7 @@ const App = () => {
                             showAuthor={true}
                             type="public"
                             from="public"
+                            enableCreate={true}
                           />
                         </Route>
                         <Route

@@ -1,0 +1,64 @@
+.cac_create_post_small{
+  display:grid;
+  margin-bottom: 1rem;
+  gap: .5rem;
+  align-items: start;
+  grid-template-columns: 1fr min-content;
+  grid-template-areas: "title post" "content cancel";
+}
+@media screen and (max-width: 1200px) {
+  .cac_create_post_small {
+    margin-bottom: 0;
+  }
+}
+.cac_create_post_small_button {
+  width: 10rem;
+  text-align: center;
+  color: white;
+  padding: 0.5rem 0;
+}
+
+.cac_create_post_small_button--post{
+  background-color: #4a79c6;
+  grid-area: post;
+}
+.cac_create_post_small_button--cancel{
+  background-color: #ab1c21;
+  grid-area: cancel;
+}
+
+.cac_create_post_small_textarea{
+  padding: 0.8rem 1rem;
+  font-size: 2rem;
+  resize: none;
+  height: 3.7rem;
+  border-radius: 0.3rem;
+  outline: none !important;
+  transition: border 0.2s;
+  min-height: 3.7rem;
+}
+
+.cac_create_post_small_textarea:focus{
+  border: 1px solid rgb(99, 99, 99);
+}
+
+.cac_create_post_small_textarea--title{
+  grid-area: title;
+  resize: none;
+}
+
+.cac_create_post_small_textarea--content{
+  grid-area: content;
+  resize: vertical;
+  height: 10rem;
+}
+
+.cac_create_post_small_button--disabled{
+  filter: grayscale(0.5);
+  box-shadow: none !important;
+}
+
+.cac_create_post_small_button--disabled:hover{
+  cursor: not-allowed;
+
+}

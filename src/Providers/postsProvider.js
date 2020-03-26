@@ -19,8 +19,8 @@ const PostsProvider = ({ children }) => {
   })
   const [posts, setPosts] = useState({});
 
-  const fetch = async type => {
-    if (status[type] || fetching[type]) return;
+  const fetch = async (type, again = false) => {
+    if (!again && (status[type] || fetching[type])) return;
 
     setFetching(s => ({ ...s, [type]: true }));
     const postsRef = firestore

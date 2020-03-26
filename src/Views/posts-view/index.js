@@ -10,10 +10,11 @@ import { PostsContext } from "../../Providers/postsProvider";
 import { UserContext, AllUsersContext } from "../../Providers/userProvider";
 
 import Post from "../../Components/post";
+import CreatePostSmall from '../../Components/create-post-small';
 
 import "./style.css";
 
-const PostsView = ({ className = "", Fallback, from, type, showAuthor = false, children }) => {
+const PostsView = ({ className = "", Fallback, from, type, showAuthor = false, enableCreate = false }) => {
   const posts = useContext(PostsContext);
   const user = useContext(UserContext);
   const allUsers = useContext(AllUsersContext);
@@ -23,14 +24,13 @@ const PostsView = ({ className = "", Fallback, from, type, showAuthor = false, c
     posts.fetch(type);
     console.log(type);
   }, [posts, type]);
-  console.log(posts);
 
   const handlePostClick = id => {
     history.push(`/${from}/${id}`);
   };
   return (
     <div className={`cac_posts ${className}`}>
-      {children}
+      {enableCreate && <CreatePostSmall type={type} user={user} />}
       {!user.isLoading && posts.status[type] ? (
         posts.posts[type].map((postData, i) => {
           return (

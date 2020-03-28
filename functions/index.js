@@ -78,14 +78,39 @@ exports.notifyOnPublicInteraction = functions.firestore.document('public/{post}'
 
 /// Posts
 
-exports.movePosts = functions.https
-  .onRequest(async (req, res) => {
-    await posts.moveAllPosts(firestore, req, res);
+// exports.movePosts = functions.https
+//   .onRequest(async (req, res) => {
+//     await posts.moveAllPosts(firestore, req, res);
+//     return;
+//   });
+
+// exports.moveCommentaries = functions.https
+//   .onRequest(async (req, res) => {
+//     await posts.moveAllCommentaries(firestore, req, res);
+//     return;
+//   });
+
+exports.createCommentariesOnCreate = functions.firestore.document('test-posts/{post}')
+  .onCreate(async (change, context) => {
+    await posts.onPostCreate(admin, firestore, change)
     return;
   });
 
-exports.moveCommentaries = functions.https
+
+exports.updateCommentariesOnComment = functions.firestore.document('commentaries/{post}')
+  .onUpdate(async (change, context) => {
+    await posts.onCommentaryUpdate(admin, firestore, change)
+    return;
+  });
+
+exports.updatePosts = functions.https
   .onRequest(async (req, res) => {
-    await posts.moveAllCommentaries(firestore, req, res);
+    await posts.updatePosts(admin, firestore, req, res);
+    return;
+  });
+
+exports.updateLegacyPosts = functions.https
+  .onRequest(async (req, res) => {
+    await posts.updateLegacyPosts(firestore, req, res);
     return;
   });

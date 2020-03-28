@@ -26,7 +26,7 @@ const PostsProvider = ({ children }) => {
     const postsRef = firestore
       .collection("test-posts")
       .where("type", "==", type)
-      .orderBy("timestamp", "desc")
+      .orderBy("createdAt", "desc")
       .limit(10);
     const postsSnap = await postsRef.get();
     const posts = [];

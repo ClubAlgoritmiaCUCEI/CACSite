@@ -160,7 +160,7 @@ const Post = ({
                   <TimeAgo
                     className="cac_post_date"
                     live={false}
-                    date={data.timestamp ? data.timestamp.toDate() : new Date()}
+                    date={data.createdAt ? data.createdAt.toDate() : new Date()}
                   />
                 )}
             </div>
@@ -193,7 +193,7 @@ const Post = ({
             </div>
             <div className="cac_post_interaction-box cac_post_interaction-box--comment">
               <span className="cac_post_interaction-counter">
-                {data.comments.length}
+                {data.commentariesCount}
               </span>
               <Comment className="cac_post_icon cac_post_comment" />
               <span className="cac_post_interaction-label">Comment</span>

@@ -18,7 +18,6 @@ const DefaultView = props => {
     fallback,
   } = props;
   const LazyComponent = lazy(lazyImport);
-  console.log(props);
 
   useEffect(() => {
     window.gtag("config", "UA-161018242-1", { 'page_path': `/${selection}` });

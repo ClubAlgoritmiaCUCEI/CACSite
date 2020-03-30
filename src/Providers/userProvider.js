@@ -78,6 +78,7 @@ const UserProvider = ({ children }) => {
         }
       });
     } catch (e) {
+      setUser({ isLoading: false, logged: false, isCFLoading: false });
       console.log(e);
     }
 

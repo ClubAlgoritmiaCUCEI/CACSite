@@ -13,7 +13,8 @@ const PostsProvider = ({ children }) => {
     public: false,
     home: false,
     weeklyProblems: false,
-    editorial: false
+    editorial: false,
+    IDB: false,
   });
   const [fetching, setFetching] = useState({
     public: false,
@@ -21,40 +22,71 @@ const PostsProvider = ({ children }) => {
     weeklyProblems: false,
     editorial: false
   })
-  const [posts, setPosts] = useState({});
+  const [posts, setPosts] = useState({
+    public: [],
+    home: [],
+    weeklyProblems: [],
+    editorial: []
+  });
+
+  useEffect(() => {
+    if (status.IDB) return;
+    if (IDB.posts.ready) setStatus(s => ({ ...s, IDB: true }));
+  }, [IDB, status.IDB])
 
   const fetch = async (type, again = false) => {
+    /// Checkint if should fetch data from firebase or IDB
 
+    if (!IDB.posts.ready || status[type] || fetching[type]) return;
+    setFetching(s => ({ ...s, [type]: true }));
 
+    const posts = [];
 
-    if (!IDB.posts.ready) {
-      setTimeout(() => fetch(type, again), 100);
-      console.log("Another fetch...");
-      return;
-    }
-    if (!again && (status[type] || fetching[type])) return;
+    await IDB.dataForEachConditional('posts', e => posts.push(e), 'type', 'only', type);
+    posts.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds);
 
-    let lastPostFetchedseconds = window.localStorage.getItem("lastPostFetch");
+    setPosts(p => ({ ...p, [type]: posts }));
+    setFetching(s => ({ ...s, [type]: false }));
+    setStatus(s => ({ ...s, [type]: true }));
+
+    /// Checking last fetch
+    let lastPostFetchedseconds = window.localStorage.getItem(`lastPostsFetch-${type}`);
     if (lastPostFetchedseconds > Date.now()) lastPostFetchedseconds = 0;
 
     let lastFetch = new Date();
     lastFetch.setTime(lastPostFetchedseconds);
 
-    setFetching(s => ({ ...s, [type]: true }));
+    /// Fetching
+    const fetchedPosts = []
     const postsRef = firestore
       .collection("test-posts")
+      .where("timestamp", ">", lastFetch)
       .where("type", "==", type)
-      .orderBy("createdAt", "desc")
+      .orderBy("timestamp", 'desc')
       .limit(10);
     const postsSnap = await postsRef.get();
-    const posts = [];
-    postsSnap.docs.forEach(doc => posts.push({ ...doc.data(), id: doc.id }));
-    setPosts(p => ({ ...p, [type]: posts }));
-    setFetching(s => ({ ...s, [type]: false }));
-    setStatus(s => ({ ...s, [type]: true }));
-  }
+    console.log(`Read ${postsSnap.docs.length} document at ${type}`);
+    postsSnap.docs.forEach(doc => {
+      lastPostFetchedseconds = Math.max(lastPostFetchedseconds, doc.data().timestamp.seconds * 1000);
+      const data = { ...doc.data(), id: doc.id };
+      IDB.addData('posts', data)
+      fetchedPosts.push(data)
+    });
 
-  useEffect(() => { });
+    //updating the changed posts
+    fetchedPosts.forEach(post => {
+      console.log(post);
+      const index = posts.findIndex(p => p.id === post.id);
+      if (index === -1)
+        posts.unshift(post);
+      else posts[index] = post;
+    })
+    window.localStorage.setItem(`lastPostsFetch-${type}`, Number(lastPostFetchedseconds) + 1000);
+
+    /// Set data in state
+    setPosts(p => ({ ...p, [type]: posts }));
+
+  }
   return (
     <PostsContext.Provider
       value={{

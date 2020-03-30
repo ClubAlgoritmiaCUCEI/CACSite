@@ -159,7 +159,7 @@ const Post = ({
                   <TimeAgo
                     className="cac_post_date"
                     live={false}
-                    date={data.createdAt ? data.createdAt.toDate() : new Date()}
+                    date={data.createdAt ? data.createdAt.seconds * 1000 : new Date()}
                   />
                 )}
             </div>

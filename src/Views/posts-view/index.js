@@ -21,8 +21,10 @@ const PostsView = ({ className = "", Fallback, from, type, showAuthor = false, e
   const history = useHistory();
 
   useEffect(() => {
-    posts.fetch(type);
-  }, [posts, type]);
+    if (posts.status.IDB)
+      posts.fetch(type);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [type, posts.status.IDB]);
 
   const handlePostClick = id => {
     history.push(`/${from}/${id}`);

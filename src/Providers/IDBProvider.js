@@ -21,17 +21,38 @@ const IDBProvider = ({ children }) => {
   }
 
   const dataForEach = (database, handler) => {
-    let objectStore = dataBases[database].transaction(database).objectStore(database);
-    objectStore.openCursor().onsuccess = e => {
-      let cursor = e.target.result;
+    return new Promise((resolve, reject) => {
+      let objectStore = dataBases[database].transaction(database).objectStore(database);
+      objectStore.openCursor().onsuccess = e => {
+        let cursor = e.target.result;
 
-      if (cursor) {
-        handler(cursor.value);
-        cursor.continue();
+        if (cursor) {
+          handler(cursor.value);
+          cursor.continue();
+        } else {
+          resolve();
+        }
       }
-    }
+    })
   }
 
+  const dataForEachConditional = (database, handler, indexer, keyRangeType, ...range) => {
+    return new Promise((resolve, reject) => {
+      let transaction = dataBases[database].transaction(database);
+      let objectStore = transaction.objectStore(database);
+      let index = objectStore.index(indexer);
+      let keyRange = IDBKeyRange[keyRangeType](...range);
+      index.openCursor(keyRange).onsuccess = e => {
+        let cursor = e.target.result;
+        if (cursor) {
+          handler(cursor.value);
+          cursor.continue();
+        } else {
+          resolve();
+        }
+      }
+    })
+  }
 
   const addData = (database, item) => {
     return new Promise((resolve, reject) => {
@@ -100,7 +121,7 @@ const IDBProvider = ({ children }) => {
 
   return (
     <IDBContext.Provider
-      value={{ deleteData, addData, logAllData, dataForEach, users, posts }}
+      value={{ deleteData, addData, logAllData, dataForEach, dataForEachConditional, users, posts }}
     >
       {children}
     </IDBContext.Provider>

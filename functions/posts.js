@@ -65,36 +65,47 @@ exports.updatePosts = async (admin, firestore, req, res) => {
   return res.send("Succes!");
 }
 
-exports.updateLegacyPosts = async (firestore, req, res) => {
-  const homeSnapshot = await firestore.collection('posts').get();
-  const publicSnapshot = await firestore.collection('public').get();
-  const editorialSnapshot = await firestore.collection('editorial').get();
-  const weeklyProblems = await firestore.collection('weekly-problems').get();
-
-  const AllPosts = [];
-
-  homeSnapshot.docs.forEach(doc => {
-    AllPosts.push({ ...doc.data(), id: doc.id, type: "home" });
-  })
-
-  publicSnapshot.docs.forEach(doc => {
-    AllPosts.push({ ...doc.data(), id: doc.id, type: "public" });
-  })
-
-  editorialSnapshot.docs.forEach(doc => {
-    AllPosts.push({ ...doc.data(), id: doc.id, type: "editorial" });
-  })
-
-  weeklyProblems.docs.forEach(doc => {
-    AllPosts.push({ ...doc.data(), id: doc.id, type: "weekly-problem" });
-  })
-
-  AllPosts.forEach(post => {
-    const ref = firestore.doc(`test-posts/${post.id}`);
-    ref.update({ createdAt: post.timestamp });
-  })
-  return res.json({ AllPosts });
+exports.onPostUpdate = async (admin, firestore, snap) => {
+  const after = snap.after.data();
+  const now = admin.firestore.Timestamp.fromDate(new Date());
+  console.log(now);
+  console.log(after.timestamp);
+  if (now.seconds - after.timestamp.seconds > 10) {
+    console.log("updating...");
+    await firestore.doc(`test-posts/${snap.after.id}`).update({ lastUpdate: Date.now(), timestamp: now });
+  }
 }
+
+// exports.updateLegacyPosts = async (firestore, req, res) => {
+//   const homeSnapshot = await firestore.collection('posts').get();
+//   const publicSnapshot = await firestore.collection('public').get();
+//   const editorialSnapshot = await firestore.collection('editorial').get();
+//   const weeklyProblems = await firestore.collection('weekly-problems').get();
+
+//   const AllPosts = [];
+
+//   homeSnapshot.docs.forEach(doc => {
+//     AllPosts.push({ ...doc.data(), id: doc.id, type: "home" });
+//   })
+
+//   publicSnapshot.docs.forEach(doc => {
+//     AllPosts.push({ ...doc.data(), id: doc.id, type: "public" });
+//   })
+
+//   editorialSnapshot.docs.forEach(doc => {
+//     AllPosts.push({ ...doc.data(), id: doc.id, type: "editorial" });
+//   })
+
+//   weeklyProblems.docs.forEach(doc => {
+//     AllPosts.push({ ...doc.data(), id: doc.id, type: "weekly-problem" });
+//   })
+
+//   AllPosts.forEach(post => {
+//     const ref = firestore.doc(`test-posts/${post.id}`);
+//     ref.update({ createdAt: post.timestamp });
+//   })
+//   return res.json({ AllPosts });
+// }
 
 // exports.moveAllCommentaries = async (firestore, req, res) => {
 //   const posts = await firestore.collection('test-posts').get();

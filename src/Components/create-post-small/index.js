@@ -14,8 +14,6 @@ const CreatePostSmall = ({ type, user }) => {
   const [isPosting, setIsPosting] = useState(false);
   const postsContext = useContext(PostsContext);
 
-  console.log(postsContext);
-
   const handlePost = () => {
     const post = async () => {
       const postData = {

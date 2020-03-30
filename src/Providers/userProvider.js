@@ -99,8 +99,13 @@ export const AllUsersProvider = ({ children }) => {
     usersMap: {}
   });
   const [isFetching, setIsFetching] = useState(false);
+  const [firstLoad, setFirstLoad] = useState(null);
 
   const IDB = useContext(IDBContext);
+
+  useEffect(() => {
+    setFirstLoad(Date.now());
+  }, [])
 
   useEffect(() => {
 
@@ -116,6 +121,13 @@ export const AllUsersProvider = ({ children }) => {
       lastFetch.setTime(lastUserFetchedseconds);
 
       IDB.dataForEach('users', user => { usersMap[user.id] = user });
+
+      setUsers(c => ({
+        ...c,
+        isLoading: false
+      }))
+      console.log("Time at first write: ", Date.now() - firstLoad)
+
       await firestore
         .collection("users")
         .where("timestamp", ">", lastFetch)
@@ -148,6 +160,7 @@ export const AllUsersProvider = ({ children }) => {
         usersMap: usersMap,
         users: allUsers,
       }));
+      console.log("Time at last write", Date.now() - firstLoad);
 
       /// set state and then fetch users that have an acount on codeforces
       let lastCodeForceFetchSeconds = window.localStorage.getItem('lastCodeForceFetch');
@@ -193,7 +206,7 @@ export const AllUsersProvider = ({ children }) => {
 
     };
     fetchData();
-  }, [IDB, isFetching]);
+  }, [IDB, isFetching, firstLoad]);
   return (
     <AllUsersContext.Provider value={users}>
       {children}

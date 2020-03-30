@@ -49,6 +49,9 @@ exports.updateUserTimestamp = functions.firestore.document('users/{user}')
   })
 
 
+
+/// notifications
+
 exports.notifyOnHomeCreate = functions.firestore.document('posts/{post}')
   .onCreate(async (snap, context) => {
     await notifications.onHomeCreate(admin, firestore, snap);
@@ -108,9 +111,15 @@ exports.updatePosts = functions.https
     await posts.updatePosts(admin, firestore, req, res);
     return;
   });
-
-exports.updateLegacyPosts = functions.https
-  .onRequest(async (req, res) => {
-    await posts.updateLegacyPosts(firestore, req, res);
+exports.updatePostTimestampOnChange = functions.firestore.document('users/{user}')
+  .onUpdate(async (snap, context) => {
+    await posts.onPostUpdate(admin, firestore, snap);
     return;
-  });
+  })
+
+
+// exports.updateLegacyPosts = functions.https
+//   .onRequest(async (req, res) => {
+//     await posts.updateLegacyPosts(firestore, req, res);
+//     return;
+//   });

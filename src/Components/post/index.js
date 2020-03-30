@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { firebase, firestore } from "../../firebase";
 // eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
 
-import { v4 as uuidv4 } from "uuid";
 
 
 import MarkdownContent from "../markdown-content";

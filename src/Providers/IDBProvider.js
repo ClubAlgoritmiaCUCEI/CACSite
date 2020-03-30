@@ -4,7 +4,8 @@ export const IDBContext = createContext({});
 
 const IDBProvider = ({ children }) => {
   const [dataBases, setDataBases] = useState({ users: {} });
-  const [users, setUsers] = useState({ ready: false, data: [] });
+  const [users, setUsers] = useState({ ready: false });
+  const [posts, setPosts] = useState({ ready: false });
 
   const logAllData = (database) => {
     let objectStore = dataBases[database].transaction(database).objectStore(database);
@@ -20,7 +21,6 @@ const IDBProvider = ({ children }) => {
   }
 
   const dataForEach = (database, handler) => {
-    console.log("Call")
     let objectStore = dataBases[database].transaction(database).objectStore(database);
     objectStore.openCursor().onsuccess = e => {
       let cursor = e.target.result;
@@ -31,6 +31,7 @@ const IDBProvider = ({ children }) => {
       }
     }
   }
+
 
   const addData = (database, item) => {
     return new Promise((resolve, reject) => {
@@ -52,10 +53,9 @@ const IDBProvider = ({ children }) => {
       transaction.oncomplete = () => resolve();
       transaction.onerror = () => reject();
     })
-
   }
 
-  useEffect(() => {
+  const openUsers = () => {
     let request = window.indexedDB.open('users', 1);
     request.onerror = () => {
       console.log("Users database failed to open");
@@ -72,12 +72,35 @@ const IDBProvider = ({ children }) => {
       objectStore.createIndex('rating', "rating", { unique: false });
       objectStore.createIndex('team', "team", { unique: false });
     }
+  }
 
+  const openPosts = () => {
+    let request = window.indexedDB.open('posts', 1);
+    request.onerror = () => {
+      console.error("Post failed to open.")
+    }
+    request.onsuccess = () => {
+      console.log("Posts opened succesfully");
+      setDataBases(db => ({ ...db, posts: request.result }));
+      setPosts(db => ({ ...db, ready: true }));
+    }
+    request.onupgradeneeded = e => {
+      console.log("upgrade")
+      let db = e.target.result;
+      let objectStore = db.createObjectStore('posts', { keypath: "id" });
+      objectStore.createIndex('createdAt', 'createdAt', { unique: false });
+      objectStore.createIndex('type', 'type', { unique: false });
+    }
+  }
+
+  useEffect(() => {
+    openUsers();
+    openPosts();
   }, [])
 
   return (
     <IDBContext.Provider
-      value={{ deleteData, addData, logAllData, dataForEach, users }}
+      value={{ deleteData, addData, logAllData, dataForEach, users, posts }}
     >
       {children}
     </IDBContext.Provider>

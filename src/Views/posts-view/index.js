@@ -22,7 +22,6 @@ const PostsView = ({ className = "", Fallback, from, type, showAuthor = false, e
 
   useEffect(() => {
     posts.fetch(type);
-    console.log(type);
   }, [posts, type]);
 
   const handlePostClick = id => {

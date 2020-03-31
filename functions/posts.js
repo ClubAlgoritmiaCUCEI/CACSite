@@ -76,6 +76,15 @@ exports.onPostUpdate = async (admin, firestore, snap) => {
   }
 }
 
+exports.onPostDelete = async (admin, firestore, snap) => {
+  const id = snap.id;
+  await firestore.collection('deletions').add({
+    collection: 'test-posts',
+    id: id,
+    timestamp: admin.firestore.FieldValue.serverTimestamp(),
+  });
+}
+
 // exports.updateLegacyPosts = async (firestore, req, res) => {
 //   const homeSnapshot = await firestore.collection('posts').get();
 //   const publicSnapshot = await firestore.collection('public').get();

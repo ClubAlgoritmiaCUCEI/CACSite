@@ -42,7 +42,9 @@ const PostsProvider = ({ children }) => {
 
     const posts = [];
 
+    await IDB.deleteData('posts', "xv7KN3ol57Od3IHhcyFg");
     await IDB.dataForEachConditional('posts', e => posts.push(e), 'type', 'only', type);
+    console.log(posts);
     posts.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds);
 
     setPosts(p => ({ ...p, [type]: posts }));
@@ -81,7 +83,8 @@ const PostsProvider = ({ children }) => {
         posts.unshift(post);
       else posts[index] = post;
     })
-    window.localStorage.setItem(`lastPostsFetch-${type}`, Number(lastPostFetchedseconds) + 1000);
+    posts.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds);
+    window.localStorage.setItem(`lastPostsFetch-${type}`, Number(lastPostFetchedseconds) + 500);
 
     /// Set data in state
     setPosts(p => ({ ...p, [type]: posts }));

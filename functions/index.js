@@ -42,9 +42,11 @@ exports.setUserTimestamps = functions.https
     return;
   })
 
+
+
 exports.updateUserTimestamp = functions.firestore.document('users/{user}')
-  .onUpdate(async (snap, context) => {
-    await users.onUserChange(admin, firestore, snap);
+  .onWrite(async (snap, context) => {
+    await users.onUserChange(admin, firestore, snap.after || snap);
     return;
   })
 
@@ -81,18 +83,6 @@ exports.notifyOnPublicInteraction = functions.firestore.document('public/{post}'
 
 /// Posts
 
-// exports.movePosts = functions.https
-//   .onRequest(async (req, res) => {
-//     await posts.moveAllPosts(firestore, req, res);
-//     return;
-//   });
-
-// exports.moveCommentaries = functions.https
-//   .onRequest(async (req, res) => {
-//     await posts.moveAllCommentaries(firestore, req, res);
-//     return;
-//   });
-
 exports.createCommentariesOnCreate = functions.firestore.document('test-posts/{post}')
   .onCreate(async (change, context) => {
     await posts.onPostCreate(admin, firestore, change)
@@ -111,15 +101,14 @@ exports.updatePosts = functions.https
     await posts.updatePosts(admin, firestore, req, res);
     return;
   });
-exports.updatePostTimestampOnChange = functions.firestore.document('users/{user}')
+exports.updatePostTimestampOnChange = functions.firestore.document('test-posts/{post}')
   .onUpdate(async (snap, context) => {
     await posts.onPostUpdate(admin, firestore, snap);
     return;
   })
 
-
-// exports.updateLegacyPosts = functions.https
-//   .onRequest(async (req, res) => {
-//     await posts.updateLegacyPosts(firestore, req, res);
-//     return;
-//   });
+exports.handlePostDelete = functions.firestore.document('test-posts/{post}')
+  .onDelete(async (snap, context) => {
+    await posts.onPostDelete(admin, firestore, snap);
+    return;
+  })

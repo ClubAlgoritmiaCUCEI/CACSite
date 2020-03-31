@@ -1,11 +1,16 @@
 import React, { createContext, useState, useEffect } from "react";
 
+import { firestore } from '../firebase';
+
 export const IDBContext = createContext({});
 
 const IDBProvider = ({ children }) => {
   const [dataBases, setDataBases] = useState({ users: {} });
   const [users, setUsers] = useState({ ready: false });
   const [posts, setPosts] = useState({ ready: false });
+
+
+
 
   const logAllData = (database) => {
     let objectStore = dataBases[database].transaction(database).objectStore(database);
@@ -114,10 +119,38 @@ const IDBProvider = ({ children }) => {
     }
   }
 
+
+
   useEffect(() => {
     openUsers();
     openPosts();
   }, [])
+
+  useEffect(() => {
+    const handleDeletions = async () => {
+
+      let lastDeletionsFetchSeconds = window.localStorage.getItem(`lastDeletionsFetch`) || 0;
+      if (lastDeletionsFetchSeconds > Date.now()) lastDeletionsFetchSeconds = 0;
+
+      let lastFetch = new Date();
+      lastFetch.setTime(lastDeletionsFetchSeconds);
+      const deletionsRef = firestore
+        .collection("deletions")
+        .where("timestamp", ">", lastFetch)
+      const snap = await deletionsRef.get();
+      console.log(`Read ${snap.docs.length} documents at IDB deletions`);
+      snap.docs.forEach(doc => {
+        const data = doc.data();
+        lastDeletionsFetchSeconds = Math.max(lastDeletionsFetchSeconds, data.timestamp.seconds * 1000);
+        if (data.collection === 'test-posts') {
+          deleteData('posts', data.id);
+        }
+      })
+      window.localStorage.setItem(`lastDeletionsFetch`, Number(lastDeletionsFetchSeconds) + 500);
+
+    }
+    if (users.ready && posts.ready) handleDeletions();
+  }, [users, posts, deleteData])
 
   return (
     <IDBContext.Provider

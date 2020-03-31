@@ -18,13 +18,13 @@ exports.updateUsersTimestamp = async (admin, firestore, req, res) => {
   return res.send("Succes!");
 }
 
+
 exports.onUserChange = async (admin, firestore, snap) => {
-  const after = snap.after.data();
+  const data = snap.data();
   const now = admin.firestore.Timestamp.fromDate(new Date());
   console.log(now);
-  console.log(after.timestamp);
-  if (now.seconds - after.timestamp.seconds > 10) {
+  if (!data.timestamp || now.seconds - data.timestamp.seconds > 10) {
     console.log("updating...");
-    await firestore.doc(`users/${snap.after.id}`).update({ lastUpdate: Date.now(), timestamp: now });
+    await firestore.doc(`users/${snap.id}`).update({ lastUpdate: Date.now(), timestamp: now });
   }
 }

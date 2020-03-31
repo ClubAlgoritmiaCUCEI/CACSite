@@ -137,6 +137,7 @@ export const AllUsersProvider = ({ children }) => {
           console.log(`Read ${querySnapshot.size} documents at All Users Provider`);
           for (let i = 0; i < querySnapshot.size; i++) {
             const doc = querySnapshot.docs[i];
+            if (doc.displayName === 'ateana') console.log(doc);
             lastUserFetchedseconds = Math.max(lastUserFetchedseconds, doc.data().timestamp.seconds * 1000);
             IDB.addData('users', { ...doc.data(), id: doc.id });
             usersMap[doc.id] = { ...doc.data(), id: doc.id };

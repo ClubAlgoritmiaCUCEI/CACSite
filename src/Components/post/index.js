@@ -134,9 +134,12 @@ const Post = ({
       const commentariesRef = firestore.doc(`commentaries/${data.id}`);
       try {
         destructorFunc = await commentariesRef.onSnapshot(snap => {
-          console.log(snap.data());
-          setCommentaries(snap.data().commentaries);
-          setIsCommentariesLoading(false);
+          try {
+            setCommentaries(snap.data().commentaries);
+            setIsCommentariesLoading(false);
+          } catch (e) {
+            console.log("Error fetchin commentaries");
+          }
         });
       } catch (e) {
         console.error(e);

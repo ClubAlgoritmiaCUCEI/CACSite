@@ -31,8 +31,6 @@ const PostsView = ({ className = "", Fallback, from, type, showAuthor = false, e
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 800px)" });
   useOutsideAlerter(wrapperRef, () => setIsOpen(false));
 
-  console.log(isOpen, postOpen);
-
 
   useEffect(() => {
     if (posts.status.IDB)
@@ -49,23 +47,20 @@ const PostsView = ({ className = "", Fallback, from, type, showAuthor = false, e
     else history.push(`/${from}/${postData.id}`);
   };
 
+  useEffect(() => {
+    const handleEsc = e => {
+      if (e.key === 'Escape') setIsOpen(false);
+    }
+    if (isOpen) {
+      document.addEventListener('keydown', handleEsc);
+      return () => document.removeEventListener('keydown', handleEsc);
+    }
+    return () => null;
+  }, [isOpen])
+
   return (
     <div className={`cac_posts ${className}`}>
-      {isOpen && (
-        <div className="cac_posts_background-black">
-          <Post
-            user={user}
-            key={postOpen.id}
-            showAuthor={showAuthor}
-            className="cac_posts_post-open"
-            data={postOpen}
-            allUsers={allUsers.usersMap}
-            cropContent={false}
-            showCommentaries={true}
-            from={from}
-          />
-        </div>
-      )}
+
       {enableCreate && <CreatePostSmall type={type} user={user} />}
       {!user.isLoading && posts.status[type] ? (
         posts.posts[type].map((postData, i) => {
@@ -83,9 +78,27 @@ const PostsView = ({ className = "", Fallback, from, type, showAuthor = false, e
             />
           );
         })
+
       ) : (
           <Fallback />
         )}
+      {isOpen && (
+        <div className="cac_posts_background-black" >
+          <div className="cac_post-open_container" ref={wrapperRef}>
+            <Post
+              user={user}
+              key={postOpen.id}
+              showAuthor={showAuthor}
+              className="cac_posts_post-open"
+              data={postOpen}
+              allUsers={allUsers.usersMap}
+              cropContent={false}
+              showCommentaries={true}
+              from={from}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

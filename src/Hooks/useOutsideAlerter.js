@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const useOutsideAlerter = (ref, handlerer, opener = {}) => {
+const useOutsideAlerter = (ref, handlerer = () => null, opener = {}) => {
   const handleClickOutside = event => {
     if (
       ref.current &&

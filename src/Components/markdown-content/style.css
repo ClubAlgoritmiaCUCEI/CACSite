@@ -4,6 +4,12 @@
 
 .cac_markdown img{
   max-width: 100% !important;
+  margin: 0 auto;
+  display: block;
+  border-radius: 3px;
+  box-shadow: 0 0 3px rgb(71, 71, 71);
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 } 
 
 .cac_markdown pre {

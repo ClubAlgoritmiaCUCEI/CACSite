@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { firebase, firestore } from "../../firebase";
 // eslint-disable-next-line no-unused-vars
@@ -12,6 +12,7 @@ import ColoredName from "../colored-name";
 import Commentary, { LoadingCommentary } from "../comentary";
 import Button from "../button";
 import Options from "../options";
+import { v4 as uuidv4 } from "uuid";
 
 import DefaultPhoto from "../../assets/default-photo.jpg";
 import { ReactComponent as Heart } from "../../assets/heart.svg";
@@ -30,19 +31,22 @@ const Post = ({
   allUsers,
   preview = false,
   cropContent = false,
-  commentary = { handleAddCommentary: () => null, showCommentaries: false },
+  showCommentaries = false,
   onClick = () => null,
   parentHandleDelete = () => null
 }) => {
   let author;
   author = allUsers[data.author.id] || author;
   const [textValue, setTextValue] = useState("");
-  const [like, setLike] = useState(!preview && user.logged && data.likesList.includes(user.uid));
   const [saved, setSaved] = useState(
     !preview && user.logged && user.saved.includes(data.id)
   );
   const history = useHistory();
+  const [like, setLike] = useState(!preview && user.logged && data.likesList.includes(user.uid));
   const [likesCount, setLikesCount] = useState(preview ? 0 : data.likesList.length)
+  const [commentaries, setCommentaries] = useState([]);
+  const [isCommentariesLoading, setIsCommentariesLoading] = useState(true);
+  const [publishingCommentary, setPublishingCommentary] = useState(false);
 
   const onLikeClick = e => {
     e.stopPropagation();
@@ -91,7 +95,21 @@ const Post = ({
   };
 
   const publishCommentary = () => {
-    commentary.handleAddCommentary(textValue);
+    const publish = async () => {
+      setPublishingCommentary(true);
+      const postRef = firestore.doc(`commentaries/${data.id}`);
+      const commentContent = {
+        id: uuidv4(),
+        author: user.uid,
+        content: textValue,
+        date: new Date()
+      };
+      await postRef.update({
+        commentaries: firebase.firestore.FieldValue.arrayUnion(commentContent)
+      });
+      setPublishingCommentary(false);
+    };
+    if (!publishingCommentary && textValue) publish();
     setTextValue("");
   };
 
@@ -109,6 +127,25 @@ const Post = ({
       commentaries: firebase.firestore.FieldValue.arrayRemove(commentary)
     });
   };
+
+  useEffect(() => {
+    let destructorFunc = () => null
+    const fetchCommentaries = async () => {
+      const commentariesRef = firestore.doc(`commentaries/${data.id}`);
+      try {
+        destructorFunc = await commentariesRef.onSnapshot(snap => {
+          console.log(snap.data());
+          setCommentaries(snap.data().commentaries);
+          setIsCommentariesLoading(false);
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    fetchCommentaries();
+    return destructorFunc;
+  }, [showCommentaries, data.id]);
 
   return (
     <>
@@ -206,7 +243,7 @@ const Post = ({
               <span className="cac_post_interaction-label">Save</span>
             </div>
           </div>
-          {commentary.showCommentaries && (
+          {showCommentaries && (
             <div className="cac_post_commentaries-section">
               {user.logged && (
                 <div className="cac_post_create-commentary">
@@ -224,7 +261,7 @@ const Post = ({
                 </div>
               )}
               <div className="cac_post_commentaries">
-                {!commentary.isLoading ? commentary.data
+                {!isCommentariesLoading ? commentaries
                   .sort((a, b) => b.date.toDate() - a.date.toDate())
                   .map((data, i) => (
                     <Commentary

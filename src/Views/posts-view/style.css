@@ -15,6 +15,13 @@
   overflow-y: scroll;
 }
 
+.cac_posts_post-open{
+  position: absolute;
+  top:10rem;
+  left:50%;
+  transform: translateX(-50%);
+}
+
 .cac_weekly .cac_post:first-child {
   background-color: rgb(244, 253, 244);
   border-color: rgb(147, 202, 147);

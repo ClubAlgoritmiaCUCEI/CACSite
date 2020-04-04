@@ -1,10 +1,14 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 
 import {
   // eslint-disable-next-line no-unused-vars
   BrowserRouter as Router,
   useHistory
 } from "react-router-dom";
+
+import { useMediaQuery } from "react-responsive";
+import useOutsideAlerter from "../../Hooks/useOutsideAlerter";
+
 
 import { PostsContext } from "../../Providers/postsProvider";
 import { UserContext, AllUsersContext } from "../../Providers/userProvider";
@@ -14,11 +18,21 @@ import CreatePostSmall from '../../Components/create-post-small';
 
 import "./style.css";
 
-const PostsView = ({ className = "", Fallback, from, type, showAuthor = false, enableCreate = false }) => {
+const PostsView = ({ className = "", Fallback, from, type, showAuthor = false, enableCreate = false, enablePreview = true }) => {
   const posts = useContext(PostsContext);
   const user = useContext(UserContext);
   const allUsers = useContext(AllUsersContext);
   const history = useHistory();
+  const [isOpen, setIsOpen] = useState(false);
+  const [postOpen, setPostOpen] = useState({});
+
+  const wrapperRef = useRef(null);
+
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 800px)" });
+  useOutsideAlerter(wrapperRef, () => setIsOpen(false));
+
+  console.log(isOpen, postOpen);
+
 
   useEffect(() => {
     if (posts.status.IDB)
@@ -26,11 +40,32 @@ const PostsView = ({ className = "", Fallback, from, type, showAuthor = false, e
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type, posts.status.IDB]);
 
-  const handlePostClick = id => {
-    history.push(`/${from}/${id}`);
+  const handlePostClick = (postData) => {
+    if (enablePreview && !isTabletOrMobile) {
+      console.log("click");
+      setPostOpen(postData);
+      setIsOpen(true);
+    }
+    else history.push(`/${from}/${postData.id}`);
   };
+
   return (
     <div className={`cac_posts ${className}`}>
+      {isOpen && (
+        <div className="cac_posts_background-black">
+          <Post
+            user={user}
+            key={postOpen.id}
+            showAuthor={showAuthor}
+            className="cac_posts_post-open"
+            data={postOpen}
+            allUsers={allUsers.usersMap}
+            cropContent={false}
+            showCommentaries={true}
+            from={from}
+          />
+        </div>
+      )}
       {enableCreate && <CreatePostSmall type={type} user={user} />}
       {!user.isLoading && posts.status[type] ? (
         posts.posts[type].map((postData, i) => {
@@ -42,7 +77,7 @@ const PostsView = ({ className = "", Fallback, from, type, showAuthor = false, e
               data={postData}
               allUsers={allUsers.usersMap}
               cropContent={true}
-              onClick={() => handlePostClick(postData.id)}
+              onClick={() => handlePostClick(postData)}
               showCommentaries={false}
               from={from}
             />

@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Redirect } from "react-router-dom";
 
 import { FormButton } from "../../Components/button";
 import { TopPopup } from "../../Components/popup";
+import ClassBox from '../../Components/class-box';
 
 import { AttendanceContext } from "../../Providers/attendanceProvider";
 import { ClassContext } from "../../Providers/classProvider";
@@ -34,6 +35,16 @@ const AttendanceCode = () => {
       atnContext.setClassData(c => ({ ...c, code: code }));
     }
   };
+
+  const handleDelete = async code => {
+    console.log(code);
+  }
+
+  const handleUpdate = async code => {
+    console.log(code);
+  }
+
+
 
   useEffect(() => {
     if (
@@ -79,7 +90,7 @@ const AttendanceCode = () => {
             atnContext.classData.validCode
               ? ""
               : "cac_attendance_text-area--invalid"
-          }`}
+            }`}
           required
           value={code}
           onChange={handleTextChange}
@@ -92,38 +103,14 @@ const AttendanceCode = () => {
         <div className="cac_attendance_classes cac_attendance_classes--previous">
           <span className="cac_attendance_classes_title">Next classes</span>
           {classes.nextClasses.map((c, i) => (
-            <div key={i} className="cac_attendance_class-box">
-              <span className="cac_attendance_class_title">{c.title}</span>
-              <span className="cac_attendance_class_date">
-                {c.date.toDate().toDateString()}
-              </span>
-              <span className="cac_attendance_classes_code">{c.code}</span>
-              <p className="cac_attendance_classes_description">
-                {c.description}
-              </p>
-              <span className="cac_attendance_classes_counter">
-                {c.attendances.length} attendants
-              </span>
-            </div>
+            <ClassBox classData={c} key={i} showOptions={user.isAdmin} handleDelete={() => handleDelete(c.code)} handleUpdate={() => handleUpdate(c.code)} />
           ))}
         </div>
       )}
       <div className="cac_attendance_classes cac_attendance_classes--previous">
         <span className="cac_attendance_classes_title">Previous classes</span>
         {classes.previousClasses.map((c, i) => (
-          <div key={i} className="cac_attendance_class-box">
-            <span className="cac_attendance_class_title">{c.title}</span>
-            <span className="cac_attendance_class_date">
-              {c.date.toDate().toDateString()}
-            </span>
-            <span className="cac_attendance_classes_code">{c.code}</span>
-            <p className="cac_attendance_classes_description">
-              {c.description}
-            </p>
-            <span className="cac_attendance_classes_counter">
-              {c.attendances.length} attendants
-            </span>
-          </div>
+          <ClassBox classData={c} key={i} showOptions={user.isAdmin} handleDelete={() => handleDelete(c.code)} handleUpdate={() => handleUpdate(c.code)} />
         ))}
       </div>
     </div>

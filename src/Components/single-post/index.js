@@ -15,9 +15,7 @@ const SinglePostView = ({ match, from, Fallback, showAuthor = false }) => {
   const user = useContext(UserContext);
   const allUsers = useContext(AllUsersContext);
   const [postData, setPostData] = useState(undefined);
-  const [commentaries, setCommentaries] = useState([]);
-  const [isCommentariesLoading, setIsCommentariesLoading] = useState(true);
-  const [publishingCommentary, setPublishingCommentary] = useState(false);
+
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -40,43 +38,6 @@ const SinglePostView = ({ match, from, Fallback, showAuthor = false }) => {
     }
   }, [id, posts, from]);
 
-  useEffect(() => {
-    let destroyer = () => null;
-    const fetchCommentaries = async () => {
-      const commentariesRef = firestore.doc(`commentaries/${id}`);
-      try {
-        destroyer = await commentariesRef.onSnapshot(snap => {
-          console.log(snap.data());
-          setCommentaries(snap.data().commentaries);
-          setIsCommentariesLoading(false);
-        });
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    fetchCommentaries();
-    return destroyer;
-  }, [id])
-
-  const handleAddCommentary = (textValue) => {
-    const publish = async () => {
-      setPublishingCommentary(true);
-      const postRef = firestore.doc(`commentaries/${postData.id}`);
-      const commentContent = {
-        id: uuidv4(),
-        author: user.uid,
-        content: textValue,
-        date: new Date()
-      };
-      await postRef.update({
-        commentaries: firebase.firestore.FieldValue.arrayUnion(commentContent)
-      });
-      setPublishingCommentary(false);
-    };
-    if (!publishingCommentary && textValue) publish();
-  }
-
-
   return (
     <>
       {!user.isLoading && !allUsers.isLoading && postData ? (
@@ -87,7 +48,7 @@ const SinglePostView = ({ match, from, Fallback, showAuthor = false }) => {
           data={postData}
           from={from}
           cropContent={false}
-          commentary={{ showCommentaries: true, handleAddCommentary, isLoading: isCommentariesLoading, data: commentaries }}
+          showCommentaries={true}
           user={user}
         />
       ) : <Fallback />}

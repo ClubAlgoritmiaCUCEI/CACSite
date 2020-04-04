@@ -42,9 +42,8 @@ const PostsProvider = ({ children }) => {
 
     const posts = [];
 
-    await IDB.deleteData('posts', "xv7KN3ol57Od3IHhcyFg");
     await IDB.dataForEachConditional('posts', e => posts.push(e), 'type', 'only', type);
-    console.log(posts);
+
     posts.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds);
 
     setPosts(p => ({ ...p, [type]: posts }));

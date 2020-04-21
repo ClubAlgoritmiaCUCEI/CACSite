@@ -11,13 +11,13 @@
 }
 
 .cac_create_post_post {
-  background-color: #AB1C21;
   color: white;
   font-size: 3rem;
   display: block;
   margin: 0 auto;
   width: 16rem;
   text-align: center;
+  background-color: #4a79c6;
 }
 
 .cac_create_post .cac_create_textarea{

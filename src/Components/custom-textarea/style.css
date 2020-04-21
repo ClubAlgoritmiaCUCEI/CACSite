@@ -1,0 +1,13 @@
+.contenteditable{
+  width: 100%;
+  max-height: 50rem;
+  overflow-y: auto;
+  font: inherit;
+  padding: 0.5rem 1rem;
+  font-size: 1.6rem;
+  border: 1.5px solid #8f8f8f;
+  border-radius: 0.3rem;
+  outline: none !important;
+  box-shadow: 0 0 1px rgb(94, 94, 94);
+  background-color: white;
+}

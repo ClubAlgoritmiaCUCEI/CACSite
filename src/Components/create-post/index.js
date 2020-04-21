@@ -10,6 +10,7 @@ import { TopPopup } from "../popup";
 
 import "./style.css";
 import "../../Views/create/style.css";
+import CustomTextarea from "../custom-textarea";
 
 const CreatePost = ({
   preview,
@@ -102,6 +103,8 @@ const CreatePost = ({
               <label htmlFor="description" className="cac_create_title">
                 Content
             </label>
+              <CustomTextarea className="" />
+              {/*
               <textarea
                 name="description"
                 id="description"
@@ -110,6 +113,7 @@ const CreatePost = ({
                 required
                 onChange={e => setContent(e.target.value)}
               />
+              */}
             </div>
           </div>
         )}

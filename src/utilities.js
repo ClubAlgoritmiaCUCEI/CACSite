@@ -50,15 +50,17 @@ export const formateLatex = text => {
   // const opening = `<p style="text-align:center"> $$`;
   // const closing = '$$ </p>'
   const style = "display:block;text-align:center"
-  const opening = `<span style="${style}"> $$`;
-  const closing = "$$ </span>";
-  let regexp = new RegExp(`\\$\\$(?!\\s*</span>)\\s*([^$]*\\S)\\s*\\$\\$(?!</span>)`, "gi")
+  const opening = `<span style="${style}">$$`;
+  const closing = "$$</span>";
+  let regexp = new RegExp(`(?<!>)\\$\\$(?!\\s*</span>\\s*)\\s*([^$]*\\S)\\s*\\$\\$(?!</span>)`, "gi")
+
 
   let newText = text;
   while (true) {
     let match = regexp.exec(newText)
     if (match) {
       console.log(match);
+      if (match.index > 1000) break;
       // console.log(match[1]);
       const left = newText.slice(0, match.index);
       const right = newText.slice(match.index + match[0].length);

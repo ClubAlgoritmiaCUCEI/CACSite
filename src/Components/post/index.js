@@ -122,7 +122,6 @@ const Post = ({
 
   const handleCommentaryDelete = async commentary => {
     const postRef = firestore.doc(`commentaries/${data.id}`);
-    console.log(commentary);
     await postRef.update({
       commentaries: firebase.firestore.FieldValue.arrayRemove(commentary)
     });

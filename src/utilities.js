@@ -47,25 +47,17 @@ export const removeDangerousHTML = text => {
 };
 
 export const formateLatex = text => {
-  // const opening = `<p style="text-align:center"> $$`;
-  // const closing = '$$ </p>'
   const style = "display:block;text-align:center"
   const opening = `<span style="${style}">$$`;
   const closing = "$$</span>";
-  let regexp = new RegExp(`(?<!>)\\$\\$(?!\\s*</span>\\s*)\\s*([^$]*\\S)\\s*\\$\\$(?!</span>)`, "gi")
-
-
-  let newText = text;
-  while (true) {
-    let match = regexp.exec(newText)
-    if (match) {
-      console.log(match);
-      if (match.index > 1000) break;
-      // console.log(match[1]);
-      const left = newText.slice(0, match.index);
-      const right = newText.slice(match.index + match[0].length);
-      newText = left + opening + match[1] + closing + right;
-    } else break;
-  }
+  let regexp = new RegExp(`\\$\\$\\s*([^$]*\\S)\\s*\\$\\$`, "gi")
+  const newText = text.replace(regexp, (...props) => {
+    console.log(props);
+    return opening + props[1] + closing;
+  })
   return newText;
+}
+
+export const formateMarkdown = text => {
+  return formateLatex(removeDangerousHTML(text));
 }

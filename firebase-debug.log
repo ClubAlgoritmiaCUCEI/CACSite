@@ -1,0 +1,122 @@
+[debug] [2020-06-02T18:40:56.972Z] ----------------------------------------------------------------------
+[debug] [2020-06-02T18:40:56.976Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\erick\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2020-06-02T18:40:56.977Z] CLI Version:   7.16.2
+[debug] [2020-06-02T18:40:56.977Z] Platform:      win32
+[debug] [2020-06-02T18:40:56.977Z] Node Version:  v10.16.0
+[debug] [2020-06-02T18:40:56.980Z] Time:          Tue Jun 02 2020 12:40:56 GMT-0600 (Mexican Pacific Daylight Time)
+[debug] [2020-06-02T18:40:56.980Z] ----------------------------------------------------------------------
+[debug] [2020-06-02T18:40:56.980Z] 
+[debug] [2020-06-02T18:40:57.001Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-06-02T18:40:57.003Z] > authorizing via signed-in user
+[debug] [2020-06-02T18:40:57.003Z] [iam] checking project cacsite-d2389 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2020-06-02T18:40:57.013Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-06-02T18:40:57.014Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-06-02T18:40:57.394Z] <<< HTTP RESPONSE 200
+[debug] [2020-06-02T18:40:57.410Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/cacsite-d2389:testIamPermissions  
+
+[debug] [2020-06-02T18:40:57.874Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'cacsite-d2389'...
+[info] 
+[info] i  deploying storage, firestore, functions
+[debug] [2020-06-02T18:41:06.184Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/cacsite-d2389  
+ 
+[debug] [2020-06-02T18:41:06.821Z] <<< HTTP RESPONSE 200
+[info] i  firebase.storage: checking storage.rules for compilation errors...
+[debug] [2020-06-02T18:41:06.827Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/cacsite-d2389:test  
+
+[debug] [2020-06-02T18:41:07.552Z] <<< HTTP RESPONSE 200
+[warn] !  [W] undefined:undefined - Ruleset uses old version (version [1]). Please update to the latest version (version [2]).
+[info] +  firebase.storage: rules file storage.rules compiled successfully
+[info] i  firestore: reading indexes from firestore.indexes.json...
+[info] i  cloud.firestore: checking firestore.rules for compilation errors...
+[debug] [2020-06-02T18:41:07.784Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/cacsite-d2389:test  
+
+[debug] [2020-06-02T18:41:08.501Z] <<< HTTP RESPONSE 200
+[info] +  cloud.firestore: rules file firestore.rules compiled successfully
+[debug] [2020-06-02T18:41:08.506Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "8"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "firebase-admin": "^8.6.0",
+    "firebase-functions": "^3.3.0",
+    "nodemailer": "^6.4.5"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.1.6"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[debug] [2020-06-02T18:41:08.533Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/cacsite-d2389/services/cloudfunctions.googleapis.com  
+ 
+[debug] [2020-06-02T18:41:08.534Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/cacsite-d2389/services/runtimeconfig.googleapis.com  
+ 
+[debug] [2020-06-02T18:41:09.184Z] <<< HTTP RESPONSE 200
+[debug] [2020-06-02T18:41:09.278Z] <<< HTTP RESPONSE 200
+[info] +  functions: all necessary APIs are enabled
+[debug] [2020-06-02T18:41:09.282Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/cacsite-d2389/adminSdkConfig  
+ 
+[debug] [2020-06-02T18:41:09.784Z] <<< HTTP RESPONSE 200
+[debug] [2020-06-02T18:41:09.789Z] >>> HTTP REQUEST GET https://firebaserules.googleapis.com/v1/projects/cacsite-d2389/releases?pageSize=10&pageToken=  
+ 
+[debug] [2020-06-02T18:41:10.090Z] <<< HTTP RESPONSE 200
+[debug] [2020-06-02T18:41:10.093Z] >>> HTTP REQUEST GET https://firebaserules.googleapis.com/v1/projects/cacsite-d2389/rulesets/9ecaf7a7-ccba-4811-b092-ee70799b48a0  
+ 
+[debug] [2020-06-02T18:41:10.496Z] <<< HTTP RESPONSE 200
+[info] i  storage: latest version of storage.rules already up to date, skipping upload...
+[debug] [2020-06-02T18:41:10.505Z] >>> HTTP REQUEST GET https://firebaserules.googleapis.com/v1/projects/cacsite-d2389/releases?pageSize=10&pageToken=  
+ 
+[debug] [2020-06-02T18:41:10.506Z] >>> HTTP REQUEST GET https://firestore.googleapis.com/v1beta2/projects/cacsite-d2389/databases/(default)/collectionGroups/-/indexes  
+ 
+[debug] [2020-06-02T18:41:10.928Z] <<< HTTP RESPONSE 200
+[debug] [2020-06-02T18:41:10.929Z] >>> HTTP REQUEST GET https://firestore.googleapis.com/v1beta2/projects/cacsite-d2389/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false  
+ 
+[debug] [2020-06-02T18:41:10.932Z] <<< HTTP RESPONSE 200
+[debug] [2020-06-02T18:41:10.935Z] >>> HTTP REQUEST GET https://firebaserules.googleapis.com/v1/projects/cacsite-d2389/rulesets/456d38b0-8475-4709-87b2-4fde2aaa1d35  
+ 
+[debug] [2020-06-02T18:41:11.230Z] <<< HTTP RESPONSE 200
+[debug] [2020-06-02T18:41:11.231Z] Skipping existing index: {"collectionGroup":"class","queryScope":"COLLECTION","fields":[{"fieldPath":"active","order":"ASCENDING"},{"fieldPath":"date","order":"ASCENDING"}]}
+[debug] [2020-06-02T18:41:11.231Z] Skipping existing index: {"collectionGroup":"class","queryScope":"COLLECTION","fields":[{"fieldPath":"active","order":"ASCENDING"},{"fieldPath":"date","order":"DESCENDING"}]}
+[debug] [2020-06-02T18:41:11.231Z] Skipping existing index: {"collectionGroup":"test-posts","queryScope":"COLLECTION","fields":[{"fieldPath":"type","order":"ASCENDING"},{"fieldPath":"timestamp","order":"DESCENDING"}]}
+[debug] [2020-06-02T18:41:11.231Z] Skipping existing index: {"collectionGroup":"test-posts","queryScope":"COLLECTION","fields":[{"fieldPath":"type","order":"ASCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"}]}
+[debug] [2020-06-02T18:41:11.231Z] Skipping existing index: {"collectionGroup":"test-posts","queryScope":"COLLECTION","fields":[{"fieldPath":"type","order":"ASCENDING"},{"fieldPath":"timestamp","order":"DESCENDING"},{"fieldPath":"createdAt","order":"DESCENDING"}]}
+[info] +  firestore: deployed indexes in firestore.indexes.json successfully
+[debug] [2020-06-02T18:41:11.392Z] <<< HTTP RESPONSE 200
+[info] i  firestore: latest version of firestore.rules already up to date, skipping upload...
+[info] i  functions: preparing functions directory for uploading...
+[debug] [2020-06-02T18:41:11.427Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/cacsite-d2389/configs  
+ 
+[debug] [2020-06-02T18:41:12.141Z] <<< HTTP RESPONSE 200
+[debug] [2020-06-02T18:41:12.143Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/cacsite-d2389/configs/mail/variables  
+ 
+[debug] [2020-06-02T18:41:12.863Z] <<< HTTP RESPONSE 200
+[debug] [2020-06-02T18:41:12.865Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/cacsite-d2389/configs/mail/variables/user  
+ 
+[debug] [2020-06-02T18:41:12.865Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/cacsite-d2389/configs/mail/variables/password  
+ 
+[debug] [2020-06-02T18:41:13.156Z] <<< HTTP RESPONSE 200
+[debug] [2020-06-02T18:41:13.163Z] <<< HTTP RESPONSE 200
+[info] i  functions: packaged functions (30.92 KB) for uploading
+[debug] [2020-06-02T18:41:15.026Z] >>> HTTP REQUEST POST https://cloudfunctions.googleapis.com/v1/projects/cacsite-d2389/locations/us-central1/functions:generateUploadUrl  
+ 
+[info] 
+
+There was an issue deploying your functions. Verify that your project has a Google App Engine instance setup at https://console.cloud.google.com/appengine and try again. If this issue persists, please contact support.
+[warn] !  functions: Upload Error: Server Error. getaddrinfo ENOTFOUND cloudfunctions.googleapis.com cloudfunctions.googleapis.com:443
+[debug] [2020-06-02T18:41:15.358Z] Error: getaddrinfo ENOTFOUND cloudfunctions.googleapis.com cloudfunctions.googleapis.com:443
+    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:56:26)
+[error] 
+[error] Error: Server Error. getaddrinfo ENOTFOUND cloudfunctions.googleapis.com cloudfunctions.googleapis.com:443

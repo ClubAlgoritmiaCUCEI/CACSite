@@ -4,10 +4,10 @@ import ReactMarkdown from "react-markdown";
 import htmlParser from "react-markdown/plugins/html-parser";
 import CodeBlock from "../code-block";
 
-import MathJax from 'react-mathjax';
+import MathJax from 'react-mathjax2';
 import RemarkMathPlugin from 'remark-math';
 
-import { removeDangerousHTML, formateLatex } from "../../utilities";
+import { formateMarkdown } from "../../utilities";
 
 import './style.css'
 
@@ -18,20 +18,17 @@ const parseHtml = htmlParser({
 const MarkdownContent = ({ content = "", className = "" }) => {
 
   const markdown = useMemo(() => {
-    const formated = formateLatex(content);
     const newProps = {
       className: `cac_markdown ${className}`,
-      source: removeDangerousHTML(formated),
+      source: content,
       plugins: [RemarkMathPlugin],
       renderers: {
         code: CodeBlock,
         math: (props) => {
-          // console.log(props);
-          return <MathJax.Node formula={props.value} />
+          return <MathJax.Node>{props.value}</MathJax.Node>
         },
         inlineMath: (props) => {
-          // console.log(props);
-          return <MathJax.Node inline formula={props.value} />
+          return <MathJax.Node inline>{props.value}</MathJax.Node>
         }
       },
       escapeHtml: false,
@@ -40,14 +37,12 @@ const MarkdownContent = ({ content = "", className = "" }) => {
 
 
     return (
-      <MathJax.Provider input="tex">
+      <MathJax.Context input="tex">
         <ReactMarkdown {...newProps} />
-      </MathJax.Provider>
+      </MathJax.Context>
     );
   }, [content, className]);
 
-  // let formated = formateLatex(content);
-  // console.log(formated);
   return markdown;
 };
 

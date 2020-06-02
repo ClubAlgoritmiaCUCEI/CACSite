@@ -4,6 +4,8 @@ import { IDBContext } from './IDBProvider';
 
 import { firestore } from "../firebase";
 
+
+
 export const PostsContext = createContext({});
 
 const PostsProvider = ({ children }) => {

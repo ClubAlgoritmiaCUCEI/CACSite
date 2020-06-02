@@ -4,14 +4,14 @@ import { firebase, firestore } from "../../firebase";
 // eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Link, useHistory } from "react-router-dom";
 
-
-
 import MarkdownContent from "../markdown-content";
 import TimeAgo from "react-timeago";
 import ColoredName from "../colored-name";
 import Commentary, { LoadingCommentary } from "../comentary";
 import Button from "../button";
 import Options from "../options";
+
+import { formateMarkdown } from '../../utilities';
 import { v4 as uuidv4 } from "uuid";
 
 import DefaultPhoto from "../../assets/default-photo.jpg";
@@ -101,7 +101,7 @@ const Post = ({
       const commentContent = {
         id: uuidv4(),
         author: user.uid,
-        content: textValue,
+        content: formateMarkdown(textValue),
         date: new Date()
       };
       await postRef.update({

@@ -46,31 +46,24 @@ export const removeDangerousHTML = text => {
   return text.replace(regex, "");
 };
 
-export const escapeLatexSpaces = text => {
-  const opening = `<p style="text-align:center">`;
-  const closing = '</p>'
-  let regexp = new RegExp(`[^>]\\$\\$(?!$|</p>).*\\$\\$(?!</p>)`, "gi")
-  let match;
-  // while((match = regexp.exec(text)) !== null){
+export const formateLatex = text => {
+  // const opening = `<p style="text-align:center"> $$`;
+  // const closing = '$$ </p>'
+  const style = "display:block;text-align:center"
+  const opening = `<span style="${style}"> $$`;
+  const closing = "$$ </span>";
+  let regexp = new RegExp(`\\$\\$(?!\\s*</span>)\\s*([^$]*\\S)\\s*\\$\\$(?!</span>)`, "gi")
 
-  // }
   let newText = text;
   while (true) {
-    match = regexp.exec(newText)
-    console.log(match);
+    let match = regexp.exec(newText)
     if (match) {
+      console.log(match);
+      // console.log(match[1]);
       const left = newText.slice(0, match.index);
       const right = newText.slice(match.index + match[0].length);
-      // console.log(left);
-      // console.log(right);
-      // const formula = match[0].replace(/\s/g, '')
-      console.log(match[0]);
-      newText = left + opening + match[0] + closing + right;
-      // console.log(newText);
+      newText = left + opening + match[1] + closing + right;
     } else break;
   }
-  // if (match.index > 2000) break;
-  console.log(newText);
-  // let formated = text.replace(" $$ ", "$$").replace("$$ ", "$$").replace(" $$", "$$");
   return newText;
 }

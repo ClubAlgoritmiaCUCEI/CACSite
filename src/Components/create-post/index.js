@@ -79,7 +79,7 @@ const CreatePost = ({
           data={{
             title: title,
             author: { id: user.uid },
-            content: content,
+            content: formateMarkdown(content),
             date: "just now",
             comments: [],
             likesList: []

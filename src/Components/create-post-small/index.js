@@ -3,6 +3,8 @@ import React, { useState, useContext } from 'react'
 import { firebase, firestore } from '../../firebase';
 
 import { PostsContext } from '../../Providers/postsProvider';
+import { formateMarkdown } from '../../utilities';
+
 
 import './style.css'
 import Button from '../button';
@@ -18,7 +20,7 @@ const CreatePostSmall = ({ type, user }) => {
     const post = async () => {
       const postData = {
         title,
-        content: text,
+        content: formateMarkdown(text),
         type: type,
         comments: [],
         likesList: [],

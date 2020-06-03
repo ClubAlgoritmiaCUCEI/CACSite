@@ -14,6 +14,8 @@ import Button from "../button";
 import Options from "../options";
 import { v4 as uuidv4 } from "uuid";
 
+import { formateMarkdown } from '../../utilities';
+
 import DefaultPhoto from "../../assets/default-photo.jpg";
 import { ReactComponent as Heart } from "../../assets/heart.svg";
 import { ReactComponent as Comment } from "../../assets/chatbox.svg";
@@ -101,7 +103,7 @@ const Post = ({
       const commentContent = {
         id: uuidv4(),
         author: user.uid,
-        content: textValue,
+        content: formateMarkdown(textValue),
         date: new Date()
       };
       await postRef.update({

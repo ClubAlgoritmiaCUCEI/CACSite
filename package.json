@@ -10,7 +10,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
-    "firebase": "^7.7.0",
+    "firebase": "^7.14.6",
     "firebase-admin": "^8.10.0",
     "firebase-functions": "^3.3.0",
     "gh-pages": "^2.2.0",
@@ -20,12 +20,14 @@
     "react-dom": "^16.12.0",
     "react-dropdown": "^1.6.4",
     "react-markdown": "^4.3.1",
+    "react-mathjax2": "0.0.2",
     "react-responsive": "^8.0.3",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
     "react-switch": "^5.0.1",
     "react-syntax-highlighter": "^12.2.1",
     "react-timeago": "^4.4.0",
+    "remark-math": "^2.0.1",
     "uuid": "^7.0.1"
   },
   "scripts": {

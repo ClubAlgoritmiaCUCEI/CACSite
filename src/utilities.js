@@ -45,3 +45,18 @@ const regex = /<br>|<\/br>|<br\/>/gi;
 export const removeDangerousHTML = text => {
   return text.replace(regex, "");
 };
+
+export const formateLatex = text => {
+  const style = "display:block;text-align:center"
+  const opening = `<span style="${style}">$$`;
+  const closing = "$$</span>";
+  let regexp = new RegExp(`\\$\\$\\s*([^$]*\\S)\\s*\\$\\$`, "gi")
+  const newText = text.replace(regexp, (...props) => {
+    return opening + props[1] + closing;
+  })
+  return newText;
+}
+
+export const formateMarkdown = text => {
+  return formateLatex(removeDangerousHTML(text));
+} 

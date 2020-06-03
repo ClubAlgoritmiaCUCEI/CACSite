@@ -8,6 +8,8 @@ import Post from "../post";
 import Button from "../button";
 import { TopPopup } from "../popup";
 
+import { formateMarkdown } from '../../utilities';
+
 import "./style.css";
 import "../../Views/create/style.css";
 
@@ -27,7 +29,7 @@ const CreatePost = ({
       setIsSubmiting(true);
       const postData = {
         title,
-        content,
+        content: formateMarkdown(content),
         type: type,
         comments: [],
         likesList: [],

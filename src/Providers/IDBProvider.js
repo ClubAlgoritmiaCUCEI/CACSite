@@ -10,7 +10,16 @@ const IDBProvider = ({ children }) => {
   const [posts, setPosts] = useState({ ready: false });
 
 
-
+  useEffect(() => {
+    /// Deleting all stored data for major updates
+    let lastDeepDelete = window.localStorage.getItem('deepDeleteVersion') | 0;
+    console.log(lastDeepDelete);
+    if (lastDeepDelete < 1) {
+      console.log("DELEEEETE");
+      localStorage.clear();
+      window.localStorage.setItem('deepDeleteVersion', 1);
+    }
+  }, [])
 
   const logAllData = (database) => {
     let objectStore = dataBases[database].transaction(database).objectStore(database);
@@ -119,12 +128,10 @@ const IDBProvider = ({ children }) => {
     }
   }
 
-
-
   useEffect(() => {
     openUsers();
     openPosts();
-  }, [])
+  }, []);
 
   useEffect(() => {
     const handleDeletions = async () => {
@@ -150,7 +157,8 @@ const IDBProvider = ({ children }) => {
 
     }
     if (users.ready && posts.ready) handleDeletions();
-  }, [users, posts, deleteData])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [users, posts])
 
   return (
     <IDBContext.Provider

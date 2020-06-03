@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 
-import { firestore, firebase } from "../../firebase";
-
-import { v4 as uuidv4 } from "uuid";
+import { firestore } from "../../firebase";
 
 import { PostsContext } from "../../Providers/postsProvider";
 import { UserContext, AllUsersContext } from "../../Providers/userProvider";

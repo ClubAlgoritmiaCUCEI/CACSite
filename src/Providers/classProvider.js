@@ -19,7 +19,7 @@ const ClassProvider = ({ children }) => {
         .collection("class")
         .where("active", "==", false)
         .orderBy("date", "desc")
-        .limit(20);
+        .limit(50);
       const snapshot = await postsRef.get();
       console.log(`Read ${snapshot.size} documents`);
       const data = [];

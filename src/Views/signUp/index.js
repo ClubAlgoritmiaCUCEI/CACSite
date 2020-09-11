@@ -248,7 +248,6 @@ const SignUp = () => {
               type="text"
               id="vjUsername"
               name="vjUsername"
-              required
               value={form.vjUsername}
               onChange={e => setForm({ ...form, vjUsername: e.target.value })}
             />

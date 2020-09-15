@@ -16,10 +16,10 @@ const SearchUsers = ({ handleUserClick }) => {
     if (!allUsers.isCFLoading && canFilter && lastQuery !== displayName) {
       setCanFilter(false);
       setLastQuery(displayName);
-      const query = displayName.toLocaleLowerCase();
+      const query = displayName.toLowerCase();
       setMatch(
         allUsers.users.filter(user =>
-          user.displayName.toLocaleLowerCase().includes(query)
+          user.displayName && user.displayName.toLowerCase().includes(query)
         )
       );
       setTimeout(() => {

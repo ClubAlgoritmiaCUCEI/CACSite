@@ -94,7 +94,6 @@ const createUserProfileDocument = async (user, aditionalData) => {
   const snapshot = await userRef.get();
 
   if (!snapshot.exists) {
-    console.log("snapshot doesnt exists");
     const { displayName, email, photoURL } = user;
     try {
       await userRef.set({

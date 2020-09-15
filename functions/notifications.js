@@ -54,7 +54,6 @@ exports.onLike = async (firestore, admin, from, change, context) => {
   const authorId = after.author.id;
 
   if (after.likesList.length > before.likesList.length) {
-    console.log("new like :)");
     const notification = {
       type: "like",
       id: change.after.id,
@@ -76,7 +75,6 @@ exports.onCommentary = async (firestore, admin, from, change, context) => {
   const authorId = after.author.id;
 
   if (after.comments.length > before.comments.length) {
-    console.log("new commentary");
     const notification = {
       type: "commentary",
       id: change.after.id,

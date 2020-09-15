@@ -6,7 +6,6 @@ const ClassBox = ({ classData, showOptions = false, handleDelete = () => null, h
 
   const onDeleteClick = () => {
     if (window.confirm("Are you sure you sure?")) {
-      console.log("DELETING!!!");
       handleDelete();
     }
   }

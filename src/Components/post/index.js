@@ -117,14 +117,12 @@ const Post = ({
 
   const handleDelete = () => {
     const postRef = firestore.doc(`test-posts/${data.id}`);
-    console.log("eee")
     postRef.delete();
     parentHandleDelete();
   };
 
   const handleCommentaryDelete = async commentary => {
     const postRef = firestore.doc(`commentaries/${data.id}`);
-    console.log(commentary);
     await postRef.update({
       commentaries: firebase.firestore.FieldValue.arrayRemove(commentary)
     });
@@ -140,7 +138,7 @@ const Post = ({
             setCommentaries(snap.data().commentaries);
             setIsCommentariesLoading(false);
           } catch (e) {
-            console.log("Error fetchin commentaries");
+            console.warn(e);
           }
         });
       } catch (e) {

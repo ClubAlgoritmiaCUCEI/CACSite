@@ -22,7 +22,6 @@ exports.updateUsersTimestamp = async (admin, firestore, req, res) => {
 exports.onUserChange = async (admin, firestore, snap) => {
   const data = snap.data();
   const now = admin.firestore.Timestamp.fromDate(new Date());
-  console.log(now);
   if (!data.timestamp || now.seconds - data.timestamp.seconds > 10) {
     console.log("updating...");
     await firestore.doc(`users/${snap.id}`).update({ lastUpdate: Date.now(), timestamp: now });

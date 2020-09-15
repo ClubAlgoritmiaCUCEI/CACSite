@@ -155,7 +155,6 @@ const HeaderMobile = ({ selection }) => {
           (user.logged ? (
             <img
               onClick={() => {
-                console.log("yey");
                 setIsUserOpen(true);
               }}
               className="cac_header_mobile_user-photo"

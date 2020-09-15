@@ -39,7 +39,6 @@ exports.onPostCreate = async (admin, firestore, snap) => {
 }
 
 exports.onCommentaryUpdate = async (admin, firestore, snap) => {
-  console.log(snap);
   const commentaryData = snap.after.data();
   const ref = firestore.doc(`test-posts/${snap.after.id}`);
 
@@ -57,7 +56,6 @@ exports.updatePosts = async (admin, firestore, req, res) => {
     if (postData.createdAt) return;
     const postRef = firestore.doc(`test-posts/${snap.id}`);
     const commentaryData = (await firestore.doc(`commentaries/${snap.id}`).get()).data();
-    console.log(commentaryData);
     postRef.update({
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
     });

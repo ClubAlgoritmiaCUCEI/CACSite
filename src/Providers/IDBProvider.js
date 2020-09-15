@@ -13,9 +13,7 @@ const IDBProvider = ({ children }) => {
   useEffect(() => {
     /// Deleting all stored data for major updates
     let lastDeepDelete = window.localStorage.getItem('deepDeleteVersion') | 0;
-    console.log(lastDeepDelete);
     if (lastDeepDelete < 1) {
-      console.log("DELEEEETE");
       localStorage.clear();
       window.localStorage.setItem('deepDeleteVersion', 1);
     }
@@ -26,7 +24,6 @@ const IDBProvider = ({ children }) => {
     objectStore.openCursor().onsuccess = e => {
       let cursor = e.target.result;
       if (cursor) {
-        console.log(cursor.value);
         cursor.continue();
       } else {
         console.log("All items displayed");
